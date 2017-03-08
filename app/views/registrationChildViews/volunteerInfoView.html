@@ -1,0 +1,184 @@
+<md-content>
+  <form name="registrationForm">
+
+    <md-input-container>
+      <label>First name</label>
+      <input type="text" ng-model="person.firstName" required>
+    </md-input-container>
+
+    <md-input-container>
+      <label>Last Name</label>
+      <input type="text" ng-model="person.lastName" required>
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>Volunteer Phone</label>
+      <input type="text" name="phone" ng-model="person.phone" mask="(999) 999-9999" clean="true">
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>Home/Alternate Phone</label>
+      <input type="text" name="phone" ng-model="person.altPhone" mask="(999) 999-9999" clean="true">
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>Email</label>
+      <input type="email" name="email" ng-model="person.email">
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>Address</label>
+      <input type="text" name="address" ng-model="person.address" size="35">
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>Address Line 2</label>
+      <input type="text" name="addressLineTwo" ng-model="person.addressLineTwo" size="35">
+    </md-input-container>
+    <br />
+    <md-input-container ng-show="showFields">
+      <label>City</label>
+      <input type="text" name="city" ng-model="person.city" ng-value="person.city">
+    </md-input-container>
+    <md-input-container ng-show="showFields">
+      <label>State</label>
+      <input type="text" name="state" ng-model="person.state" size="3" ng-value="person.state">
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>Zip</label>
+      <input type="text" name="zip" ng-model="person.zip" size="7" ng-blur="fillAddressFields()">
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>Birthdate</label>
+      <md-datepicker id="birthdateDatepicker" name="birthdate" ng-model="person.birthdate" ng-change="setAgeIfValid()" md-min-date="Date" md-max-date="Date" md-current-view="year" required></md-datepicker>
+      <div ng-messages="registrationForm.birthdate.$error">
+        <div ng-message="notOldEnough">
+          It looks like you're not 14. You must be at least 14 years old to volunteer.
+        </div>
+      </div>
+    </md-input-container>
+    <br />
+    <div>
+      <md-input-container>
+        <label>Gender</label>
+        <md-select ng-model="person.gender" ng-change="checkForOtherGender()">
+            <md-select-label>Select a state</md-select-label>
+            <md-option ng-value="value" ng-repeat="(value, label) in genders">{{ label }}</md-option>
+        </md-select>
+      </md-input-container>
+      <br />
+      <md-input-container class="other-input-container" style="margin-left:20px!important" ng-if="otherGenderIsRequired">
+        <input type="text" id="otherGender" name="otherGender" ng-model="person.otherGender" placeholder="Other" ng-required="otherGenderIsRequired"/>
+      </md-input-container>
+    </div>
+    <div>
+      <md-input-container>
+        <h4>Ethnicity</h4>
+        <md-radio-group ng-model="person.ethnicity" ng-change="checkForOtherEthnicity()">
+          <div ng-repeat='(value, label) in ethnicities' class="row">
+            <div flex layout='row' layout-padding layout-align="start center" >
+              <md-radio-button flex ng-value="value" class="md-primary"  >
+                {{label}}
+              </md-radio-button>
+            </div>
+          </div>
+        </md-radio-group>
+      </md-input-container>
+      <br />
+      <md-input-container class="other-input-container" ng-if="otherEthnicityIsRequired">
+        <input type="text" id="otherEthnicity" name="otherEthnicity" ng-model="person.otherEthnicity" placeholder="Specify" ng-required="otherEthnicityIsRequired"/>
+      </md-input-container>
+    </div>
+    <br />
+    <div>
+      <md-input-container>
+        <h4>Religion</h4>
+        <md-radio-group ng-model="person.religion" ng-change="checkForOtherReligion()">
+          <div ng-repeat='(value, label) in religions' class="row">
+            <div flex layout='row' layout-padding layout-align="start center" >
+              <md-radio-button flex ng-value="value" class="md-primary"  >
+                {{label}}
+              </md-radio-button>
+            </div>
+          </div>
+        </md-radio-group>
+      </md-input-container>
+      <br />
+      <md-input-container class="other-input-container" ng-if="otherReligionIsRequired">
+        <input type="text" id="otherReligion" name="otherReligion" ng-model="person.otherReligion" placeholder="Specify" ng-required="otherReligionIsRequired"/>
+      </md-input-container>
+    </div>
+    <br />
+    <div>
+      <md-input-container>
+        <label>High School</label>
+        <md-select ng-model="person.highSchool" md-on-close="checkForOtherHighSchool()"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
+            <md-select-label>Select a high school</md-select-label>
+            <md-option ng-value="value" ng-repeat="(value, label) in highSchools">{{ label }}</md-option>
+        </md-select>
+      </md-input-container>
+      <br />
+      <md-input-container class="other-input-container" style="margin-left:20px!important">
+        <input type="text" id="otherHighSchool" name="otherHighSchool" ng-model="person.otherHighSchool" placeholder="Other" ng-required="otherHighSchoolIsRequired"/>
+      </md-input-container>
+    </div>
+    <br />
+    <md-input-container class="hs-grad-year-input-container">
+      <label>H.S. Graduation Year</label>
+      <md-select ng-model="person.hsGradYear"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
+          <md-option ng-value="year" ng-repeat="year in years">{{ year }}</md-option>
+      </md-select>
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <label>College or University (if applicable)</label>
+      <input type="text" name="college" size="30" ng-model="person.college">
+    </md-input-container>
+    <br />
+    <md-input-container class="col-grad-year-input-container" ng-if="person.college != '' && person.college != NULL">
+      <label>College Graduation Year</label>
+      <md-select ng-model="person.colGradYear">
+          <md-option ng-value="year" ng-repeat="year in years">{{ year }}</md-option>
+      </md-select>
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <h4 style="margin-bottom:0">Primary Carpool Site</h4>
+      <span class="md-caption" style="padding-bottom:30px;">This is the carpool site you plan to attend most often. You are still welcome to go to others</span>
+      <md-radio-group ng-model="person.primaryCarpool_id">
+        <div ng-repeat="(siteId, info) in carpoolSites" class="row">
+          <div flex layout='row' layout-padding layout-align="start center" >
+            <md-radio-button ng-value="siteId" aria-label="">{{ info.name }}</md-radio-button>
+          </div>
+        </div>
+      </md-radio-group>
+    </md-input-container>
+    <br />
+    <md-input-container>
+      <h4 style="margin-bottom:0">Volunteer Drivers</h4>
+      <span class="md-caption" style="padding-bottom:30px;">Under most circumstances, Summer in the City staff provides transportation for all volunteers. Occasionally, we do need volunteers to drive. Drivers must be at least 17 years old, licensed, have insurance, and have a seat belt for every passenger. Drivers under age 18 must have parental permission. We can reimburse for fuel expenses.</span>
+      <md-radio-group ng-model="person.driverPermit">
+        <div class="row">
+          <div flex layout='row' layout-padding layout-align="start center" >
+            <md-radio-button ng-value="isAdult" aria-label="Adult">I am 18, I meet the requirements and can drive if needed.</md-radio-button>
+          </div>
+          <div flex layout='row' layout-padding layout-align="start center" >
+            <md-radio-button ng-value="isMinorWithPermission" aria-label="Minor with Permission">My child is 17, meets the requirements and has my permission to drive if needed.</md-radio-button>
+          </div>
+          <div flex layout='row' layout-padding layout-align="start center" >
+            <md-radio-button ng-value="noPermission" aria-label="No Permission">My child does not drive/does not have permission to drive.</md-radio-button>
+          </div>
+          <div flex layout='row' layout-padding layout-align="start center" >
+            <md-radio-button ng-value="needMoreInfo" aria-label="Need More Info">Please contact me with more information about driving.</md-radio-button>
+          </div>
+        </div>
+      </md-radio-group>
+    </md-input-container>
+  </form>
+
+  <div id="formButtonsContainer">
+    <md-button class="form-nav-button" ng-click="gotoState('emergencyContacts')">Next</md-button>
+  </div>
+</md-content>

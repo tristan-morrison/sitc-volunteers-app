@@ -1,0 +1,20 @@
+<md-content>
+
+  <form novalidate>
+      <h1>Emergency Contacts</h1>
+      <h3>Emergency Contact 1</h3>
+      <formly-form model="emergencyContact1" fields="emergencyContactFields" form="emergencyContact1Form">
+          <md-button type="submit" class="btn btn-primary" ng-disabled="emergencyContact1Form.$invalid">Submit</md-button>
+      </formly-form>
+      <br />
+      <h3>Emergency Contact 2</h3>
+      <formly-form model="emergencyContact2" fields="emergencyContactFields" form="emergencyContact2Form">
+          <md-button type="submit" class="btn btn-primary" ng-disabled="emergencyContact1Form.$invalid">Submit</md-button>
+      </formly-form>
+  </form>
+
+  <div id="formButtonsContainer">
+    <md-button class="form-nav-button" ng-click="gotoState('volunteerInfo')">Back</md-button>
+    <md-button class="form-nav-button" ng-click="gotoState('payments')">Next</md-button>
+  </div>
+</md-content>

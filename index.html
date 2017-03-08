@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material Stylesheet -->
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+  <!-- Angular Material Data Table Stylesheet -->
+  <!--AngularJS -->
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+  <!-- <script src="bower_components/angular-route/angular-route.min.js"></script> -->
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <!--Angular Material-->
+  <script src="bower_components/angular-material/angular-material.js"></script>
+  <!--Angular UI-->
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <!-- ngMask -->
+  <script src='bower_components/ngMask/dist/ngMask.min.js'></script>
+  <!-- Angular-Formly -->
+  <script src="bower_components/api-check/dist/api-check.js"></script>
+  <script src="bower_components/angular-formly/dist/formly.js"></script>
+  <script src="app/formly-material.js"></script>
+  <!-- Checkout - Stripe API -->
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <!--Angular Material Icons (ngMdIcons) -->
+  <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+  <!--Material Icons Font-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--Roboto Font-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  <!--App Stylesheet-->
+  <link rel="stylesheet" href="app/stylesheets/volunteersAppStylesheet.css" />
+  <!--SITC Icons Font-->
+  <link rel="stylesheet" href="app/images/icons/sitcIconFont/style.css">
+  <!-- Scripts -->
+  <script src="app/volunteersApp.js"></script>
+  <script src="app/controllers/volunteersAppController.js"></script>
+  <script src="app/controllers/registrationController.js"></script>
+  <script src="app/controllers/registrationChildControllers/emergencyContactsController.js"></script>
+  <script src="app/controllers/registrationChildControllers/VolunteerInfoController.js"></script>
+  <script src="app/controllers/registrationChildControllers/paymentsController.js"></script>
+  <script src="app/services/serverInterfaces.js"></script>
+  <!-- Production Tools -->
+  <script src="tools/obj_dump.js"></script>
+
+</head>
+
+<body ng-app="volunteersApp"><base href="/" />
+ <div ng-controller="VolunteersAppController" ng-cloak>
+   <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" ng-click="toggleLeftMenu()" aria-label="Go Back">
+        <md-icon class="material-icons icon-hint-disabled-opacity">menu</md-icon>
+      </md-button>
+      <span flex></span>
+      <h2 class="primary-text-opacity">
+        <span>Register to Volunteer</span>
+      </h2>
+      <span flex></span>
+    </div>
+   </md-toolbar>
+
+   <div id="mainView" ui-view></div>
+
+ </div>
+</body>
+
+</html>

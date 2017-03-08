@@ -1,0 +1,26 @@
+{
+  "name": "sitc-volunteers",
+  "description": "Volunteer client app for Summer in the City, Detroit",
+  "main": "volunteersApp.js",
+  "authors": [
+    "Tristan Lopus"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/tristanlopus/sitc-volunteers-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Wufoo-PHP-API-Wrapper": "wufoo/Wufoo-PHP-API-Wrapper",
+    "angular-material": "^1.1.3",
+    "angular-sanitize": "^1.6.2",
+    "angular-ui-router": "^0.4.2",
+    "angular-material-icons": "^0.7.1",
+    "ngMask": "angular-mask#^3.1.1",
+    "angular-formly": "^8.4.1"
+  }
+}

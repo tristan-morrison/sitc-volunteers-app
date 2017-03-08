@@ -1,0 +1,23 @@
+$scope.paymentsFormFields = [
+  {
+    key: 'payWhen',
+    type: 'radio',
+    templateOptions: {
+      label: 'Payment Method',
+      labelProp: 'myLabel',
+      valueProp: 'myValue',
+      options: [
+        {myLabel: 'Cash, check', myValue: 'cash_check'},
+        {myLabel: 'Credit/Debit card', myValue: 'credit'},
+        {myLabel: 'Please waive my registration fee', myValue: 'waive'},
+      ]
+    }
+  },
+  {
+    key: 'amount',
+    type: 'radio',
+    templateOptions: {
+      label: ''
+    }
+  }
+]

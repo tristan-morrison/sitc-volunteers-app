@@ -1,0 +1,68 @@
+md-content {
+  padding: 20px;
+}
+
+/* Text Opacities */
+  .primary-text-opacity {
+    color: white;
+  }
+
+  .black-primary-text-opacity {
+    opacity: .87;
+  }
+
+  .secondary-text-opacity {
+    opacity: .54;
+  }
+
+  .iconWhite {
+    color: white;
+  }
+
+  .icon-hint-disabled-opacity {
+    opacity: .5;
+    color: white;
+  }
+/* End text opacities*/
+
+md-input-container {
+  margin-bottom: 0;
+  margin-top: 10px !important;
+}
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+md-radio-button {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.other-input-container {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 45px;
+}
+
+.hs-grad-year-input-container {
+  width: 150px;
+  height: 54px;
+}
+
+.col-grad-year-input-container {
+  width: 180px;
+  height: 54px;
+}
+
+/* Buttons */
+  .form-nav-button {
+    background-color: rgba(158, 158, 158, 0.2);
+  }
+
+  .form-nav-button:hover {
+    background-color: rgba(158, 158, 158, 0.4) !important;
+  }

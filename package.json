@@ -1,0 +1,19 @@
+{
+  "name": "sitc-volunteers",
+  "version": "1.0.0",
+  "description": "Volunteer client app for Summer in the City, Detroit",
+  "main": "volunteersApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tristanlopus/sitc-volunteers-app.git"
+  },
+  "author": "Tristan Lopus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tristanlopus/sitc-volunteers-app/issues"
+  },
+  "homepage": "https://github.com/tristanlopus/sitc-volunteers-app#readme"
+}
