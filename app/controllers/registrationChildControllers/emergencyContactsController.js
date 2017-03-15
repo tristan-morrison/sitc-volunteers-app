@@ -45,6 +45,7 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
       },
       ngModelElAttrs: {
         'mask': '(999) 999-9999',
+        'clean': 'true',
         'size': '15'
       }
     },
@@ -58,6 +59,7 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
       },
       ngModelElAttrs: {
         'mask': '(999) 999-9999',
+        'clean': 'true',
         'size': '15'
       }
     },
@@ -79,6 +81,6 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
     }
   ]
 
-  $log.log("First Name: " + $scope.emergencyContact1.firstName)
+  // $log.log("First Name: " + $scope.emergencyContact1.firstName)
 
 }])

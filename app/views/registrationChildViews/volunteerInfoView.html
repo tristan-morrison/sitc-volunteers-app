@@ -52,7 +52,7 @@
     <br />
     <md-input-container>
       <label>Birthdate</label>
-      <md-datepicker id="birthdateDatepicker" name="birthdate" ng-model="person.birthdate" ng-change="setAgeIfValid()" md-min-date="Date" md-max-date="Date" md-current-view="year" required></md-datepicker>
+      <input type="text" name="birthdate" ng-model="person.birthdate" mask="19/39/9999">
       <div ng-messages="registrationForm.birthdate.$error">
         <div ng-message="notOldEnough">
           It looks like you're not 14. You must be at least 14 years old to volunteer.

@@ -15,7 +15,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   }
 
   $scope.ethnicities = {
-    "white_notHispan" : "White, not of Hispanic Origin, Latino, or Spanish origin",
+    "white" : "White, not of Hispanic Origin, Latino, or Spanish origin",
     "white_hispan" : "White, of Hispanic, Latino, or Spanish origin",
     "black" : "Black or African American",
     "native" : "American Indian or Alaska Native",
