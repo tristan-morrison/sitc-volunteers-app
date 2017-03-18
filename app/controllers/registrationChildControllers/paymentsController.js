@@ -11,6 +11,11 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     'XXL': 'XXL'
   }
 
+  $scope.partTwoOptions = {
+    0: 'Okay, I will print Part 2 and bring it with me on my first day!',
+    1: 'I already turned in my Part 2 form.'
+  }
+
   var checkoutObj = StripeCheckout.configure({
     key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh', //replace with SITC key
     locale: 'auto',

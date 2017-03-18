@@ -30,11 +30,13 @@
     array_push($postArray, $wufooField);
   }
 
-  echo "postArray: " . var_dump($postArray);
+  // echo "postArray: " . var_dump($postArray);
 
   // Create class for WufooApiWrapper
   $wrapper = new WufooApiWrapper('FXRL-LPSN-VWJG-SCCK', 'sitc');
-  print_r($wrapper->entryPost('m2rnmzz0ythmjv', $postArray));
+  $response = $wrapper->entryPost('m2rnmzz0ythmjv', $postArray);
+
+  echo json_encode($response);
 
   // $connection = new mysqli($hostname, $username, $password, $database);
   // if ($connection->connect_error)
@@ -66,7 +68,7 @@
        "firstName" => "Field1",
        "lastName" => "Field2",
        "birthdate" => "Field676",
-       "email" => "Field15",
+       "email" => "Field675",
        "gender" => "Field462",
        "phone" => "Field16",
        "altPhone" => "Field17",
@@ -84,7 +86,8 @@
        "driverPermit" => "Field47",
        "shirtSize" => "Field155",
        "colGradYear" => "Field673",
-       "paymentMethod" => "Field45"
+       "paymentMethod" => "Field45",
+       "turnedInPartTwo" => "Field148"
      );
 
      $emerCon1Fields = array(

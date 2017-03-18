@@ -68,8 +68,8 @@
     <md-input-container>
       <h4>Part 2 Registration Form</h4>
       <span class="md-subhead">Your registration isn't complete without this short <a href="media/registrationPartII.pdf" target="blank">written form</a>. Please print it out, complete it, and bring it with you on your first day!</span>
-      <md-radio-group class="md-primary" ng-model="person.shirtSize">
-        <div class="row" ng-repeat="(id, label) in shirtSizes">
+      <md-radio-group class="md-primary" ng-model="person.turnedInPartTwo">
+        <div class="row" ng-repeat="(id, label) in partTwoOptions">
           <div flex layout='row' layout-padding layout-align="start center" >
             <md-radio-button ng-value="id" aria-label="$40">{{label}}</md-radio-button>
           </div>
