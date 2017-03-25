@@ -3,13 +3,21 @@
   require_once 'sitc_workforce_creds.php';
   require_once __DIR__ . '/../../bower_components/Wufoo-PHP-API-Wrapper/WufooApiWrapper.php';
 
-  $person = json_decode($_GET["person"], true);
+  $personInfo = json_decode($_GET["personInfo"], true);
+  $regInfo = json_decode($_GET["regInfo"], true);
   $emergencyContact1 = json_decode($_GET["emergencyContact1"], true);
   $emergencyContact2 = json_decode($_GET["emergencyContact2"], true);
 
 
   $postArray = array();
-  foreach ($person as $key => $value) {
+  foreach ($personInfo as $key => $value) {
+    $fieldId = getFieldId(0, $key);
+    $value = sanitize($value);
+    $wufooField = new WufooSubmitField($fieldId, $value);
+    array_push($postArray, $wufooField);
+  }
+
+  foreach ($regInfo as $key => $value) {
     $fieldId = getFieldId(1, $key);
     $value = sanitize($value);
     $wufooField = new WufooSubmitField($fieldId, $value);
@@ -64,9 +72,13 @@
    }
 
    function getFieldId($fromGroup, $withLabel) {
-     $regInfoFields = array(
+     $personInfoFields = array(
        "firstName" => "Field1",
        "lastName" => "Field2",
+       "primaryCarpool_id" => "Field44"
+     );
+
+     $regInfoFields = array(
        "birthdate" => "Field676",
        "email" => "Field675",
        "gender" => "Field462",
@@ -82,7 +94,6 @@
        "highSchool" => "Field259",
        "hsGradYear" => "Field6",
        "college" => "Field150",
-       "primaryCarpool_id" => "Field44",
        "driverPermit" => "Field47",
        "shirtSize" => "Field155",
        "colGradYear" => "Field673",
@@ -119,6 +130,8 @@
      );
 
      switch ($fromGroup) {
+       case 0:
+        return $personInfoFields[$withLabel];
        case 1:
         return $regInfoFields[$withLabel];
         break;

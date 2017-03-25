@@ -7,7 +7,7 @@
 
     <md-input-container>
       <h4>Payment Method</h4>
-      <md-radio-group class="md-primary" ng-model="person.paymentMethod" ng-change="logPaymentMethod()">
+      <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()">
         <div class="row">
           <div flex layout='row' layout-padding layout-align="start center" >
             <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit">Credit/debit card</md-radio-button>
@@ -28,7 +28,7 @@
     <br />
     <md-input-container>
       <h4>Amount</h4>
-      <md-radio-group class="md-primary" ng-model="person.paymentMethod" ng-change="logPaymentMethod()">
+      <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()">
         <div class="row">
           <div flex layout='row' layout-padding layout-align="start center" >
             <md-radio-button ng-value="payMethodValues[1]" aria-label="$40">$40 - just the registration fee</md-radio-button>
@@ -44,20 +44,20 @@
     </md-input-container>
     <br />
     <!-- <md-input-container class="other-input-container" ng-if="otherEthnicityIsRequired">
-      <input type="text" id="otherEthnicity" name="otherEthnicity" ng-model="person.otherEthnicity" placeholder="Specify" ng-required="otherEthnicityIsRequired"/>
+      <input type="text" id="otherEthnicity" name="otherEthnicity" ng-model="regInfo.otherEthnicity" placeholder="Specify" ng-required="otherEthnicityIsRequired"/>
     </md-input-container> -->
     <br />
     <div id="paymentInfoContainer">
       <h4 style="margin-bottom:0">Payment Info</h4>
-      <md-button class="md-flat" ng-class="{'md-accent': person.myPaymentToken == NULL, 'black-primary-text-opacity': person.myPaymentToken == NULL}" ng-click="generateCheckout()">
-        <md-icon>{{person.myPaymentToken==NULL ? "add" : "edit"}}</md-icon>
-        <span> {{person.myPaymentToken==NULL ? "Add Card" : "Edit Card"}}</span>
+      <md-button class="md-flat" ng-class="{'md-accent': regInfo.myPaymentToken == NULL, 'black-primary-text-opacity': regInfo.myPaymentToken == NULL}" ng-click="generateCheckout()">
+        <md-icon>{{regInfo.myPaymentToken==NULL ? "add" : "edit"}}</md-icon>
+        <span> {{regInfo.myPaymentToken==NULL ? "Add Card" : "Edit Card"}}</span>
       </md-button>
     </div>
     <br />
     <md-input-container>
       <h4>T-Shirt Size</h4>
-      <md-radio-group class="md-primary" ng-model="person.shirtSize">
+      <md-radio-group class="md-primary" ng-model="regInfo.shirtSize">
         <div class="row" ng-repeat="(id, label) in shirtSizes">
           <div flex layout='row' layout-padding layout-align="start center" >
             <md-radio-button ng-value="id" aria-label="$40">{{label}}</md-radio-button>
@@ -68,7 +68,7 @@
     <md-input-container>
       <h4>Part 2 Registration Form</h4>
       <span class="md-subhead">Your registration isn't complete without this short <a href="media/registrationPartII.pdf" target="blank">written form</a>. Please print it out, complete it, and bring it with you on your first day!</span>
-      <md-radio-group class="md-primary" ng-model="person.turnedInPartTwo">
+      <md-radio-group class="md-primary" ng-model="regInfo.turnedInPartTwo">
         <div class="row" ng-repeat="(id, label) in partTwoOptions">
           <div flex layout='row' layout-padding layout-align="start center" >
             <md-radio-button ng-value="id" aria-label="$40">{{label}}</md-radio-button>

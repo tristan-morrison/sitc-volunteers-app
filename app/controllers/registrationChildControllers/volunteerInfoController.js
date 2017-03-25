@@ -65,6 +65,13 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     "other": "Other"
   }
 
+  $scope.driverPermitOptions = {
+    "isAdult": "I am 18, I meet the requirements and can drive if needed.",
+    "isMinorWithPermission": "My child is 17, meets the requirements and has my permission to drive if needed.",
+    "noPermission": "My child does not drive/does not have permission to drive.",
+    "needMoreInfo": "Please contact me with more information about driving."
+  }
+
   $scope.carpoolSites = {}
   getCarpoolSites().then(function(sites) {
     $scope.carpoolSites = sites
@@ -77,8 +84,8 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     $scope.years.push(k)
   }
   // set to current year so that select opens on this year by default (as opposed to opening on the year 1900)
-  $scope.person.hsGradYear = todayDate.getFullYear()
-  $scope.person.colGradYear = todayDate.getFullYear()
+  $scope.regInfo.hsGradYear = todayDate.getFullYear()
+  $scope.regInfo.colGradYear = todayDate.getFullYear()
 
 
 
@@ -93,7 +100,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
     $log.log(minEligibleDate.getFullYear())
 
-    if (minEligibleDate.getFullYear() < $scope.person.birthdate.getFullYear()) {
+    if (minEligibleDate.getFullYear() < $scope.regInfo.birthdate.getFullYear()) {
       $scope.registrationForm.birthdate.$error.notOldEnough = true
       $scope.registrationForm.birthdate.$setValidity("notOldEnough", false)
       var field = $window.document.getElementById('birthdateDatepicker')
@@ -103,42 +110,42 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
       // set errors to valid in case they were set to false by a previous input
       $scope.registrationForm.birthdate.$error.notOldEnough = false
       $scope.registrationForm.birthdate.$setValidity("notOldEnough", true)
-      $scope.person["age"] = todayDate.getFullYear() - $scope.person.birthdate.getFullYear()
-      $log.log("age: " + $scope.person.age)
+      $scope.regInfo["age"] = todayDate.getFullYear() - $scope.regInfo.birthdate.getFullYear()
+      $log.log("age: " + $scope.regInfo.age)
     }
   }
 
   $scope.checkForOtherEthnicity = function() {
-    $scope.otherEthnicityIsRequired = ($scope.person.ethnicity == "other")
+    $scope.otherEthnicityIsRequired = ($scope.regInfo.ethnicity == "other")
     $log.log("otherEthnicityIsRequired: " + $scope.otherEthnicityIsRequired)
   }
 
   $scope.checkForOtherReligion = function() {
-    $scope.otherReligionIsRequired = ($scope.person.religion == "other")
+    $scope.otherReligionIsRequired = ($scope.regInfo.religion == "other")
     $log.log("otherReligionIsRequired: " + $scope.otherReligionIsRequired)
   }
 
   $scope.checkForOtherHighSchool = function() {
-    $scope.otherHighSchoolIsRequired = ($scope.person.highSchool == "other")
+    $scope.otherHighSchoolIsRequired = ($scope.regInfo.highSchool == "other")
     $log.log("otherHighSchoolIsRequired: " + $scope.otherHighSchoolIsRequired)
     var field = $window.document.getElementById('otherHighSchool')
     field.focus()
   }
 
   $scope.checkForOtherGender = function() {
-    $scope.otherGenderIsRequired = ($scope.person.gender == "other")
+    $scope.otherGenderIsRequired = ($scope.regInfo.gender == "other")
     $log.log("otherGenderIsRequired: " + $scope.otherGenderIsRequired)
   }
 
   $scope.fillAddressFields = function() {
-    var myURL = "http://zip.getziptastic.com/v2/US/" + $scope.person.zip
+    var myURL = "http://zip.getziptastic.com/v2/US/" + $scope.regInfo.zip
     $http({
       method: "GET",
       url: myURL
     }).then(function success(response) {
-      $scope.person.city = response.data.city
-      $scope.person.state = response.data.state_short
-      $log.log("city: " + $scope.person.city)
+      $scope.regInfo.city = response.data.city
+      $scope.regInfo.state = response.data.state_short
+      $log.log("city: " + $scope.regInfo.city)
       $scope.showFields = true
     }, function failure() {
       // still show fields so user can fill them
@@ -147,7 +154,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   }
 
   $scope.logPhone = function() {
-    $log.log("phone: " + $scope.person.phone)
+    $log.log("phone: " + $scope.regInfo.phone)
   }
 
 }])

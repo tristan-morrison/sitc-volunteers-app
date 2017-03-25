@@ -1,36 +1,37 @@
 var app = angular.module('volunteersApp')
 
-app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', function($scope, $log, $http, $state) {
+app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', 'submitRegistrationToDb', 'submitRegChargeToStripe', function($scope, $log, $http, $state, submitRegistrationToDb, submitRegChargeToStripe) {
 
   $log.log('RegistrationController is running!')
 
-  $scope.person = {}
+  $scope.personInfo = {}
+  $scope.regInfo = {}
   $scope.emergencyContact1 = {}
   $scope.emergencyContact2 = {}
 
   // -- init values for debugging purposes
   // person values
-  $scope.person["firstName"] = "Linda"
-  $scope.person["lastName"] = "Cruise"
-  $scope.person["birthdate"] = "02/25/1999"
-  $scope.person["phone"] = "6549874560"
-  $scope.person["altPhone"] = "6549873210"
-  $scope.person["email"] = "me@me.com"
-  $scope.person["address"] = "78542 Some St."
-  $scope.person["city"] = "Farmington"
-  $scope.person["state"] = "MI"
-  $scope.person["zip"] = "48209"
-  $scope.person["gender"] = "male"
-  $scope.person["ethnicity"] = "white"
-  $scope.person["religion"] = "hindu"
-  $scope.person["highSchool"] = "Greenhills"
-  $scope.person["hsGradYear"] = '2012'
-  $scope.person["college"] = "College of Wooster"
-  $scope.person["colGradYear"] = "2016"
-  $scope.person["primaryCarpool_id"] = "aa"
-  $scope.person["driverPermit"] = "isAdult"
-  $scope.person["shirtSize"] = "S"
-  $scope.person["paymentMethod"] = "credit"
+  $scope.personInfo["firstName"] = "Linda"
+  $scope.personInfo["lastName"] = "Cruise"
+  $scope.personInfo["primaryCarpool_id"] = "aa"
+  $scope.regInfo["birthdate"] = "02/25/1999"
+  $scope.regInfo["phone"] = "6549874560"
+  $scope.regInfo["altPhone"] = "6549873210"
+  $scope.regInfo["email"] = "me@me.com"
+  $scope.regInfo["address"] = "78542 Some St."
+  $scope.regInfo["city"] = "Farmington"
+  $scope.regInfo["state"] = "MI"
+  $scope.regInfo["zip"] = "48209"
+  $scope.regInfo["gender"] = "male"
+  $scope.regInfo["ethnicity"] = "white"
+  $scope.regInfo["religion"] = "hindu"
+  $scope.regInfo["highSchool"] = "Greenhills"
+  $scope.regInfo["hsGradYear"] = '2012'
+  $scope.regInfo["college"] = "College of Wooster"
+  $scope.regInfo["colGradYear"] = "2016"
+  $scope.regInfo["driverPermit"] = "isAdult"
+  $scope.regInfo["shirtSize"] = "S"
+  $scope.regInfo["paymentMethod"] = "credit"
 
   // emergencyContact1 values
   $scope.emergencyContact1["firstName"] = "Melissa"
@@ -66,14 +67,17 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', f
 
   /*
    * submitRegistration
-   * Submits user's info, via $scope.person object, to PHP script that enters the info into the Wufoo database and the app's MySQL db
-   * Pre: All properties of $scope.person that hold info required by Wufoo or app db are defined with valid values
+   * Submits user's info, via $scope.regInfo object, to PHP script that enters the info into the Wufoo database and the app's MySQL db
+   * Pre: All properties of $scope.regInfo that hold info required by Wufoo or app db are defined with valid values
    * Post: Records in the Wufoo form and the app db have been created with this user's data
    */
   $scope.submitRegistration = function() {
 
-    var person_json = $scope.person
-    JSON.stringify(person_json)
+    var personInfo_json = $scope.personInfo
+    JSON.stringify(personInfo_json)
+
+    var regInfo_json = $scope.regInfo
+    JSON.stringify(regInfo_json)
 
     var emergencyContact1_json = $scope.emergencyContact1
     JSON.stringify(emergencyContact1_json)
@@ -81,24 +85,51 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', f
     var emergencyContact2_json = $scope.emergencyContact2
     JSON.stringify(emergencyContact2_json)
 
-    $http({
-      method: "POST",
-      url: "app/appServer/submitRegistrationToWufoo.php",
-      params: {
-        "person" : person_json,
-        "emergencyContact1" : emergencyContact1_json,
-        "emergencyContact2" : emergencyContact2_json
-      }
-    }).then(function success(response) {
-      var wufooResponseObj = response.data
+    if ($scope.regInfo.paymentMethod === "credit" || $scope.regInfo.paymentMethod === "credit_donation") {
+      var chargeSubmit = submitRegChargeToStripe($scope.regInfo.myPaymentToken, $scope.regInfo.paymentAmount, ($scope.personInfo.firstName + $scope.personInfo.lastName))
 
-      if (!wufooResponseObj["Success"]) {
-        $log.log("The Wufoo submission failed!! :(")
-        // TODO: Handle failed submit to Wufoo by notifying directors that this person needs to be submitted manually
-      }
+      chargeSubmit.then(function success(response) {
+        $log.log("Stripe charge response: \n" + dump(response, 'none'))
+      },
+      function failure(error) {
+        $log.log("Stipe request failed with status: " + error.status)
 
-      $log.log("Person info returned from server: " + dump(response, 'none'))
-    })
+        switch (error.status) {
+          case 402:
+            $log.log("The charge was rejected by Stripe\n" + error.data)
+          case 401:
+            $log.log("Invalid Stripe API key\n" + error.data)
+          case 400:
+            $log.log("Idk, something went wrong with Stripe and that's all we know\n" + error.data)
+        }
+      })
+    }
+
+    // $http({
+    //   method: "POST",
+    //   url: "app/appServer/submitRegistrationToWufoo.php",
+    //   params: {
+    //     "personInfo" : personInfo_json,
+    //     "regInfo" : regInfo_json,
+    //     "emergencyContact1" : emergencyContact1_json,
+    //     "emergencyContact2" : emergencyContact2_json
+    //   }
+    // }).then(function success(response) {
+    //   var wufooResponseObj = response.data
+    //
+    //   if (!wufooResponseObj["Success"]) {
+    //     $log.log("The Wufoo submission failed!! :(")
+    //     // TODO: Handle failed submit to Wufoo by notifying directors that this person needs to be submitted manually
+    //   }
+    //   $log.log(response)
+    //
+    //   submitRegistrationToDb(personInfo_json, regInfo_json, emergencyContact1_json, emergencyContact2_json).then(function success(response) {
+    //     $log.log(response)
+    //   },
+    //   function failure(error) {
+    //     $log.log(error)
+    //   })
+    // })
 
   }
 

@@ -17,29 +17,29 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
   }
 
   var checkoutObj = StripeCheckout.configure({
-    key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh', //replace with SITC key
+    key: 'pk_test_SrLyfOWCp65iyqloEkp0qINj', //replace with SITC key
     locale: 'auto',
     token: function(token) {
       // alert("Yay! Checkout ran and got this token: " + token.id)
-      $scope.person.myPaymentToken = token.id
+      $scope.regInfo.myPaymentToken = token.id
       $scope.$digest()
     }
   })
 
   $scope.generateCheckout = function() {
-    var myAmount
-    if ($scope.person.paymentMethod === 'credit_donation') {
-      myAmount = 8000
+    $scope.regInfo["paymentAmount"]
+    if ($scope.regInfo.paymentMethod === 'credit_donation') {
+      $scope.regInfo.paymentAmount = 8000
     } else {
-      myAmount = 4000
+      $scope.regInfo.paymentAmount = 4000
     }
 
     checkoutObj.open({
       name: 'Summer in the City',
       description: 'Registration Fee',
       zipCode: true,
-      amount: myAmount,
-      email: $scope.person.email
+      amount: $scope.regInfo.paymentAmount,
+      email: $scope.regInfo.email
     });
   }
 
@@ -47,7 +47,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
   $scope.payMethodValues = ['cash_check', 'credit', 'credit_donation', 'waive']
 
   $scope.logPaymentMethod = function() {
-    $log.log("Payment Method: " + $scope.person.paymentMethod)
+    $log.log("Payment Method: " + $scope.regInfo.paymentMethod)
   }
 
 }])
