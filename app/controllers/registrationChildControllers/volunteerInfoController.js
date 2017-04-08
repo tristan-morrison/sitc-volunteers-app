@@ -65,6 +65,68 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     "other": "Other"
   }
 
+  $scope.states = {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AS": "American Samoa",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District Of Columbia",
+    "FM": "Federated States Of Micronesia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "GU": "Guam",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MH": "Marshall Islands",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "MP": "Northern Mariana Islands",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PW": "Palau",
+    "PA": "Pennsylvania",
+    "PR": "Puerto Rico",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VI": "Virgin Islands",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+}
+
   $scope.driverPermitOptions = {
     "isAdult": "I am 18, I meet the requirements and can drive if needed.",
     "isMinorWithPermission": "My child is 17, meets the requirements and has my permission to drive if needed.",
@@ -78,18 +140,17 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   })
   $log.log("carpoolSites: " + dump($scope.carpoolSites, 'none'))
 
-  $scope.years = []
   var todayDate = new Date()
-  for (var k=1900; k<=(todayDate.getFullYear()+5); k++) {
-    $scope.years.push(k)
-  }
-  // set to current year so that select opens on this year by default (as opposed to opening on the year 1900)
-  $scope.regInfo.hsGradYear = todayDate.getFullYear()
-  $scope.regInfo.colGradYear = todayDate.getFullYear()
-
-
 
   $scope.setAgeIfValid = function() {
+
+    // create date obj from mmddyyyy string
+    var dateString = $scope.regInfo.birthdate
+    var month = parseInt(dateString.slice(0,2))
+    var day = parseInt(dateString.slice(2,4))
+    var year = parseInt(dateString.slice(4))
+    $log.log("birth month: " + month)
+    var myBirthdate = new Date(year, month, day)
 
     // create a new date object and set it to August of this year
     var minEligibleDate = new Date(todayDate)
@@ -100,17 +161,17 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
     $log.log(minEligibleDate.getFullYear())
 
-    if (minEligibleDate.getFullYear() < $scope.regInfo.birthdate.getFullYear()) {
+    if (minEligibleDate.getFullYear() < myBirthdate) {
       $scope.registrationForm.birthdate.$error.notOldEnough = true
       $scope.registrationForm.birthdate.$setValidity("notOldEnough", false)
-      var field = $window.document.getElementById('birthdateDatepicker')
+      var field = $window.document.getElementById('birthdate')
       field.focus()
     }
     else {
       // set errors to valid in case they were set to false by a previous input
       $scope.registrationForm.birthdate.$error.notOldEnough = false
       $scope.registrationForm.birthdate.$setValidity("notOldEnough", true)
-      $scope.regInfo["age"] = todayDate.getFullYear() - $scope.regInfo.birthdate.getFullYear()
+      $scope.regInfo["age"] = todayDate.getFullYear() - myBirthdate
       $log.log("age: " + $scope.regInfo.age)
     }
   }

@@ -19,6 +19,8 @@
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <!-- ngMask -->
   <script src='bower_components/ngMask/dist/ngMask.min.js'></script>
+  <!-- angular-ui-mask -->
+  <script src='bower_components/angular-ui-mask/dist/mask.min.js'></script>
   <!-- Angular-Formly -->
   <script src="bower_components/api-check/dist/api-check.js"></script>
   <script src="bower_components/angular-formly/dist/formly.js"></script>
@@ -50,7 +52,7 @@
 
 <body ng-app="volunteersApp"><base href="/" />
  <div ng-controller="VolunteersAppController" ng-cloak>
-   <md-toolbar>
+   <!-- <md-toolbar>
     <div class="md-toolbar-tools">
       <md-button class="md-icon-button" ng-click="toggleLeftMenu()" aria-label="Go Back">
         <md-icon class="material-icons icon-hint-disabled-opacity">menu</md-icon>
@@ -61,9 +63,9 @@
       </h2>
       <span flex></span>
     </div>
-   </md-toolbar>
+   </md-toolbar> -->
 
-   <div id="mainView" ui-view></div>
+   <div id="mainView" style="background-image:url(app/images/viaduct.jpg); background-attachment: fixed; background-position: left center" ui-view></div>
 
  </div>
 </body>

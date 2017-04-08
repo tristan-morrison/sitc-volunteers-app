@@ -5,6 +5,5 @@
   $password = 'Tko14akM';
 
   // Stripe API Keys
-  // NOTE: this is currently set to the Rex Blankets key until Tristan gets the SITC key
-  $stripeAPIKey_sk_test = "sk_test_RnAuAjlDYygiAdZ3GxodtWrH";
+  $stripeAPIKey_sk_test = "sk_test_15GXveb8D3IfzP998jR1LmgW"; //SITC secret test API key
 ?>

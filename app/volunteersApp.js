@@ -1,4 +1,4 @@
-var app = angular.module('volunteersApp', ['ngMaterial', 'ui.router', 'ngMessages', 'ngMask', 'formly', 'formlyMaterial'])
+var app = angular.module('volunteersApp', ['ngMaterial', 'ui.router', 'ui.mask', 'ngMessages', 'ngMask', 'formly', 'formlyMaterial'])
 
 app.config(function($stateProvider) {
   $stateProvider
@@ -35,5 +35,10 @@ app.config(function($urlRouterProvider, $locationProvider) {
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('cyan')
-    .accentPalette('deep-orange');
+    .accentPalette('deep-orange')
   })
+
+app.config(['uiMask.ConfigProvider', function(uiMaskConfigProvider) {
+  uiMaskConfigProvider.addDefaultPlaceholder(false)
+  uiMaskConfigProvider.allowInvalidValue(true)
+}])

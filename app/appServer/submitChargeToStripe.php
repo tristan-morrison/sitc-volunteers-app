@@ -25,22 +25,37 @@
   try {
     $charge = \Stripe\Charge::create($chargeParams);
   } catch (\Stripe\Error\Card $e) {
-    // $response = $e->getJsonBody();
-    // $err = $response['error'];
+    $response = $e->getJsonBody();
+    $err = $response['error'];
 
     http_response_code($e->getHttpStatus());
+    echo json_encode($err);
+    // echo 'Error type: ' . $err['type'] . "\n";
+    // echo 'Error code: ' . $err['code'] . "\n";
+    // echo 'Error message: ' . $err['message'] . "\n";
   } catch (\Stripe\Error\InvalidRequest $e) {
+    $response = $e->getJsonBody();
+    $err = $response['error'];
+
     http_response_code($e->getHttpStatus());
+    echo json_encode($err);
+    // echo 'Error type: ' . $err['type'] . "\n";
+    // echo 'Error code: ' . $err['code'] . "\n";
+    // echo 'Error message: ' . $err['message'] . "\n";
   } catch (\Stripe\Error\Base $e) {
     $response = $e->getJsonBody();
     $err = $response['error'];
-    echo 'Error type: ' . $err['type'] . "\n";
-    echo 'Error code: ' . $err['code'] . "\n";
-    echo 'Error message: ' . $err['message'] . "\n";
+
     http_response_code($e->getHttpStatus());
+    echo json_encode($err);
+    // echo 'Error type: ' . $err['type'] . "\n";
+    // echo 'Error code: ' . $err['code'] . "\n";
+    // echo 'Error message: ' . $err['message'] . "\n";
   }
 
-  echo $charge;
+  if (isset($charge)) {
+    echo $charge;
+  }
 
 ?>
 

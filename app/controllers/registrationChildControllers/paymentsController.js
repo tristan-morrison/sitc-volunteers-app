@@ -2,6 +2,8 @@ var app = angular.module('volunteersApp')
 
 app.controller('PaymentsController', ['$scope', '$log', '$window', function($scope, $log, $window) {
 
+  $scope.paymentForm = {}
+
   $scope.shirtSizes = {
     'XS': 'Extra-small',
     'S': 'Small',
@@ -17,10 +19,10 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
   }
 
   var checkoutObj = StripeCheckout.configure({
-    key: 'pk_test_SrLyfOWCp65iyqloEkp0qINj', //replace with SITC key
+    key: 'pk_test_MAi5X0RDzUYfCXELpoSOZ3nS', //SITC publishable test API key
     locale: 'auto',
     token: function(token) {
-      // alert("Yay! Checkout ran and got this token: " + token.id)
+      $log.log("Yay! Checkout ran and got this token: " + token.id)
       $scope.regInfo.myPaymentToken = token.id
       $scope.$digest()
     }
@@ -48,6 +50,14 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
 
   $scope.logPaymentMethod = function() {
     $log.log("Payment Method: " + $scope.regInfo.paymentMethod)
+  }
+
+  $scope.$parent.paymentError = function(error) {
+    $scope.paymentForm.paymentInfo.$error.invalidNumber = true
+    $scope.paymentForm.paymentInfo.$setValidity("invalidNumber", false)
+    $scope.paymentForm.paymentInfo.$setTouched()
+    var field = $window.document.getElementById('paymentInfoButton')
+    field.focus()
   }
 
 }])

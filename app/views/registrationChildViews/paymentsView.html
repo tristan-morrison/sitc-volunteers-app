@@ -1,84 +1,100 @@
-<md-content>
 
-  <h1>Payment</h1>
-  <span class="md-subhead">Registration Fee -- There is a one-time $40 registration fee to participate with Summer In The City. We spend approximately $20 per volunteer per day on project materials, transportation, and food among other things to provide the Summer in the City experience. We rely on your registration fee to help offset some of these costs.
-    <br />
-    If you are unable to pay, we are happy to waive the fee. We want Summer in the City to be accessible to anyone and everyone.</span>
+  <form name="paymentForm">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Payment</span>
+          <span class="md-subhead" style="display:block">There is a one-time $40 registration fee to participate with Summer In The City. We spend approximately $20 per volunteer per day on project materials, transportation, and food among other things to provide the Summer in the City experience. We rely on your registration fee to help offset some of these costs.
+          <br />
+          If you are unable to pay, we are happy to waive the fee. We want Summer in the City to be accessible to anyone and everyone.</span>
+        </md-card-title-text>
+      </md-card-title>
 
-    <md-input-container>
-      <h4>Payment Method</h4>
-      <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()">
-        <div class="row">
-          <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit">Credit/debit card</md-radio-button>
-          </div>
+        <div class="payment-group-container" style="display:block">
+          <md-input-container > <!-- for some reason, this was displaying on the last line of the p text -->
+            <h4>Payment Method</h4>
+            <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()" required>
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit">Credit/debit card</md-radio-button>
+                </div>
+              </div>
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="payMethodValues[0]" aria-label="Cash/Check">Cash, check (turned in on your first day)</md-radio-button>
+                </div>
+              </div>
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="payMethodValues[3]" aria-label="Waive Fee">Please waive my fee.</md-radio-button>
+                </div>
+              </div>
+            </md-radio-group>
+          </md-input-container>
         </div>
-        <div class="row">
-          <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="payMethodValues[0]" aria-label="Cash/Check">Cash, check (turned in on your first day)</md-radio-button>
-          </div>
+        <div class="payment-group-container" ng-show="regInfo.paymentMethod == 'credit' || regInfo.paymentMethod === 'credit_donation'">
+          <md-input-container>
+            <h4>Amount</h4>
+            <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()">
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="payMethodValues[1]" aria-label="$40">$40 - just the registration fee</md-radio-button>
+                </div>
+              </div>
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="payMethodValues[2]" aria-label="$80">$80 - $40, plus a $40 tax-deductible donation</md-radio-button>
+                </div>
+              </div>
+            </md-radio-group>
+          </md-input-container>
         </div>
-        <div class="row">
-          <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="payMethodValues[3]" aria-label="Waive Fee">Please waive my fee.</md-radio-button>
-          </div>
+        <div class="payment-group-container" ng-show="regInfo.paymentMethod === 'credit' || regInfo.paymentMethod === 'credit_donation'">
+          <md-input-container id="paymentInfoContainer">
+            <h4 style="margin-bottom:0">Payment Info</h4>
+            <md-button class="md-raised" id="paymentInfoButton" ng-class="{'md-accent': regInfo.myPaymentToken == NULL, 'black-primary-text-opacity': regInfo.myPaymentToken == NULL}" ng-click="generateCheckout()" style="margin-left:0">
+              <md-icon>{{regInfo.myPaymentToken==NULL ? "add" : "edit"}}</md-icon>
+              <span> {{regInfo.myPaymentToken==NULL ? "Add Card" : "Edit Card"}}</span>
+            </md-button>
+            <input ng-hide="true" name="paymentInfo" ng-model="paymentInfo"  type="text" />
+            <div ng-messages="paymentForm.paymentInfo.$error">
+              <div ng-message="invalidNumber">
+                Your card number is invalid.
+              </div>
+            </div>
+          </md-input-container>
         </div>
-      </md-radio-group>
-    </md-input-container>
-    <br />
-    <md-input-container>
-      <h4>Amount</h4>
-      <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()">
-        <div class="row">
-          <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="payMethodValues[1]" aria-label="$40">$40 - just the registration fee</md-radio-button>
-          </div>
+      </md-card>
+      <md-card style="margin-bottom:0;">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Almost Done</span>
+          </md-card-title-text>
+        </md-card-title>
+        <div class="payment-group-container">
+          <md-input-container>
+            <h4>T-Shirt Size</h4>
+            <md-select class="md-primary" ng-model="regInfo.shirtSize" placeholder="Select">
+              <md-option ng-repeat="(id, label) in shirtSizes" ng-value="id">{{ label }}</md-option>
+            </md-select>
+          </md-input-container>
         </div>
-        <div class="row">
-          <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="payMethodValues[2]" aria-label="$80">$80 - $40, plus a $40 tax-deductible donation</md-radio-button>
-          </div>
+        <div class="payment-group-container">
+          <md-input-container>
+            <h4>Part 2 Registration Form</h4>
+            <span class="md-subhead">Your registration isn't complete without this short <a href="media/registrationPartII.pdf" target="blank">written form</a>. Please print it out, complete it, and bring it with you on your first day!</span>
+            <md-radio-group class="md-primary" ng-model="regInfo.turnedInPartTwo">
+              <div class="row" ng-repeat="(id, label) in partTwoOptions" required>
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="id" aria-label="$40">{{label}}</md-radio-button>
+                </div>
+              </div>
+          </md-input-container>
         </div>
-        <!-- <md-radio-button ng-value="customDonation" aria-label="Custom donation">Other donation amount — $40 plus a donation of any size</md-radio-button> -->
-      </md-radio-group>
-    </md-input-container>
-    <br />
-    <!-- <md-input-container class="other-input-container" ng-if="otherEthnicityIsRequired">
-      <input type="text" id="otherEthnicity" name="otherEthnicity" ng-model="regInfo.otherEthnicity" placeholder="Specify" ng-required="otherEthnicityIsRequired"/>
-    </md-input-container> -->
-    <br />
-    <div id="paymentInfoContainer">
-      <h4 style="margin-bottom:0">Payment Info</h4>
-      <md-button class="md-flat" ng-class="{'md-accent': regInfo.myPaymentToken == NULL, 'black-primary-text-opacity': regInfo.myPaymentToken == NULL}" ng-click="generateCheckout()">
-        <md-icon>{{regInfo.myPaymentToken==NULL ? "add" : "edit"}}</md-icon>
-        <span> {{regInfo.myPaymentToken==NULL ? "Add Card" : "Edit Card"}}</span>
-      </md-button>
+      </md-card>
+    </form>
+
+    <div id="formButtonsContainer">
+      <md-button class="form-nav-button" ng-click="gotoState('emergencyContacts')">Back</md-button>
+      <md-button class="md-primary md-raised" style="margin-top: 35px" ng-click="submitRegistration()">Submit</md-button>
     </div>
-    <br />
-    <md-input-container>
-      <h4>T-Shirt Size</h4>
-      <md-radio-group class="md-primary" ng-model="regInfo.shirtSize">
-        <div class="row" ng-repeat="(id, label) in shirtSizes">
-          <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="id" aria-label="$40">{{label}}</md-radio-button>
-          </div>
-        </div>
-    </md-input-container>
-    <br />
-    <md-input-container>
-      <h4>Part 2 Registration Form</h4>
-      <span class="md-subhead">Your registration isn't complete without this short <a href="media/registrationPartII.pdf" target="blank">written form</a>. Please print it out, complete it, and bring it with you on your first day!</span>
-      <md-radio-group class="md-primary" ng-model="regInfo.turnedInPartTwo">
-        <div class="row" ng-repeat="(id, label) in partTwoOptions">
-          <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="id" aria-label="$40">{{label}}</md-radio-button>
-          </div>
-        </div>
-    </md-input-container>
-  </form>
-
-  <div id="formButtonsContainer">
-    <md-button class="form-nav-button" ng-click="gotoState('emergencyContacts')">Back</md-button>
-    <md-button class="md-primary" ng-click="submitRegistration()">Submit</md-button>
-  </div>
-</md-content>

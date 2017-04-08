@@ -17,7 +17,7 @@ app.factory('submitRegChargeToStripe', ['$log', '$q', '$http', function($log, $q
         "description": description,
         "shipping": null,
         "source": myStripeToken,
-        "statement_descriptor": statementLabel
+        "statement_descriptor": statementLabel,
       }
     })
   }

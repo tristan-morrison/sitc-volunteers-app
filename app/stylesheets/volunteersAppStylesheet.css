@@ -2,7 +2,58 @@ md-content {
   padding: 20px;
 }
 
+md-card {
+  padding: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background-color: rgba(255,255,255,.93)
+}
+
+md-card-title {
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+md-input-container {
+  margin-bottom: 0;
+}
+
+md-input-container .md-input {
+  width: auto;
+}
+
+.formly-field {
+  margin-top: 18px;
+}
+
+.first-in-group {
+  margin-top: 0 !important;
+}
+
+.input-group-container {
+  margin-top: 35px;
+}
+
+.column-interior {
+  margin-left: 20px;
+}
+
+.md-errors-spacer {
+  height: 0px !important;
+  min-height: 0px !important;
+}
+
+/* Context-specific character styles */
+  .sitc-form-desc {
+    font-size: 14px;
+  }
+
 /* Text Opacities */
+  label {
+    color: rgba(0, 0, 0, .54) !important;
+  }
+
   .primary-text-opacity {
     color: white;
   }
@@ -24,11 +75,6 @@ md-content {
     color: white;
   }
 /* End text opacities*/
-
-md-input-container {
-  margin-bottom: 0;
-  margin-top: 10px !important;
-}
 
 h4 {
   margin-top: 0;
@@ -59,8 +105,10 @@ md-radio-button {
 }
 
 /* Buttons */
+
   .form-nav-button {
-    background-color: rgba(158, 158, 158, 0.2);
+    background-color: rgba(255, 255, 255, 0.96);
+    margin-top: 35px;
   }
 
   .form-nav-button:hover {

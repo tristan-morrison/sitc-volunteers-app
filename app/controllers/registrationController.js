@@ -11,27 +11,27 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
 
   // -- init values for debugging purposes
   // person values
-  $scope.personInfo["firstName"] = "Linda"
-  $scope.personInfo["lastName"] = "Cruise"
-  $scope.personInfo["primaryCarpool_id"] = "aa"
-  $scope.regInfo["birthdate"] = "02/25/1999"
-  $scope.regInfo["phone"] = "6549874560"
-  $scope.regInfo["altPhone"] = "6549873210"
-  $scope.regInfo["email"] = "me@me.com"
-  $scope.regInfo["address"] = "78542 Some St."
-  $scope.regInfo["city"] = "Farmington"
-  $scope.regInfo["state"] = "MI"
-  $scope.regInfo["zip"] = "48209"
-  $scope.regInfo["gender"] = "male"
-  $scope.regInfo["ethnicity"] = "white"
-  $scope.regInfo["religion"] = "hindu"
-  $scope.regInfo["highSchool"] = "Greenhills"
-  $scope.regInfo["hsGradYear"] = '2012'
-  $scope.regInfo["college"] = "College of Wooster"
-  $scope.regInfo["colGradYear"] = "2016"
-  $scope.regInfo["driverPermit"] = "isAdult"
-  $scope.regInfo["shirtSize"] = "S"
-  $scope.regInfo["paymentMethod"] = "credit"
+  // $scope.personInfo["firstName"] = "Linda"
+  // $scope.personInfo["lastName"] = "Cruise"
+  // $scope.personInfo["primaryCarpool_id"] = "aa"
+  // $scope.regInfo["birthdate"] = "02/25/1999"
+  // $scope.regInfo["phone"] = "6549874560"
+  // $scope.regInfo["altPhone"] = "6549873210"
+  // $scope.regInfo["email"] = "me@me.com"
+  // $scope.regInfo["address"] = "78542 Some St."
+  // $scope.regInfo["city"] = "Farmington"
+  // $scope.regInfo["state"] = "MI"
+  // $scope.regInfo["zip"] = "48209"
+  // $scope.regInfo["gender"] = "male"
+  // $scope.regInfo["ethnicity"] = "white"
+  // $scope.regInfo["religion"] = "hindu"
+  // $scope.regInfo["highSchool"] = "Greenhills"
+  // $scope.regInfo["hsGradYear"] = '2012'
+  // $scope.regInfo["college"] = "College of Wooster"
+  // $scope.regInfo["colGradYear"] = "2016"
+  // $scope.regInfo["driverPermit"] = "isAdult"
+  // $scope.regInfo["shirtSize"] = "S"
+  // $scope.regInfo["paymentMethod"] = "credit"
 
   // emergencyContact1 values
   $scope.emergencyContact1["firstName"] = "Melissa"
@@ -63,6 +63,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
 
   $scope.gotoState = function(destinationState) {
     $state.go('registration.' + destinationState)
+    window.scrollTo(0,0)
   }
 
   /*
@@ -86,7 +87,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     JSON.stringify(emergencyContact2_json)
 
     if ($scope.regInfo.paymentMethod === "credit" || $scope.regInfo.paymentMethod === "credit_donation") {
-      var chargeSubmit = submitRegChargeToStripe($scope.regInfo.myPaymentToken, $scope.regInfo.paymentAmount, ($scope.personInfo.firstName + $scope.personInfo.lastName))
+      var chargeSubmit = submitRegChargeToStripe($scope.regInfo.myPaymentToken, $scope.regInfo.paymentAmount, ($scope.personInfo.firstName + " " + $scope.personInfo.lastName))
 
       chargeSubmit.then(function success(response) {
         $log.log("Stripe charge response: \n" + dump(response, 'none'))
@@ -96,11 +97,16 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
 
         switch (error.status) {
           case 402:
-            $log.log("The charge was rejected by Stripe\n" + error.data)
+            $log.log("The charge was rejected by Stripe\n")
+            $log.log("Error message: " + error.data.message)
+            $scope.paymentError("invalidNumber")
+            break
           case 401:
-            $log.log("Invalid Stripe API key\n" + error.data)
+            $log.log("Invalid Stripe API key\n")
+            break
           case 400:
             $log.log("Idk, something went wrong with Stripe and that's all we know\n" + error.data)
+            break
         }
       })
     }
