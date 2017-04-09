@@ -53,11 +53,11 @@
             <input type="text" name="zip" ng-model="regInfo.zip" size="7" ng-blur="fillAddressFields()" required>
           </md-input-container>
           <div layout-gt-xs="row">
-            <md-input-container ng-show="showFields">
+            <md-input-container>
               <label>City</label>
               <input type="text" name="city" ng-model="regInfo.city" ng-value="regInfo.city" required>
             </md-input-container>
-            <md-input-container ng-show="showFields">
+            <md-input-container>
               <label>State</label>
               <md-select ng-model="regInfo.state" placeholder="Select" required>
                 <md-option ng-repeat="(abbrev, name) in states" ng-value="abbrev">{{ name }}</md-option>
@@ -86,8 +86,7 @@
       </div>
       <div class="input-group-container">
         <md-input-container class="first-in-group">
-          <md-select-label>Gender</md-select-label>
-          <md-select ng-model="regInfo.gender" ng-change="checkForOtherGender()" placeholder="Select">
+          <md-select ng-model="regInfo.gender" ng-change="checkForOtherGender()" placeholder="Gender">
               <md-option ng-value="value" ng-repeat="(value, label) in genders">{{ label }}</md-option>
           </md-select>
         </md-input-container>
@@ -134,8 +133,7 @@
       </div>
       <div class="input-group-container">
         <md-input-container class="first-in-group">
-          <label>High School</label>
-          <md-select ng-model="regInfo.highSchool" md-on-close="checkForOtherHighSchool()" placeholder="Select">
+          <md-select ng-model="regInfo.highSchool" md-on-close="checkForOtherHighSchool()" placeholder="High School">
               <md-select-label>Select a high school</md-select-label>
               <md-option ng-value="value" ng-repeat="(value, label) in highSchools">{{ label }}</md-option>
           </md-select>
@@ -146,7 +144,7 @@
         </md-input-container>
         <md-input-container class="hs-grad-year-input-container">
           <label>H.S. Graduation Year</label>
-          <input type="text" ng-model="regInfo.hsGradYear" ui-mask="9999" ui-mask-placeholder="yyyy" ui-options="{clearOnBlurPlaceholder:true}"  />
+          <input type="number" ng-model="regInfo.hsGradYear" ui-mask="9999" ui-mask-placeholder="yyyy" ui-options="{clearOnBlurPlaceholder:true}"  />
         </md-input-container>
       </div>
       <div class="input-group-container">
@@ -156,11 +154,8 @@
         </md-input-container>
       </div>
       <div class="input-group-container">
-        <md-input-container class="col-grad-year-input-container first-in-group" ng-if="regInfo.college != '' && regInfo.college != NULL">
-          <label>College Graduation Year</label>
-          <md-input-container class="hs-grad-year-input-container">
-            <label>H.S. Graduation Year</label>
-            <input type="text" ng-model="regInfo.hsGradYear" ui-mask="9999" ui-mask-placeholder="yyyy" ui-options="{clearOnBlurPlaceholder:true}"  />
+        <md-input-container class="col-grad-year-input-container first-in-group" ng-if="regInfo.college != '' && regInfo.college != NULL"> Graduation Year</label>
+            <input type="number" ng-model="regInfo.colGradYear" ui-mask="9999" ui-mask-placeholder="yyyy" ui-options="{clearOnBlurPlaceholder:true}"  />
           </md-input-container>
         </md-input-container>
       </div>

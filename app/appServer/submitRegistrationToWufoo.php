@@ -98,6 +98,7 @@
        "shirtSize" => "Field155",
        "colGradYear" => "Field673",
        "paymentMethod" => "Field45",
+       "myPaymentToken" => "Field678",
        "turnedInPartTwo" => "Field148"
      );
 

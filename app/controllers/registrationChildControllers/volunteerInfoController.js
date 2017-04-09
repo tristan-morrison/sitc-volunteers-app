@@ -189,8 +189,10 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   $scope.checkForOtherHighSchool = function() {
     $scope.otherHighSchoolIsRequired = ($scope.regInfo.highSchool == "other")
     $log.log("otherHighSchoolIsRequired: " + $scope.otherHighSchoolIsRequired)
-    var field = $window.document.getElementById('otherHighSchool')
-    field.focus()
+    if ($scope.otherHighSchoolIsRequired) {
+      var field = $window.document.getElementById('otherHighSchool')
+      field.focus()
+    }
   }
 
   $scope.checkForOtherGender = function() {

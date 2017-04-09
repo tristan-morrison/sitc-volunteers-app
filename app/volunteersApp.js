@@ -1,4 +1,4 @@
-var app = angular.module('volunteersApp', ['ngMaterial', 'ui.router', 'ui.mask', 'ngMessages', 'ngMask', 'formly', 'formlyMaterial'])
+var app = angular.module('volunteersApp', ['ngMaterial', 'ui.router', 'ui.mask', 'ngMessages', 'formly', 'formlyMaterial'])
 
 app.config(function($stateProvider) {
   $stateProvider
@@ -24,6 +24,12 @@ app.config(function($stateProvider) {
       url: '/payments',
       templateUrl: 'app/views/registrationChildViews/paymentsView.html',
       controller: 'PaymentsController'
+    })
+
+    .state('registration.success', {
+      url: '/success',
+      templateUrl: 'app/views/registrationChildViews/successView.html',
+      controller: 'SuccessController'
     })
 })
 

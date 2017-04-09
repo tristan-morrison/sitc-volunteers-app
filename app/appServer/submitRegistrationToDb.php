@@ -83,7 +83,7 @@
     die ($connection->error);
   }
   else {
-    echo json_encode($person);
+    echo json_encode($regInfo_result);
   }
 ?>
 

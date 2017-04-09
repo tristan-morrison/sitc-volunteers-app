@@ -1,0 +1,60 @@
+<md-card>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">Thank you for registering!</span>
+      <span class="md-subhead"></span>
+    </md-card-title-text>
+  </md-card-title>
+</md-card>
+
+<div id="cardsContainer" layout-xs="column" layout="row">
+  <div flex>
+    <md-card>
+      <md-card-title>
+        <md-card-title-text flex="nogrow">
+          <span class="md-headline">Part 2 Registration</span>
+          <span class="md-subhead">Don't forget to print the Part 2 form off and bring it with you on your first day.</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="row" layout-align="start start" style="padding-left:0">
+        <div>
+          <a href="media/registrationPartII.pdf" class="thumbnail-container" style="width:75%;margin-right:10px;" target="blank">
+            <img src="app/images/part2_thumbnail.jpg" class="image-drop-shadow" width="100%"/>
+          </a>
+        </div>
+        <md-card-icon-actions>
+          <md-button ng-click="printPartTwo()">
+            <md-icon class="material-icons md-36">print</md-icon>
+          </md-button>
+          <md-button>
+            <a href="media/registrationPartII.pdf" target="blank">
+              <md-icon class="material-icons md-36">open_in_new</md-icon>
+            </a>
+          </md-button>
+        </md-card-icon-actions>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div id="leftColCardsContainer" flex layout="column">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Got questions?</span>
+          <span class="md-subhead">Visit our <a href="http://www.summerinthecity.com/volunteer/" target="blank">Volunteers page</a> for more information on volunteering, and don't hesitate to email us at <a href="mailto:staff@summerinthecity.com">Staff@summerinthecity.com</a></span>
+        </md-card-title-text>
+      </md-card-title>
+    </md-card>
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Tell your friends</span>
+          <span class="md-subhead">Share our "How to ... Summer in the City" video far and wide.</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="row">
+        <iframe src="https://player.vimeo.com/video/171214235" width="360" height="203" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </md-card-content>
+    </md-card>
+  </div> <!-- #leftColCardsContainer -->
+
+</div> <!-- #cardsContainer -->
