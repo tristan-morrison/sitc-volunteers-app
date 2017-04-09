@@ -18,8 +18,10 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     1: 'I already turned in my Part 2 form.'
   }
 
+  $log.log("Stripe API Key: " + getStripeAPIKey_pk())
+
   var checkoutObj = StripeCheckout.configure({
-    key: 'pk_test_MAi5X0RDzUYfCXELpoSOZ3nS', //SITC publishable test API key
+    key: getStripeAPIKey_pk(), //SITC publishable test API key
     locale: 'auto',
     token: function(token) {
       $log.log("Yay! Checkout ran and got this token: " + token.id)
