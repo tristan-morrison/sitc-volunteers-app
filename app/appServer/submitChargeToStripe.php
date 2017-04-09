@@ -11,8 +11,7 @@
   $source = isset($_GET["source"]) ? sanitize($_GET["source"]) : "";
   $statement_descriptor = isset($_GET["statement_descriptor"]) ? sanitize($_GET["statement_descriptor"]) : "Summer in the City";
 
-  //NOTE: This is currently the Rex Blankets test key
-  \Stripe\Stripe::setApiKey($stripeAPIKey_sk_test);
+  \Stripe\Stripe::setApiKey($stripeAPIKey_sk);
 
   $chargeParams = array(
     "amount" => $amount,
