@@ -57,8 +57,7 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
         required: 'true'
       },
       ngModelElAttrs: {
-        'mask': '(999) 999-9999',
-        'clean': 'true',
+        'ui-mask': '(999) 999-9999',
         'size': '15'
       }
     },
