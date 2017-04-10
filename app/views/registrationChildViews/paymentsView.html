@@ -18,12 +18,15 @@
       </md-card-title>
 
         <div class="payment-group-container" style="display:block">
-          <md-input-container > <!-- for some reason, this was displaying on the last line of the p text -->
+          <md-input-container> <!-- for some reason, this was displaying on the last line of the p text -->
             <h4>Payment Method</h4>
             <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()" required>
               <div class="row">
-                <div flex layout='row' layout-padding layout-align="start center" >
-                  <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit">Credit/debit card</md-radio-button>
+                <div flex layout='column' layout-padding layout-align="start start" >
+                  <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit" ng-disabled="stripeNotLoaded">Credit/debit card</md-radio-button>
+                  <div id="noStripeWarning" ng-show="stripeNotLoaded">
+                      Connect to the internet to pay via credit card. If you are already connected, check your connection.
+                  </div>
                 </div>
               </div>
               <div class="row">

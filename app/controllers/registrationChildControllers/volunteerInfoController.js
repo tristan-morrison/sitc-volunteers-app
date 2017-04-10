@@ -149,8 +149,15 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     var month = parseInt(dateString.slice(0,2))
     var day = parseInt(dateString.slice(2,4))
     var year = parseInt(dateString.slice(4))
+
+
+    var myBirthdate = new Date()
+    myBirthdate.setFullYear(year)
+    myBirthdate.setMonth(month)
+    myBirthdate.setDate(day)
+
     $log.log("birth month: " + month)
-    var myBirthdate = new Date(year, month, day)
+    $log.log("myBirthdate: " + myBirthdate.toString())
 
     // create a new date object and set it to August of this year
     var minEligibleDate = new Date(todayDate)
@@ -161,11 +168,15 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
     $log.log(minEligibleDate.getFullYear())
 
-    if (minEligibleDate.getFullYear() < myBirthdate) {
+    if (minEligibleDate.getFullYear() < myBirthdate.getFullYear()) {
       $scope.registrationForm.birthdate.$error.notOldEnough = true
       $scope.registrationForm.birthdate.$setValidity("notOldEnough", false)
-      var field = $window.document.getElementById('birthdate')
-      field.focus()
+      if (!$scope.hasHadInvalidBirthdate) {
+        // if the person has already seen the birthdate error, don't continue auto-focusing the birthdate field, as this prevents them from focusing any other fields if they do not change the birthdate
+        $scope.hasHadInvalidBirthdate = true
+        var field = $window.document.getElementById('birthdate')
+        field.focus()
+      }
     }
     else {
       // set errors to valid in case they were set to false by a previous input
@@ -189,10 +200,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   $scope.checkForOtherHighSchool = function() {
     $scope.otherHighSchoolIsRequired = ($scope.regInfo.highSchool == "other")
     $log.log("otherHighSchoolIsRequired: " + $scope.otherHighSchoolIsRequired)
-    if ($scope.otherHighSchoolIsRequired) {
-      var field = $window.document.getElementById('otherHighSchool')
-      field.focus()
-    }
+    // do not automatically focus "other" input, as this causes it to be marked invalid immediately when it appears
   }
 
   $scope.checkForOtherGender = function() {

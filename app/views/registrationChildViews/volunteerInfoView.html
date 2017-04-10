@@ -13,23 +13,23 @@
           </md-input-container>
           <md-input-container flex="nogrow" class="column-interior">
             <label>Last Name</label>
-            <input type="text" ng-model="personInfo.lastName" size="35" required>
+            <input type="text" ng-model="personInfo.lastName" size="30" required>
           </md-input-container>
         </div>
         <div layout="row" layout-xs="column" class="input-group-container">
           <md-input-container>
             <label>Volunteer Phone</label>
-            <input type="text" name="phone" ng-model="regInfo.phone" ui-mask="(999) 999-9999" clean="true" required>
+            <input type="text" name="phone" ng-model="regInfo.phone" size="20" ui-mask="(999) 999-9999" clean="true" required>
           </md-input-container>
           <md-input-container class="column-interior">
             <label>Home/Alternate Phone</label>
-            <input type="text" name="phone" ng-model="regInfo.altPhone" ui-mask="(999) 999-9999" clean="true" required>
+            <input type="text" name="phone" ng-model="regInfo.altPhone" size="20" ui-mask="(999) 999-9999" clean="true" required>
           </md-input-container>
         </div>
         <div class="input-group-container">
-          <md-input-container class="first-in-group">
+          <md-input-container class="first-in-group xs-max-width">
             <label>Email</label>
-            <input type="email" name="email" ng-model="regInfo.email" size="50" required>
+            <input type="email" name="email" ng-model="regInfo.email" required>
             <div ng-messages="registrationForm.email.$error">
               <div ng-message="email">
                 Oops, please enter a valid email address.
@@ -76,7 +76,7 @@
       <div class="input-group-container">
         <md-input-container class="first-in-group">
           <label>Birthdate</label>
-          <input type="text" id="birthdate" name="birthdate" ng-model="regInfo.birthdate" ui-mask-placeholder="mm/dd/yyyy" ui-mask="99/99/9999" ui-options="{clearOnBlurPlaceholder:true, allowInvalidValue:true}" required> <!-- ng-blur="setAgeIfValid()" - taking this out because something is causing it not to yield focus when invalid -->
+          <input type="text" id="birthdate" name="birthdate" ng-model="regInfo.birthdate" ui-mask-placeholder="mm/dd/yyyy" ui-mask="99/99/9999" ui-options="{clearOnBlurPlaceholder:true, allowInvalidValue:true}" ng-blur="setAgeIfValid()" required> <!--  - taking this out because something is causing it not to yield focus when invalid -->
           <div ng-messages="registrationForm.birthdate.$error">
             <div ng-message="notOldEnough">
               It looks like you're not 14. You must be at least 14 years old to volunteer.
@@ -91,7 +91,7 @@
           </md-select>
         </md-input-container>
         <br />
-        <md-input-container class="other-input-container" style="margin-left:20px!important" ng-if="otherGenderIsRequired">
+        <md-input-container class="other-input-container" ng-if="otherGenderIsRequired">
           <input type="text" id="otherGender" name="otherGender" ng-model="regInfo.otherGender" placeholder="Other" ng-required="otherGenderIsRequired"/>
         </md-input-container>
       </div>
@@ -131,7 +131,7 @@
           <input type="text" id="otherReligion" name="otherReligion" ng-model="regInfo.otherReligion" placeholder="Specify" ng-required="otherReligionIsRequired"/>
         </md-input-container>
       </div>
-      <div class="input-group-container">
+      <div class="input-group-container" layout="column">
         <md-input-container class="first-in-group">
           <md-select ng-model="regInfo.highSchool" md-on-close="checkForOtherHighSchool()" placeholder="High School">
               <md-select-label>Select a high school</md-select-label>
@@ -139,7 +139,7 @@
           </md-select>
         </md-input-container>
         <br />
-        <md-input-container ng-if="regInfo.highSchool == 'other'" class="other-input-container" style="margin-left:20px!important">
+        <md-input-container ng-if="regInfo.highSchool == 'other'" class="other-input-container">
           <input type="text" id="otherHighSchool" name="otherHighSchool" ng-model="regInfo.otherHighSchool" placeholder="Other" ng-required="otherHighSchoolIsRequired"/>
         </md-input-container>
         <md-input-container class="hs-grad-year-input-container">
@@ -169,7 +169,7 @@
       <div class="input-group-container">
         <md-input-container class="first-in-group">
           <h4 style="margin-bottom:0">Primary Carpool Site</h4>
-          <span class="md-caption" style="padding-bottom:30px;">This is the carpool site you plan to attend most often. You are still welcome to go to others</span>
+          <span class="md-subhead" style="padding-bottom:30px;">This is the carpool site you plan to attend most often. You are still welcome to go to others</span>
           <md-radio-group ng-model="personInfo.primaryCarpool_id">
             <div ng-repeat="(siteId, info) in carpoolSites" class="row">
               <div flex layout='row' layout-padding layout-align="start center" >

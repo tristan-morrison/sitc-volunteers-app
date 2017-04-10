@@ -20,15 +20,24 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
 
   $log.log("Stripe API Key: " + getStripeAPIKey_pk())
 
-  var checkoutObj = StripeCheckout.configure({
-    key: getStripeAPIKey_pk(), //SITC publishable test API key
-    locale: 'auto',
-    token: function(token) {
-      $log.log("Yay! Checkout ran and got this token: " + token.id)
-      $scope.regInfo.myPaymentToken = token.id
-      $scope.$digest()
-    }
-  })
+  if (typeof StripeCheckout != "undefined") {
+    var checkoutObj = StripeCheckout.configure({
+      key: getStripeAPIKey_pk(), //SITC publishable test API key
+      locale: 'auto',
+      token: function(token) {
+        $log.log("Yay! Checkout ran and got this token: " + token.id)
+        $scope.regInfo.myPaymentToken = token.id
+        $scope.$digest()
+      }
+    })
+  }
+  else {
+    angular.element(function() { // wait for the DOM element to load before we try to access it
+      $scope.stripeNotLoaded = true
+      $scope.paymentForm.paymentMethod.$error.noStripe = true
+      $scope.paymentForm.paymentMethod.$setValidity("noStripe", false)
+    })
+  }
 
   $scope.generateCheckout = function() {
     $scope.regInfo["paymentAmount"]
