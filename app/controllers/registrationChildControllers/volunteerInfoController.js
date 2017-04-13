@@ -1,6 +1,6 @@
 var app = angular.module('volunteersApp')
 
-app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http', 'getCarpoolSites',function($scope, $log, $window, $http, getCarpoolSites) {
+app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http', '$state', 'getCarpoolSites', 'mapsModal', function($scope, $log, $window, $http, $state, getCarpoolSites, mapsModal) {
 
   $log.log('VolunteerInfoController is running!')
 
@@ -14,31 +14,31 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     "other": "Other"
   }
 
-  $scope.ethnicities = {
-    "white" : "White, not of Hispanic Origin, Latino, or Spanish origin",
-    "white_hispan" : "White, of Hispanic, Latino, or Spanish origin",
-    "black" : "Black or African American",
-    "native" : "American Indian or Alaska Native",
-    "asianIndian" : "Asian Indian",
-    "asian": "Asian",
-    "multi": "Multiracial",
-    "noAnswer": "Prefer not to answer",
-    "other": "Other"
-  }
-
-  $scope.religions = {
-    "buddhist": "Buddhist",
-    "christian" : "Christian",
-    "hindu" : "Hindu",
-    "jewish": "Jewish",
-    "muslim": "Muslim",
-    "sikh": "Sikh",
-    "athiest": "Athiest",
-    "agnostic": "Agnostic",
-    "unitarian": "Unitarian/Universalist",
-    "noAnswer": "Prefer not to answer",
-    "other": "Other"
-  }
+  // $scope.ethnicities = {
+  //   "white" : "White, not of Hispanic Origin, Latino, or Spanish origin",
+  //   "white_hispan" : "White, of Hispanic, Latino, or Spanish origin",
+  //   "black" : "Black or African American",
+  //   "native" : "American Indian or Alaska Native",
+  //   "asianIndian" : "Asian Indian",
+  //   "asian": "Asian",
+  //   "multi": "Multiracial",
+  //   "noAnswer": "Prefer not to answer",
+  //   "other": "Other"
+  // }
+  //
+  // $scope.religions = {
+  //   "buddhist": "Buddhist",
+  //   "christian" : "Christian",
+  //   "hindu" : "Hindu",
+  //   "jewish": "Jewish",
+  //   "muslim": "Muslim",
+  //   "sikh": "Sikh",
+  //   "athiest": "Athiest",
+  //   "agnostic": "Agnostic",
+  //   "unitarian": "Unitarian/Universalist",
+  //   "noAnswer": "Prefer not to answer",
+  //   "other": "Other"
+  // }
 
   $scope.highSchools = {
     "huron": "Ann Arbor Huron",
@@ -142,10 +142,10 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
   var todayDate = new Date()
 
-  $scope.setAgeIfValid = function() {
+  $scope.setBirthdateAndValidate = function() {
 
     // create date obj from mmddyyyy string
-    var dateString = $scope.regInfo.birthdate
+    var dateString = $scope.regInfo.birthdateString
     var month = parseInt(dateString.slice(0,2))
     var day = parseInt(dateString.slice(2,4))
     var year = parseInt(dateString.slice(4))
@@ -169,8 +169,8 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     $log.log(minEligibleDate.getFullYear())
 
     if (minEligibleDate.getFullYear() < myBirthdate.getFullYear()) {
-      $scope.registrationForm.birthdate.$error.notOldEnough = true
-      $scope.registrationForm.birthdate.$setValidity("notOldEnough", false)
+      $scope.registrationForm.birthdateString.$error.notOldEnough = true
+      $scope.registrationForm.birthdateString.$setValidity("notOldEnough", false)
       if (!$scope.hasHadInvalidBirthdate) {
         // if the person has already seen the birthdate error, don't continue auto-focusing the birthdate field, as this prevents them from focusing any other fields if they do not change the birthdate
         $scope.hasHadInvalidBirthdate = true
@@ -180,21 +180,35 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     }
     else {
       // set errors to valid in case they were set to false by a previous input
-      $scope.registrationForm.birthdate.$error.notOldEnough = false
-      $scope.registrationForm.birthdate.$setValidity("notOldEnough", true)
-      $scope.regInfo["age"] = todayDate.getFullYear() - myBirthdate
+      $scope.registrationForm.birthdateString.$error.notOldEnough = false
+      $scope.registrationForm.birthdateString.$setValidity("notOldEnough", true)
+      // floor() rounds down
+      $scope.regInfo["age"] = Math.floor((todayDate.getTime() - myBirthdate.getTime()) / (365*24*60*60*1000))
+      $scope.regInfo.birthdate = year + "-" + ((month>9) ? month : "0" + month) + "-" + ((day>9) ? day : "0" + day)
+      $log.log("age: " + $scope.regInfo.birthdate)
       $log.log("age: " + $scope.regInfo.age)
     }
   }
 
-  $scope.checkForOtherEthnicity = function() {
-    $scope.otherEthnicityIsRequired = ($scope.regInfo.ethnicity == "other")
-    $log.log("otherEthnicityIsRequired: " + $scope.otherEthnicityIsRequired)
+  $scope.showMapsModal = function(displayName, address, city, state, zip) {
+    $log.log("showMapsModal ran with address " + address)
+    mapsModal(displayName, address, city, state, zip)
   }
 
-  $scope.checkForOtherReligion = function() {
-    $scope.otherReligionIsRequired = ($scope.regInfo.religion == "other")
-    $log.log("otherReligionIsRequired: " + $scope.otherReligionIsRequired)
+
+  // $scope.checkForOtherEthnicity = function() {
+  //   $scope.otherEthnicityIsRequired = ($scope.regInfo.ethnicity == "other")
+  //   $log.log("otherEthnicityIsRequired: " + $scope.otherEthnicityIsRequired)
+  // }
+
+  // $scope.checkForOtherReligion = function() {
+  //   $scope.otherReligionIsRequired = ($scope.regInfo.religion == "other")
+  //   $log.log("otherReligionIsRequired: " + $scope.otherReligionIsRequired)
+  // }
+
+  $scope.strToInt = function(whichYear) {
+    $scope.regInfo[whichYear] = parseInt($scope.regInfo[whichYear])
+    $log.log(whichYear + " is: " + $scope.regInfo[whichYear] + " and is of type " + typeof $scope.regInfo[whichYear])
   }
 
   $scope.checkForOtherHighSchool = function() {
@@ -226,6 +240,26 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
   $scope.logPhone = function() {
     $log.log("phone: " + $scope.regInfo.phone)
+  }
+
+  // $scope.gotoState = function(originForm, destinationState) {
+  //   if (!$scope[originForm].$valid) {
+  //     // from iandotkelly on StackOverflow
+  //     var firstInvalid = angular.element(document.querySelector('.ng-invalid').querySelector('.ng-invalid'));
+  //     if (firstInvalid) {
+  //       $log.log("Found an invalid field in the form " + originForm + ": " + firstInvalid.name)
+  //       firstInvalid.addClass('ng-touched')
+  //       firstInvalid.focus()
+  //       return
+  //     }
+  //   }
+  //   $state.go('registration.' + destinationState)
+  //   window.scrollTo(0,0)
+  // }
+
+  $scope.goToPage = function() {
+    $log.log("goToPage ran!")
+    $scope.goToState('registrationForm', 'emergencyContacts', 1)
   }
 
 }])

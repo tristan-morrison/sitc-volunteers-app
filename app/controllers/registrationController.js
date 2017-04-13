@@ -61,7 +61,21 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
 
 
 
-  $scope.gotoState = function(destinationState) {
+  $scope.goToState = function(originForm, destinationState, validate) {
+    $log.log("destinationState: " + destinationState)
+    if (validate == 1) {
+      $log.log("validating!")
+      if (!originForm.$valid) {
+        // from iandotkelly on StackOverflow
+        var firstInvalid = angular.element(document.querySelector('.ng-invalid').querySelector('.ng-invalid'));
+        if (firstInvalid) {
+          $log.log("Found an invalid field in the form " + originForm + ": " + firstInvalid.name)
+          firstInvalid.addClass('ng-touched')
+          firstInvalid.focus()
+          return
+        }
+      }
+    }
     $state.go('registration.' + destinationState)
     window.scrollTo(0,0)
   }

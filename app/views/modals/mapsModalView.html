@@ -1,0 +1,21 @@
+
+  <md-dialog>
+    <md-toolbar>
+      <div class="md-toolbar-tools primary-text-opacity">
+        <h2 md-truncate>{{ displayName }}</h2>
+        <div flex></div>
+        <md-button ng-click="closeDialog()" style="width:25px !important">
+          <md-icon class="material-icons" style="color:white">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <iframe
+        id="mapFrame"
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        ng-src="{{srcUrl}}" allowfullscreen>
+      </iframe>
+    </md-dialog-content>
+  </md-dialog>

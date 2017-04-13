@@ -6,7 +6,7 @@
   if ($connection->connect_error)
     die ($connection->connect_error);
 
-  $query = "SELECT * FROM CarpoolSite";
+  $query = "SELECT carpoolSite_id, name, displayName, crossroads, address, city, state, zip FROM CarpoolSite";
   $carpoolSites_result = $connection->query($query);
   if ($connection->error) {
     die ($connection->error);

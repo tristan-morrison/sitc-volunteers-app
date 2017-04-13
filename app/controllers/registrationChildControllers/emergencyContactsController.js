@@ -5,9 +5,11 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
   $log.log("EmergencyContactsController is running!")
 
   $scope.logLastName = function() {
-    $log.log("IT WORKED")
     $log.log("last name: " + $scope.emergencyContact1.lastName)
   }
+
+  $scope.emergencyContact1.sendNewsletter = true
+  $scope.emergencyContact2.sendNewsletter = true
 
   $scope.emergencyContactFields = [
     {
@@ -40,7 +42,7 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
       type: 'input',
       templateOptions: {
         type: 'tel',
-        label: 'Primary Phone',
+        label: 'Cell Phone',
         required: 'true'
       },
       ngModelElAttrs: {
@@ -53,12 +55,11 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
       type: 'input',
       templateOptions: {
         type: 'tel',
-        label: 'Alternate Phone',
-        required: 'true'
+        label: 'Alternate Phone (e.g. home, work)',
       },
       ngModelElAttrs: {
         'ui-mask': '(999) 999-9999',
-        'size': '15'
+        'size': '30'
       }
     },
     {
@@ -68,6 +69,9 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
         type: 'email',
         label: 'Email',
         required: 'true'
+      },
+      ngModelElAttrs: {
+        'size': '50'
       }
     },
     {
@@ -78,6 +82,11 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
       }
     }
   ]
+
+  $scope.goToPage = function(destinationState) {
+    $log.log("goToPage ran!")
+    $scope.goToState('registrationForm', destinationState)
+  }
 
   // $log.log("First Name: " + $scope.emergencyContact1.firstName)
 
