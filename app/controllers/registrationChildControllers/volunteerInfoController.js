@@ -145,7 +145,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   $scope.setBirthdateAndValidate = function() {
 
     // create date obj from mmddyyyy string
-    var dateString = $scope.regInfo.birthdateString
+    var dateString = $scope.birthdateString
     var month = parseInt(dateString.slice(0,2))
     var day = parseInt(dateString.slice(2,4))
     var year = parseInt(dateString.slice(4))

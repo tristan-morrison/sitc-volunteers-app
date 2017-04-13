@@ -75,7 +75,7 @@
       <div class="input-group-container">
         <md-input-container class="first-in-group">
           <label>Birthdate</label>
-          <input type="text" id="birthdateString" name="birthdateString" ng-model="regInfo.birthdateString" ui-mask-placeholder="mm/dd/yyyy" ui-mask="99/99/9999" ui-options="{clearOnBlurPlaceholder:true, allowInvalidValue:true}" ng-blur="setBirthdateAndValidate()" required> <!--  - taking this out because something is causing it not to yield focus when invalid -->
+          <input type="text" id="birthdateString" name="birthdateString" ng-model="birthdateString" ui-mask-placeholder="mm/dd/yyyy" ui-mask="99/99/9999" ui-options="{clearOnBlurPlaceholder:true, allowInvalidValue:true}" ng-blur="setBirthdateAndValidate()" required> <!--  - taking this out because something is causing it not to yield focus when invalid -->
           <div ng-messages="registrationForm.birthdateString.$error">
             <div ng-message="notOldEnough">
               It looks like you're not 14. You must be at least 14 years old to volunteer.
