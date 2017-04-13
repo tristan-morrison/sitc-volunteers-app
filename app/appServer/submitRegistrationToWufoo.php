@@ -41,8 +41,8 @@
   // echo "postArray: " . var_dump($postArray);
 
   // Create class for WufooApiWrapper
-  $wrapper = new WufooApiWrapper('FXRL-LPSN-VWJG-SCCK', 'sitc');
-  $response = $wrapper->entryPost('m2rnmzz0ythmjv', $postArray);
+  $wrapper = new WufooApiWrapper($wufooApiKey, 'sitc');
+  $response = $wrapper->entryPost($wufoo_formId, $postArray);
 
   echo json_encode($response);
 
