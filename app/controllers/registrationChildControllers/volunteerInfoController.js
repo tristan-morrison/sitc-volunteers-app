@@ -259,7 +259,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
   $scope.goToPage = function() {
     $log.log("goToPage ran!")
-    $scope.goToState('registrationForm', 'emergencyContacts', 1)
+    $scope.goToState($scope.registrationForm, 'emergencyContacts', 1)
   }
 
 }])

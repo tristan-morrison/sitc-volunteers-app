@@ -62,7 +62,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
 
 
   $scope.goToState = function(originForm, destinationState, validate) {
-    $log.log("destinationState: " + destinationState)
+    $log.log("destinationState: " + destinationState + ", originForm: " + originForm)
     if (validate == 1) {
       $log.log("validating!")
       if (!originForm.$valid) {
