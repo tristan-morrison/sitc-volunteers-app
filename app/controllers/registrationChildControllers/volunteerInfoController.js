@@ -14,31 +14,31 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     "other": "Other"
   }
 
-  // $scope.ethnicities = {
-  //   "white" : "White, not of Hispanic Origin, Latino, or Spanish origin",
-  //   "white_hispan" : "White, of Hispanic, Latino, or Spanish origin",
-  //   "black" : "Black or African American",
-  //   "native" : "American Indian or Alaska Native",
-  //   "asianIndian" : "Asian Indian",
-  //   "asian": "Asian",
-  //   "multi": "Multiracial",
-  //   "noAnswer": "Prefer not to answer",
-  //   "other": "Other"
-  // }
-  //
-  // $scope.religions = {
-  //   "buddhist": "Buddhist",
-  //   "christian" : "Christian",
-  //   "hindu" : "Hindu",
-  //   "jewish": "Jewish",
-  //   "muslim": "Muslim",
-  //   "sikh": "Sikh",
-  //   "athiest": "Athiest",
-  //   "agnostic": "Agnostic",
-  //   "unitarian": "Unitarian/Universalist",
-  //   "noAnswer": "Prefer not to answer",
-  //   "other": "Other"
-  // }
+  $scope.ethnicities = {
+    "white" : "White, not of Hispanic Origin, Latino, or Spanish origin",
+    "white_hispan" : "White, of Hispanic, Latino, or Spanish origin",
+    "black" : "Black or African American",
+    "native" : "American Indian or Alaska Native",
+    "asianIndian" : "Asian Indian",
+    "asian": "Asian",
+    "multi": "Multiracial",
+    "noAnswer": "Prefer not to answer",
+    "other": "Other"
+  }
+
+  $scope.religions = {
+    "buddhist": "Buddhist",
+    "christian" : "Christian",
+    "hindu" : "Hindu",
+    "jewish": "Jewish",
+    "muslim": "Muslim",
+    "sikh": "Sikh",
+    "athiest": "Athiest",
+    "agnostic": "Agnostic",
+    "unitarian": "Unitarian/Universalist",
+    "noAnswer": "Prefer not to answer",
+    "other": "Other"
+  }
 
   $scope.highSchools = {
     "huron": "Ann Arbor Huron",
