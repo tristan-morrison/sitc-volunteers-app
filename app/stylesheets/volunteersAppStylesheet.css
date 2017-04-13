@@ -107,7 +107,7 @@ h4 {
   margin-bottom: 10px;
 }
 
-#noStripeWarning {
+#noStripeWarning, .custom-error-message {
   color: rgb(221, 44, 0);
   font-size: 12px;
   line-height: 14px;

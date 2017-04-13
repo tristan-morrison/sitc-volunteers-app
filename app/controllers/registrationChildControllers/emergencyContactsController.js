@@ -1,6 +1,6 @@
 var app = angular.module('volunteersApp')
 
-app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$http', 'getCarpoolSites',function($scope, $log, $window, $http, getCarpoolSites) {
+app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$http', '$state', 'getCarpoolSites',function($scope, $log, $window, $http, $state, getCarpoolSites) {
 
   $log.log("EmergencyContactsController is running!")
 
@@ -89,5 +89,26 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
   }
 
   // $log.log("First Name: " + $scope.emergencyContact1.firstName)
+
+  $scope.goToPage = function(destinationState, onlyIfValid) {
+    if (onlyIfValid == 1) {
+      if (!$scope.emergencyContact1Form.$valid) {
+        $log.log("Emergency Contact 1 form is not valid!")
+        // we use a different querySelector here because of formly weirdness; it currently only works because all of the inputs are actually <input> tags
+        var firstInvalid = angular.element(document.querySelector('input.ng-invalid'));
+        firstInvalid.addClass('ng-touched')
+        firstInvalid.focus()
+        return
+      }
+      else if (!$scope.emergencyContact2Form.$valid) {
+        var firstInvalid = angular.element(document.querySelector('input.ng-invalid'));
+        firstInvalid.addClass('ng-touched')
+        firstInvalid.focus()
+        return
+      }
+    }
+    $state.go('registration.' + destinationState)
+    window.scrollTo(0,0)
+  }
 
 }])

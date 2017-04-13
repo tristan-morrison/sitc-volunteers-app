@@ -1,3 +1,5 @@
+  <!-- Emergency Contact Form template for SITC registration app -->
+  <!-- Note: adding any inputs that are not actual <input /> tags will break the function goToPage() in emergencyContactsController.js -->
 
   <form novalidate>
     <md-card>
@@ -21,6 +23,6 @@
   </form>
 
   <div id="formButtonsContainer">
-    <md-button class="form-nav-button" ng-click="">Back</md-button>
-    <md-button class="form-nav-button" ng-click="gotoState('payments')">Next</md-button>
+    <md-button class="form-nav-button" ng-click="goToPage('volunteerInfo', 0)">Back</md-button>
+    <md-button class="form-nav-button" ng-click="goToPage('payments', 1)">Next</md-button>
   </div>

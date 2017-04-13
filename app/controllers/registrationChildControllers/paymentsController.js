@@ -63,12 +63,54 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     $log.log("Payment Method: " + $scope.regInfo.paymentMethod)
   }
 
+  $scope.hideError = function(id) {
+    angular.element(document.querySelector(id)).css('display', 'none')
+  }
+
   $scope.$parent.paymentError = function(error) {
     $scope.paymentForm.paymentInfo.$error.invalidNumber = true
     $scope.paymentForm.paymentInfo.$setValidity("invalidNumber", false)
     $scope.paymentForm.paymentInfo.$setTouched()
     var field = $window.document.getElementById('paymentInfoButton')
     field.focus()
+  }
+
+  // $scope.goBack = function() {
+  //
+  // }
+
+  function formIsValid() {
+    $log.log("validating!")
+    if (!$scope.paymentForm.$valid) {
+      // from iandotkelly on StackOverflow
+      $log.log("form's not valid!")
+      var firstInvalid = angular.element(document.querySelector('.ng-invalid').querySelector('.ng-invalid'));
+      if (firstInvalid) {
+        // $scope.showPaymentMethodRequiredError = true
+        angular.element(firstInvalid.next()).css('display', 'block')
+        // firstInvalid.addClass('ng-touched')
+        firstInvalid.focus()
+        return
+      }
+    }
+    else if ($scope.paymentMethod == 'credit' && ($scope.regInfo.myPaymentToken == null || $scope.regInfo.myPaymentToken == '')) {
+      $log.log("no payment token!!")
+      $scope.paymentForm.paymentInfo.$error.noToken = true
+      $scope.paymentForm.paymentInfo.$setValidity("noToken", false)
+      $scope.paymentForm.paymentInfo.$setTouched()
+      var field = $window.document.getElementById('paymentInfoButton')
+      field.focus()
+    } else {
+      return true
+    }
+  }
+
+  $scope.submit = function() {
+    if (formIsValid()) {
+      $log.log("Form is valid!")
+      $scope.submitRegistration()
+    }
+    // else, validate function will have already focused first invalid field
   }
 
 }])

@@ -20,7 +20,7 @@
         <div class="payment-group-container" style="display:block">
           <md-input-container> <!-- for some reason, this was displaying on the last line of the p text -->
             <h4>Payment Method</h4>
-            <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()" required>
+            <md-radio-group class="md-primary" name="paymentMethod" ng-model="regInfo.paymentMethod" ng-change="hideError('#paymentMethod')" ng-required="true">
               <div class="row">
                 <div flex layout='column' layout-padding layout-align="start start" >
                   <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit" ng-disabled="stripeNotLoaded">Credit/debit card</md-radio-button>
@@ -40,12 +40,15 @@
                 </div>
               </div>
             </md-radio-group>
+            <div id="paymentMethodError" style="display:none" class="custom-error-message">
+              This field is required.
+            </div>
           </md-input-container>
         </div>
         <div class="payment-group-container" ng-show="regInfo.paymentMethod == 'credit' || regInfo.paymentMethod === 'credit_donation'">
           <md-input-container>
             <h4>Amount</h4>
-            <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="logPaymentMethod()">
+            <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="hideError('#amountError')">
               <div class="row">
                 <div flex layout='row' layout-padding layout-align="start center" >
                   <md-radio-button ng-value="payMethodValues[1]" aria-label="$40">$40 - just the registration fee</md-radio-button>
@@ -58,6 +61,9 @@
               </div>
             </md-radio-group>
           </md-input-container>
+          <div id="amountError" style="display:none" class="custom-error-message">
+            This field is required.
+          </div>
         </div>
         <div class="payment-group-container" ng-show="regInfo.paymentMethod === 'credit' || regInfo.paymentMethod === 'credit_donation'">
           <md-input-container id="paymentInfoContainer">
@@ -70,6 +76,9 @@
             <div ng-messages="paymentForm.paymentInfo.$error">
               <div ng-message="invalidNumber">
                 Your card number is invalid.
+              </div>
+              <div ng-message="noToken">
+                No payment info was saved. Please try again.
               </div>
             </div>
           </md-input-container>
@@ -84,30 +93,36 @@
         <div class="payment-group-container">
           <md-input-container>
             <h4>T-Shirt Size</h4>
-            <md-select class="md-primary" ng-model="regInfo.shirtSize" placeholder="Select">
-              <md-option ng-repeat="(id, label) in shirtSizes" ng-value="id">{{ label }}</md-option>
+            <md-select class="md-primary" ng-model="regInfo.shirtSize" ng-change="hideError('#tshirtError')" placeholder="Select">
+              <md-option ng-repeat="(id, label) in shirtSizes" ng-value="id" required>{{ label }}</md-option>
             </md-select>
           </md-input-container>
+          <div id="tshirtError" style="display:none" class="custom-error-message">
+            This field is required.
+          </div>
         </div>
         <div class="payment-group-container">
           <md-input-container>
             <h4>Part 2 Registration Form</h4>
             <span class="md-subhead">Your registration isn't complete without this short <a href="media/registrationPartII.pdf" target="blank">written form</a>. Please print it out, complete it, and bring it with you on your first day!</span>
-            <md-radio-group class="md-primary" ng-model="regInfo.turnedInPartTwo">
+            <md-radio-group class="md-primary" ng-model="regInfo.turnedInPartTwo" ng-change="hideError('#partTwoError')">
               <div class="row" ng-repeat="(id, label) in partTwoOptions" required>
                 <div flex layout='row' layout-padding layout-align="start center" >
                   <md-radio-button ng-value=id aria-label="$40">{{label}}</md-radio-button>
                 </div>
               </div>
           </md-input-container>
+          <div id="partTwoError" style="display:none" class="custom-error-message">
+            This field is required.
+          </div>
         </div>
       </md-card>
     </form>
 
     <div id="formButtonsContainer">
       <md-progress-linear md-mode="indeterminate" ng-show="showLoader" class="md-accent"></md-progress-linear>
-      <md-button class="form-nav-button" ng-click="gotoState('emergencyContacts')">Back</md-button>
-      <md-button class="md-primary md-raised" style="margin-top: 35px" ng-click="submitRegistration()">
+      <md-button class="form-nav-button" ng-click="goToState(null, 'emergencyContacts', 0)">Back</md-button>
+      <md-button class="md-primary md-raised" style="margin-top: 35px" ng-click="submit()">
         <span>Submit</span>
       </md-button>
     </div>

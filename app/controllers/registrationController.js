@@ -121,6 +121,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
             break;
           default:
             $scope.showDefaultPaymentError = true
+            $scope.showLoader = false
             window.scrollTo(0,0)
             break
         }
@@ -156,7 +157,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
           }).finally(function() {
             submitRegistrationToDb(personInfo_json, regInfo_json, emergencyContact1_json, emergencyContact2_json).then(function success(response) {
               $log.log("Yay, reg. submitted! Response: " + dump(response, 'none'))
-              $scope.gotoState('success')
+              $scope.goToState(null, 'success', 0)
             }, function failure(error) {
               $log.log(error)
             })
