@@ -4,6 +4,9 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
   $log.log('VolunteerInfoController is running!')
 
+  // controls which of two phone fields is required
+  $scope.noCellPhone = false
+
   $scope.genders = {
     "female": "Female",
     "male": "Male",
@@ -43,6 +46,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   $scope.highSchools = {
     "huron": "Ann Arbor Huron",
     "pioneer": "Ann Arbor Pioneer",
+    "Skyline": "Ann Arbor Skyline",
     "berkley": "Berkely High School",
     "groves": "Birmingham Groves",
     "seaholm": "Birmingham Seaholm",
@@ -196,26 +200,26 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   }
 
 
-  // $scope.checkForOtherEthnicity = function() {
-  //   $scope.otherEthnicityIsRequired = ($scope.regInfo.ethnicity == "other")
-  //   $log.log("otherEthnicityIsRequired: " + $scope.otherEthnicityIsRequired)
-  // }
+  $scope.checkForOtherEthnicity = function() {
+    $scope.otherEthnicityIsRequired = ($scope.regInfo.ethnicity == "other")
+    $log.log("otherEthnicityIsRequired: " + $scope.otherEthnicityIsRequired)
+  }
 
-  // $scope.checkForOtherReligion = function() {
-  //   $scope.otherReligionIsRequired = ($scope.regInfo.religion == "other")
-  //   $log.log("otherReligionIsRequired: " + $scope.otherReligionIsRequired)
-  // }
+  $scope.checkForOtherReligion = function() {
+    $scope.otherReligionIsRequired = ($scope.regInfo.religion == "other")
+    $log.log("otherReligionIsRequired: " + $scope.otherReligionIsRequired)
+  }
 
   $scope.strToInt = function(whichYear) {
     $scope.regInfo[whichYear] = parseInt($scope.regInfo[whichYear])
     $log.log(whichYear + " is: " + $scope.regInfo[whichYear] + " and is of type " + typeof $scope.regInfo[whichYear])
   }
 
-  $scope.checkForOtherHighSchool = function() {
-    $scope.otherHighSchoolIsRequired = ($scope.regInfo.highSchool == "other")
-    $log.log("otherHighSchoolIsRequired: " + $scope.otherHighSchoolIsRequired)
-    // do not automatically focus "other" input, as this causes it to be marked invalid immediately when it appears
-  }
+  // $scope.checkForOtherHighSchool = function() {
+  //   $scope.otherHighSchoolIsRequired = ($scope.regInfo.highSchool == "other")
+  //   $log.log("otherHighSchoolIsRequired: " + $scope.otherHighSchoolIsRequired)
+  //   // do not automatically focus "other" input, as this causes it to be marked invalid immediately when it appears
+  // }
 
   $scope.checkForOtherGender = function() {
     $scope.otherGenderIsRequired = ($scope.regInfo.gender == "other")

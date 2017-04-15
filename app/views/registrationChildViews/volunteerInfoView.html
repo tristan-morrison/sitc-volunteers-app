@@ -15,14 +15,21 @@
             <input type="text" ng-model="personInfo.lastName" size="30" required>
           </md-input-container>
         </div>
-        <div layout="row" layout-xs="column" class="input-group-container">
-          <md-input-container>
-            <label>Volunteer Phone</label>
-            <input type="text" name="phone" ng-model="regInfo.phone" size="20" ui-mask="(999) 999-9999" clean="true" required>
-          </md-input-container>
+        <div layout="row" layout-xs="column" layout-align="start start" class="input-group-container">
+          <div layout="column">
+            <md-input-container>
+              <label>Volunteer Cell Phone</label>
+              <input type="text" name="phone" ng-model="regInfo.phone" size="20" ui-mask="(999) 999-9999" clean="true" ng-required="!noCellPhone">
+            </md-input-container>
+            <md-input-container>
+              <md-checkbox ng-model="noCellPhone">
+                Volunteer does not have a cell phone
+              </md-checkbox>
+            </md-input-container>
+          </div>
           <md-input-container class="column-interior">
             <label>Home/Alternate Phone</label>
-            <input type="text" name="phone" ng-model="regInfo.altPhone" size="20" ui-mask="(999) 999-9999" clean="true" required>
+            <input type="text" name="phone" ng-model="regInfo.altPhone" size="20" ui-mask="(999) 999-9999" clean="true" ng-required="noCellPhone">
           </md-input-container>
         </div>
         <div class="input-group-container">
@@ -91,62 +98,56 @@
         </md-input-container>
         <br />
         <md-input-container class="other-input-container" ng-if="otherGenderIsRequired">
-          <input type="text" id="otherGender" name="otherGender" ng-model="regInfo.otherGender" placeholder="Other" ng-required="otherGenderIsRequired"/>
+          <input type="text" id="otherGender" name="otherGender" ng-model="regInfo.otherGender" placeholder="Other Gender"/>
         </md-input-container>
       </div>
       <div class="input-group-container">
         <md-input-container class="first-in-group">
-          <h4>Ethnicity</h4>
-          <md-radio-group ng-model="regInfo.ethnicity" ng-change="checkForOtherEthnicity()">
-            <div ng-repeat='(value, label) in ethnicities' class="row">
-              <div flex layout='row' layout-padding layout-align="start center" >
-                <md-radio-button flex ng-value="value" class="md-primary"  >
-                  {{label}}
-                </md-radio-button>
-              </div>
-            </div>
-          </md-radio-group>
-        </md-input-container>
-        <br />
-        <md-input-container class="other-input-container" ng-if="otherEthnicityIsRequired">
-          <input type="text" id="otherEthnicity" name="otherEthnicity" ng-model="regInfo.otherEthnicity" placeholder="Specify" ng-required="otherEthnicityIsRequired"/>
-        </md-input-container>
-      </div>
-      <div class="input-group-container">
-        <md-input-container class="first-in-group">
-          <h4>Religion</h4>
-          <md-radio-group ng-model="regInfo.religion" ng-change="checkForOtherReligion()">
-            <div ng-repeat='(value, label) in religions' class="row">
-              <div flex layout='row' layout-padding layout-align="start center" >
-                <md-radio-button flex ng-value="value" class="md-primary"  >
-                  {{label}}
-                </md-radio-button>
-              </div>
-            </div>
-          </md-radio-group>
-        </md-input-container>
-        <br />
-        <md-input-container class="other-input-container" ng-if="otherReligionIsRequired">
-          <input type="text" id="otherReligion" name="otherReligion" ng-model="regInfo.otherReligion" placeholder="Specify" ng-required="otherReligionIsRequired"/>
-        </md-input-container>
-      </div>
-      <div class="input-group-container" layout="column">
-        <md-input-container class="first-in-group">
-          <md-select ng-model="regInfo.highSchool" md-on-close="checkForOtherHighSchool()" placeholder="High School">
-              <md-select-label>Select a high school</md-select-label>
-              <md-option ng-value="value" ng-repeat="(value, label) in highSchools">{{ label }}</md-option>
+          <md-select ng-model="regInfo.ethnicity" placeholder="Ethnicity" ng-change="checkForOtherEthnicity()">
+            <md-select-label>Select an ethinicity or other</md-select-label>
+            <md-option flex ng-value="value" class="md-primary" ng-repeat='(value, label) in ethnicities' >
+              {{label}}
+            </md-option>
           </md-select>
         </md-input-container>
         <br />
-        <md-input-container ng-if="regInfo.highSchool == 'other'" class="other-input-container">
-          <input type="text" id="otherHighSchool" name="otherHighSchool" ng-model="regInfo.otherHighSchool" placeholder="Other" ng-required="otherHighSchoolIsRequired"/>
+        <md-input-container class="other-input-container" ng-if="otherEthnicityIsRequired">
+          <input type="text" id="otherEthnicity" name="otherEthnicity" ng-model="regInfo.otherEthnicity" placeholder="Other Ethnicity"/>
         </md-input-container>
+      </div>
+      <div class="input-group-container">
+        <md-input-container class="first-in-group">
+          <md-select ng-model="regInfo.religion" ng-change="checkForOtherReligion()" placeholder="Religion">
+            <md-select-label>Select a religion or other</md-select-label>
+            <md-option ng-repeat="(value, label) in religions" ng-value="value">
+              {{label}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <br />
+        <md-input-container class="other-input-container" ng-if="otherReligionIsRequired">
+          <input type="text" id="otherReligion" name="otherReligion" ng-model="regInfo.otherReligion" placeholder="Other Religion"/>
+        </md-input-container>
+      </div>
+      <div class="input-group-container" layout="column">
+        <div layout="row" layout-xs="column">
+          <md-input-container class="first-in-group">
+            <md-select ng-model="regInfo.highSchool" placeholder="High School">
+              <md-select-label>Select a high school</md-select-label>
+              <md-option ng-value="value" ng-repeat="(value, label) in highSchools">{{ label }}</md-option>
+            </md-select>
+          </md-input-container>
+          <div class="md-subhead" id="highSchoolOr">Or</div>
+          <md-input-container id="otherHighSchoolInput" style="margin-left:0 !important">
+            <input type="text" id="otherHighSchool" name="otherHighSchool" ng-model="regInfo.otherHighSchool" placeholder="Other High School" ng-required="otherHighSchoolIsRequired"/>
+          </md-input-container>
+        </div>
         <md-input-container class="hs-grad-year-input-container">
           <label>H.S. Graduation Year</label>
           <input type="text" ng-model="regInfo.hsGradYear" ui-mask="9999" ui-mask-placeholder="yyyy" ui-options="{clearOnBlurPlaceholder:true}" ng-blur="strToInt('hsGradYear')" />
         </md-input-container>
       </div>
-      <div class="input-group-container">
+      <div>
         <md-input-container class="first-in-group">
           <label>College or University (if applicable)</label>
           <input type="text" name="college" size="30" ng-model="regInfo.college">
@@ -168,14 +169,19 @@
       <div class="input-group-container">
         <md-input-container class="first-in-group">
           <h4 style="margin-bottom:0">Primary Carpool Site</h4>
-          <span class="md-subhead" style="padding-bottom:30px;">This is the carpool site you plan to attend most often. You are still welcome to go to others</span>
+          <span class="md-subhead" style="padding-bottom:30px;">This is the carpool site you plan to attend most often, but you are still welcome to go to others!</span>
           <md-radio-group ng-model="personInfo.primaryCarpool_id">
             <div ng-repeat="(siteId, info) in carpoolSites" class="row">
-              <div flex layout='column' layout-padding layout-align="start start" >
-                <md-radio-button ng-value="siteId" aria-label="">
-                  <span>{{ info.displayName }}</span>
-                </md-radio-button>
-                <span class="md-caption" style="cursor:pointer;font-weight:bold;margin-left:30px" ng-click="showMapsModal(info.displayName, info.address, info.city, info.state, info.zip)">{{ info.crossroads }}</span>
+              <div layout="row">
+                <div flex-gt-xs="60" flex-xs="80" layout='column' layout-padding layout-align="start start" >
+                  <md-radio-button ng-value="siteId" aria-label="">
+                    <span>{{ info.displayName }}</span>
+                  </md-radio-button>
+                  <span class="md-caption" style="cursor:pointer;font-weight:bold;margin-left:30px" ng-click="showMapsModal(info.displayName, info.address, info.city, info.state, info.zip)">{{ info.crossroads }}</span>
+                </div>
+                <md-button flex-xs="20" ng-click="showMapsModal(info.displayName, info.address, info.city, info.state, info.zip)">
+                  <md-icon>map</md-icon>
+                </md-button>
               </div>
             </div>
           </md-radio-group>
