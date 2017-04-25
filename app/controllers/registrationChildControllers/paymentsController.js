@@ -41,9 +41,14 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
 
   $scope.generateCheckout = function() {
     $scope.regInfo["paymentAmount"]
-    if ($scope.regInfo.paymentMethod === 'credit_donation') {
+    $log.log("paymentMethod: " + $scope.creditOption)
+    if ($scope.creditOption === 'credit_donation_default_amt') {
       $scope.regInfo.paymentAmount = 8000
-    } else {
+    }
+    else if ($scope.creditOption === 'credit_donation_custom_amt') {
+      $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 40) * 100  
+    }
+    else {
       $scope.regInfo.paymentAmount = 4000
     }
 
@@ -57,7 +62,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
   }
 
   // used for ng-value on radio buttons; for some reason, passing strings was causing all buttons to appear as checked
-  $scope.payMethodValues = ['cash_check', 'credit', 'credit_donation', 'waive']
+  $scope.payMethodValues = ['cash_check', 'credit', 'credit_donation_default_amt', 'credit_donation_custom_amt', 'waive']
 
   $scope.logPaymentMethod = function() {
     $log.log("Payment Method: " + $scope.regInfo.paymentMethod)

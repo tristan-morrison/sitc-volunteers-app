@@ -11,7 +11,7 @@
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">Payment</span>
-          <span class="md-subhead" style="display:block">There is a one-time $40 registration fee to participate with Summer In The City. We spend approximately $20 per volunteer per day on project materials, transportation, and food among other things to provide the Summer in the City experience. We rely on your registration fee to help offset some of these costs.
+          <span class="md-subhead" style="display:block">There is a one-time $40 registration fee to participate with Summer In The City. We spend approximately <span style="text-decoration: underline; font-weight: bold">$20 per volunteer per day</span> on project materials, transportation, and food among other things to provide the Summer in the City experience. We rely on your registration fee to help offset some of these costs.
           <br />
           If you are unable to pay, we are happy to waive the fee. We want Summer in the City to be accessible to anyone and everyone.</span>
         </md-card-title-text>
@@ -23,7 +23,7 @@
             <md-radio-group class="md-primary" name="paymentMethod" ng-model="regInfo.paymentMethod" ng-change="hideError('#paymentMethod')" ng-required="true">
               <div class="row">
                 <div flex layout='column' layout-padding layout-align="start start" >
-                  <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit" ng-disabled="stripeNotLoaded">Credit/debit card</md-radio-button>
+                  <md-radio-button ng-value="payMethodValues[1]" aria-label="Credit/Debit" ng-disabled="stripeNotLoaded">I will pay my registration fee (and consider donating) by credit card.</md-radio-button>
                   <div id="noStripeWarning" ng-show="stripeNotLoaded">
                       Connect to the internet to pay via credit card. If you are already connected, check your connection.
                   </div>
@@ -31,12 +31,12 @@
               </div>
               <div class="row">
                 <div flex layout='row' layout-padding layout-align="start center" >
-                  <md-radio-button ng-value="payMethodValues[0]" aria-label="Cash/Check">Cash, check (turned in on your first day)</md-radio-button>
+                  <md-radio-button ng-value="payMethodValues[0]" aria-label="Cash/Check">I will pay by check or cash (and consider donating) my first day.</md-radio-button>
                 </div>
               </div>
               <div class="row">
                 <div flex layout='row' layout-padding layout-align="start center" >
-                  <md-radio-button ng-value="payMethodValues[3]" aria-label="Waive Fee">Please waive my fee.</md-radio-button>
+                  <md-radio-button ng-value="payMethodValues[4]" aria-label="Waive Fee">I am unable to pay. Please waive my fee.</md-radio-button>
                 </div>
               </div>
             </md-radio-group>
@@ -45,10 +45,10 @@
             </div>
           </md-input-container>
         </div>
-        <div class="payment-group-container" ng-show="regInfo.paymentMethod == 'credit' || regInfo.paymentMethod === 'credit_donation'">
+        <div class="payment-group-container" ng-show="regInfo.paymentMethod == 'credit' || regInfo.paymentMethod === 'credit_donation_default_amt' || regInfo.paymentMethod === 'credit_donation_custom_amt'">
           <md-input-container>
             <h4>Amount</h4>
-            <md-radio-group class="md-primary" ng-model="regInfo.paymentMethod" ng-change="hideError('#amountError')">
+            <md-radio-group class="md-primary" ng-model="creditOption" ng-change="hideError('#amountError')">
               <div class="row">
                 <div flex layout='row' layout-padding layout-align="start center" >
                   <md-radio-button ng-value="payMethodValues[1]" aria-label="$40">$40 - just the registration fee</md-radio-button>
@@ -59,13 +59,21 @@
                   <md-radio-button ng-value="payMethodValues[2]" aria-label="$80">$80 - $40, plus a $40 tax-deductible donation</md-radio-button>
                 </div>
               </div>
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="payMethodValues[3]" aria-label="$80" style="padding-right:0">$40 for registration + a donation of $
+                  </md-radio-button>
+                  <div style="padding:0"><input type="number" ng-model="custom_donation_amt" style="width:60px"/></div>
+                  <div style="font-weight: 500; padding-top: 0; padding-bottom: 0">= ${{ 40 + custom_donation_amt }}</div>
+                </div>
+              </div>
             </md-radio-group>
           </md-input-container>
           <div id="amountError" style="display:none" class="custom-error-message">
             This field is required.
           </div>
         </div>
-        <div class="payment-group-container" ng-show="regInfo.paymentMethod === 'credit' || regInfo.paymentMethod === 'credit_donation'">
+        <div class="payment-group-container" ng-show="regInfo.paymentMethod == 'credit' || regInfo.paymentMethod === 'credit_donation_default_amt' || regInfo.paymentMethod === 'credit_donation_custom_amt'">
           <md-input-container id="paymentInfoContainer">
             <h4 style="margin-bottom:0">Payment Info</h4>
             <md-button class="md-raised" id="paymentInfoButton" ng-class="{'md-accent': regInfo.myPaymentToken == NULL, 'black-primary-text-opacity': regInfo.myPaymentToken == NULL}" ng-click="generateCheckout()" style="margin-left:0">
