@@ -138,12 +138,6 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     "needMoreInfo": "Please contact me with more information about driving."
   }
 
-  $scope.carpoolSites = {}
-  getCarpoolSites().then(function(sites) {
-    $scope.carpoolSites = sites
-  })
-  $log.log("carpoolSites: " + dump($scope.carpoolSites, 'none'))
-
   var todayDate = new Date()
 
   $scope.setBirthdateAndValidate = function() {

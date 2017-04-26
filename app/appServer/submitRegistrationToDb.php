@@ -77,7 +77,7 @@
   // echo "regInfoValues" . $regInfoValues;
 
   $query = "INSERT INTO RegistrationInfo($regInfoFields) VALUES ($regInfoValues)";
-  error_log('Query: ' . $query);
+  // error_log('Query: ' . $query);
   $regInfo_result = $connection->query($query);
   if ($connection->error) {
     die ($connection->error);
