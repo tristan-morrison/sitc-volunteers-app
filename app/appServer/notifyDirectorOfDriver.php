@@ -71,7 +71,7 @@ $mail->setFrom('tech@summerinthecity.com', 'SITC Tech');
 $mail->addAddress('tristan@summerinthecity.com', 'Tristan');
 
 //Set the subject line
-$mail->Subject = 'PHPMailer GMail SMTP test';
+$mail->Subject = 'A car-endowed volunteer just registered.';
 
 $message = '<html><body>';
 $message .= "<h3 style='padding-bottom:0px'>$name just registered, and they said they can drive.</h3>";
