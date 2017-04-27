@@ -1,7 +1,7 @@
 <?php
 
   require_once 'sitc_workforce_creds.php';
-  require_once __DIR__ . '/../../bower_components/PHPMailer/PHPMailerAutoload.php';
+  require_once 'PHPMailerAutoload.php';
 
 
   error_log("*** notifyDirectorOfDriver.php IS RUNNING");
