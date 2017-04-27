@@ -180,7 +180,12 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
         "phone" : $scope.regInfo.phone,
         "carpoolSite" : $scope.carpoolSites[$scope.personInfo.primaryCarpool_id].name
       }
-      notifyDirectorOfDriver(info)
+      notifyDirectorOfDriver(info).then(function success(response) {
+        $log.log("Response from notifyDirectorOfDriver.php: " + dump(response, 'none'))
+      }, function failure (error) {
+        $log.log("error from notifyDirectorOfDriver.php: " + dump(error, 'none'))
+
+      })
     }
   }
 
