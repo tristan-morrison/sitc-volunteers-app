@@ -100,6 +100,22 @@
         </md-card-title>
         <div class="payment-group-container">
           <md-input-container>
+            <h4>Have you volunteered with us before?</h4>
+            <md-radio-group class="md-primary" ng-model="regInfo.firstTimeTeer">
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="0" aria-label="Yes">Yes, and I couldn't help but come back.</md-radio-button>
+                </div>
+              </div>
+              <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center" >
+                  <md-radio-button ng-value="1" aria-label="No">No, but I can't wait to start!</md-radio-button>
+                </div>
+              </div>
+          </md-input-container>
+        </div>
+        <div class="payment-group-container">
+          <md-input-container>
             <h4>T-Shirt Size</h4>
             <md-select class="md-primary" ng-model="regInfo.shirtSize" ng-change="hideError('#tshirtError')" placeholder="Select">
               <md-option ng-repeat="(id, label) in shirtSizes" ng-value="id" required>{{ label }}</md-option>
