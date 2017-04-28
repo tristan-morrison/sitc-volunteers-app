@@ -172,6 +172,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
 
     })
 
+    // send emails to people who are drivers and/or make extra donations
     if ($scope.regInfo.driverPermit === 'isAdult' || $scope.regInfo.driverPermit === 'isMinorWithPermission') {
       var info = {
         "firstName" : $scope.personInfo.firstName,
@@ -189,6 +190,9 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
         $log.log("error from notifyDirectorOfDriver.php: " + dump(error, 'none'))
 
       })
+    }
+
+    if ($scope.regInfo.paymentAmount > 4000) {
     }
   }
 

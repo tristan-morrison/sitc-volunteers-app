@@ -7,6 +7,8 @@
 //This should be done in your php.ini, but this is how to do it if you don't have access to that
 date_default_timezone_set('Etc/UTC');
 
+require_once 'sitc_workforce_creds.php';
+
 require_once __DIR__ . '/../../bower_components/phpmailer/PHPMailerAutoload.php';
 
 //Create a new PHPMailer instance
@@ -72,7 +74,9 @@ $mail->setFrom('tech@summerinthecity.com', 'SITC Registration');
 // $mail->addReplyTo('replyto@example.com', 'First Last');
 
 //Set who the message is to be sent to
-$mail->addAddress('tristan@summerinthecity.com', 'Tristan');
+foreach ($directorEmails as $sendToEmail => $sendToName) {
+  $mail->addAddress($sendToEmail, $sendToName);
+}
 // $mail->addAddress('ben@summerinthecity.com', 'Ben');
 
 //Set the subject line
