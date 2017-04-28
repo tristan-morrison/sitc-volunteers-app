@@ -1,6 +1,6 @@
 var app = angular.module('volunteersApp')
 
-app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '$q', 'submitRegistrationToDb', 'submitRegChargeToStripe', 'getCarpoolSites', 'notifyDirectorOfDriver', function($scope, $log, $http, $state, $q, submitRegistrationToDb, submitRegChargeToStripe, getCarpoolSites, notifyDirectorOfDriver) {
+app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '$q', 'submitRegistrationToDb', 'submitRegChargeToStripe', 'getCarpoolSites', 'notifyDirectorOfDriver', 'notifyDirectorOfDonation', function($scope, $log, $http, $state, $q, submitRegistrationToDb, submitRegChargeToStripe, getCarpoolSites, notifyDirectorOfDriver, notifyDirectorOfDonation) {
 
   $log.log('RegistrationController is running!')
 
@@ -193,6 +193,31 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     }
 
     if ($scope.regInfo.paymentAmount > 4000) {
+      var info = {
+        "firstName" : $scope.personInfo.firstName,
+        "lastName" : $scope.personInfo.lastName,
+        "highSchool" : ($scope.regInfo.highSchool) ? $scope.regInfo.highSchool : $scope.regInfo.otherHighSchool,
+        "hsGradYear" : $scope.regInfo.hsGradYear,
+        "email" : $scope.regInfo.email,
+        "phone" : $scope.regInfo.phone,
+        "carpoolSite" : $scope.carpoolSites[$scope.personInfo.primaryCarpool_id].name,
+        "paymentAmount" : $scope.regInfo.paymentAmount,
+        "emer1_firstName" : $scope.emergencyContact1.firstName,
+        "emer1_lastName" : $scope.emergencyContact1.lastName,
+        "emer1_phone" : $scope.emergencyContact1.phone,
+        "emer1_email" : $scope.emergencyContact1.email,
+        "emer1_altPhone" : $scope.emergencyContact1.altPhone,
+        "emer2_firstName" : $scope.emergencyContact2.firstName,
+        "emer2_lastName" : $scope.emergencyContact2.lastName,
+        "emer2_phone" : $scope.emergencyContact2.phone,
+        "emer2_email" : $scope.emergencyContact2.email,
+        "emer2_altPhone" : $scope.emergencyContact2.altPhone
+      }
+      notifyDirectorOfDonation(info).then(function success(response) {
+        $log.log("Response from notifyDirectorOfDonation.php: " + dump(response, 'none'))
+      }, function failure (error) {
+        $log.log("error from notifyDirectorOfDonation.php: " + dump(error, 'none'))
+      })
     }
   }
 
