@@ -62,13 +62,14 @@ $mail->Username = "webmaster@summerinthecity.com";
 $mail->Password = "sitc+2-0*0/2";
 
 //Set who the message is to be sent from
-$mail->setFrom('tech@summerinthecity.com', 'SITC Tech');
+$mail->setFrom('tech@summerinthecity.com', 'SITC Registration');
 
 // //Set an alternative reply-to address
 // $mail->addReplyTo('replyto@example.com', 'First Last');
 
 //Set who the message is to be sent to
 $mail->addAddress('tristan@summerinthecity.com', 'Tristan');
+$mail->addAddress('ben@summerinthecity.com', 'Ben');
 
 //Set the subject line
 $mail->Subject = 'A car-endowed volunteer just registered.';
