@@ -15,57 +15,57 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
   })
   $log.log("carpoolSites: " + dump($scope.carpoolSites, 'none'))
 
+  if (isDevMode()) {
+    // -- init values for debugging purposes
+    // person values
+    $scope.personInfo["firstName"] = "Audrey"
+    $scope.personInfo["lastName"] = "Black"
+    $scope.personInfo["primaryCarpool_id"] = "aa"
+    $scope.regInfo["birthdate"] = "02/25/1999"
+    $scope.regInfo["phone"] = "6549874560"
+    $scope.regInfo["altPhone"] = "6549873210"
+    $scope.regInfo["email"] = "Audrey@me.com"
+    $scope.regInfo["address"] = "78542 Some St."
+    $scope.regInfo["city"] = "Ann Arbor"
+    $scope.regInfo["state"] = "MI"
+    $scope.regInfo["zip"] = "48209"
+    $scope.regInfo["gender"] = "male"
+    $scope.regInfo["ethnicity"] = "white"
+    $scope.regInfo["religion"] = "hindu"
+    $scope.regInfo["highSchool"] = "Greenhills"
+    $scope.regInfo["hsGradYear"] = 2012
+    $scope.regInfo["college"] = "College of Wooster"
+    $scope.regInfo["colGradYear"] = 2016
+    $scope.regInfo["driverPermit"] = "isAdult"
+    $scope.regInfo["shirtSize"] = "S"
+    $scope.regInfo["paymentMethod"] = "credit"
 
-  // // -- init values for debugging purposes
-  // // person values
-  // $scope.personInfo["firstName"] = "Audrey"
-  // $scope.personInfo["lastName"] = "Black"
-  // $scope.personInfo["primaryCarpool_id"] = "aa"
-  // $scope.regInfo["birthdate"] = "02/25/1999"
-  // $scope.regInfo["phone"] = "6549874560"
-  // $scope.regInfo["altPhone"] = "6549873210"
-  // $scope.regInfo["email"] = "Audrey@me.com"
-  // $scope.regInfo["address"] = "78542 Some St."
-  // $scope.regInfo["city"] = "Ann Arbor"
-  // $scope.regInfo["state"] = "MI"
-  // $scope.regInfo["zip"] = "48209"
-  // $scope.regInfo["gender"] = "male"
-  // $scope.regInfo["ethnicity"] = "white"
-  // $scope.regInfo["religion"] = "hindu"
-  // $scope.regInfo["highSchool"] = "Greenhills"
-  // $scope.regInfo["hsGradYear"] = 2012
-  // $scope.regInfo["college"] = "College of Wooster"
-  // $scope.regInfo["colGradYear"] = 2016
-  // $scope.regInfo["driverPermit"] = "isAdult"
-  // $scope.regInfo["shirtSize"] = "S"
-  // $scope.regInfo["paymentMethod"] = "credit"
-  //
-  // // emergencyContact1 values
-  // $scope.emergencyContact1["firstName"] = "Melissa"
-  // $scope.emergencyContact1["lastName"] = "McCarthy"
-  // $scope.emergencyContact1["email"] = "mom@me.com"
-  // $scope.emergencyContact1["phone"] = "6549876540"
-  // $scope.emergencyContact1["altPhone"] = "4567891320"
-  // $scope.emergencyContact1["address"] = "546 Mystery Rd"
-  // $scope.emergencyContact1["addressLineTwo"] = "apt 56"
-  // $scope.emergencyContact1["city"] = "Farmville"
-  // $scope.emergencyContact1["state"] = "MI"
-  // $scope.emergencyContact1["zip"] = "48209"
-  // $scope.emergencyContact1["sendNewsletter"] = 1
-  // //
-  // // emergencyContact2 values
-  // $scope.emergencyContact2["firstName"] = "Alec"
-  // $scope.emergencyContact2["lastName"] = "Baldwin"
-  // $scope.emergencyContact2["email"] = "dad@me.com"
-  // $scope.emergencyContact2["phone"] = "9874563210"
-  // $scope.emergencyContact2["altPhone"] = "6543219874"
-  // $scope.emergencyContact2["address"] = "546 Mystery Rd"
-  // $scope.emergencyContact2["addressLineTwo"] = "apt 56"
-  // $scope.emergencyContact2["city"] = "Farmville"
-  // $scope.emergencyContact2["state"] = "MI"
-  // $scope.emergencyContact2["zip"] = "48209"
-  // $scope.emergencyContact2["sendNewsletter"] = 0
-
+    // emergencyContact1 values
+    $scope.emergencyContact1["firstName"] = "Melissa"
+    $scope.emergencyContact1["lastName"] = "McCarthy"
+    $scope.emergencyContact1["email"] = "mom@me.com"
+    $scope.emergencyContact1["phone"] = "6549876540"
+    $scope.emergencyContact1["altPhone"] = "4567891320"
+    $scope.emergencyContact1["address"] = "546 Mystery Rd"
+    $scope.emergencyContact1["addressLineTwo"] = "apt 56"
+    $scope.emergencyContact1["city"] = "Farmville"
+    $scope.emergencyContact1["state"] = "MI"
+    $scope.emergencyContact1["zip"] = "48209"
+    $scope.emergencyContact1["sendNewsletter"] = 1
+    //
+    // emergencyContact2 values
+    $scope.emergencyContact2["firstName"] = "Alec"
+    $scope.emergencyContact2["lastName"] = "Baldwin"
+    $scope.emergencyContact2["email"] = "dad@me.com"
+    $scope.emergencyContact2["phone"] = "9874563210"
+    $scope.emergencyContact2["altPhone"] = "6543219874"
+    $scope.emergencyContact2["address"] = "546 Mystery Rd"
+    $scope.emergencyContact2["addressLineTwo"] = "apt 56"
+    $scope.emergencyContact2["city"] = "Farmville"
+    $scope.emergencyContact2["state"] = "MI"
+    $scope.emergencyContact2["zip"] = "48209"
+    $scope.emergencyContact2["sendNewsletter"] = 0
+  }
 
 
   $scope.goToState = function(originForm, destinationState, validate) {
