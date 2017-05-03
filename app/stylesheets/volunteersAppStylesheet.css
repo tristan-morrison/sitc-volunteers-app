@@ -23,6 +23,10 @@ md-input-container {
   margin-bottom: 0;
 }
 
+input {
+  color: black !important;
+}
+
 md-input-container .md-input {
   width: auto;
 }

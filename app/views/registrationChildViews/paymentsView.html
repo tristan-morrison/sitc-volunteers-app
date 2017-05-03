@@ -126,16 +126,37 @@
           </div>
         </div>
         <div class="payment-group-container">
-          <md-input-container>
-            <h4>Part 2 Registration Form</h4>
-            <span class="md-subhead">Your registration isn't complete without this short <a href="media/registrationPartII.pdf" target="blank">written form</a>. Please print it out, complete it, and bring it with you on your first day!</span>
-            <md-radio-group class="md-primary" ng-model="regInfo.turnedInPartTwo" ng-change="hideError('#partTwoError')">
-              <div class="row" ng-repeat="(id, label) in partTwoOptions" required>
-                <div flex layout='row' layout-padding layout-align="start center" >
-                  <md-radio-button ng-value=id aria-label="$40">{{label}}</md-radio-button>
-                </div>
+          <md-input-container style="width:100%">
+            <h4>Release & Waiver of Liability</h4>
+            <!-- <span class="md-subhead">Your registration isn't complete without this short <a href="media/registrationPartII.pdf" target="blank">written form</a>. Please print it out, complete it, and bring it with you on your first day!</span> -->
+            <div layout="column" style="heigh:160px">
+              <iframe src="app/views/waiverText.html" scrolling="yes">
               </div>
-          </md-input-container>
+            </iframe scrolling="yes" style="overflow:scroll">
+            <md-checkbox ng-true-value="1" ng-false-value="0" ng-model="regInfo.turnedInPartTwo" aria-label="string">
+              I have read this waiver and agree to its terms.
+            </md-checkbox>
+          <div layout="row" layout-xs="column" class="input-group-container" style="margin-top:0; margin-bottom:20px">
+            <md-input-container>
+              <label>Volunteer Initials</label>
+              <input type="text" name="initials" ng-model="regInfo.initials" required />
+            </md-input-container>
+            <md-input-container style="padding-left:10px">
+              <label>Date</label>
+              <input type="text" name="initialedDate" ng-model="regInfo.initialedDate" ui-mask-placeholder="mm/dd/yyyy" ui-mask="99/99/9999" ui-options="{allowInvalidValue:true}" required />
+            </md-input-container>
+          </div>
+          <span class="md-subhead">If volunteer is under 18, parent/guardian intials are required</span>
+          <div layout="row" layout-xs="column" class="input-group-container" style="margin-top:0">
+            <md-input-container>
+              <label>Parent/Guardian Initials</label>
+              <input type="text" name="parentInitials" ng-model="regInfo.parentInitials" />
+            </md-input-container>
+            <md-input-container style="padding-left:10px">
+              <label>Date</label>
+              <input type="text" name="parentInitialedDate" ng-model="regInfo.parentInitialedDate" ui-mask-placeholder="mm/dd/yyyy" ui-mask="99/99/9999" ui-options="{allowInvalidValue:true}" />
+            </md-input-container>
+          </div>
           <div id="partTwoError" style="display:none" class="custom-error-message">
             This field is required.
           </div>

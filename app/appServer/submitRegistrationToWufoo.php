@@ -99,7 +99,11 @@
        "colGradYear" => "Field673",
        "paymentMethod" => "Field45",
        "myPaymentToken" => "Field678",
-       "turnedInPartTwo" => "Field148"
+       "turnedInPartTwo" => "Field148",
+       "initials" => "Field680",
+       "initialedDate" => "Field681",
+       "parentInitials" => "Field682",
+       "parentInitialedDate" => "Field683"
      );
 
      $emerCon1Fields = array(
