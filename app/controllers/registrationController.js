@@ -21,7 +21,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     $scope.personInfo["firstName"] = "Audrey"
     $scope.personInfo["lastName"] = "Black"
     $scope.personInfo["primaryCarpool_id"] = "aa"
-    $scope.regInfo["birthdate"] = "02/25/1999"
+    $scope.regInfo["birthdate"] = "02251999"
     $scope.regInfo["phone"] = "6549874560"
     $scope.regInfo["altPhone"] = "6549873210"
     $scope.regInfo["email"] = "Audrey@me.com"
@@ -32,7 +32,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     $scope.regInfo["gender"] = "male"
     $scope.regInfo["ethnicity"] = "white"
     $scope.regInfo["religion"] = "hindu"
-    $scope.regInfo["highSchool"] = "Greenhills"
+    // $scope.regInfo["highSchool"] = "Greenhills"
     $scope.regInfo["hsGradYear"] = 2012
     $scope.regInfo["college"] = "College of Wooster"
     $scope.regInfo["colGradYear"] = 2016

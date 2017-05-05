@@ -236,27 +236,35 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     })
   }
 
+  // $scope.resetValidity = function() {
+  //   $log.log("resetValidity ran!")
+  //   if ($scope.regInfo.otherHighSchool) {
+  //     $log.log("resetValidity condition true!")
+  //     var field = angular.element(document.querySelector('#otherHighSchool'))
+  //     field.removeClass('ng-invalid').removeClass('ng-invalid-one-or-other')
+  //     field = angular.element(document.querySelector('#otherHighSchoolInput'))
+  //     field.removeClass('md-input-invalid')
+  //   }
+  // }
+
   $scope.logPhone = function() {
     $log.log("phone: " + $scope.regInfo.phone)
   }
 
-  // $scope.gotoState = function(originForm, destinationState) {
-  //   if (!$scope[originForm].$valid) {
-  //     // from iandotkelly on StackOverflow
-  //     var firstInvalid = angular.element(document.querySelector('.ng-invalid').querySelector('.ng-invalid'));
-  //     if (firstInvalid) {
-  //       $log.log("Found an invalid field in the form " + originForm + ": " + firstInvalid.name)
-  //       firstInvalid.addClass('ng-touched')
-  //       firstInvalid.focus()
-  //       return
-  //     }
-  //   }
-  //   $state.go('registration.' + destinationState)
-  //   window.scrollTo(0,0)
-  // }
-
   $scope.goToPage = function() {
     $log.log("goToPage ran!")
+    // if (!$scope.regInfo.highSchool && !$scope.regInfo.otherHighSchool) {
+    //   $scope.registrationForm.otherHighSchool.$error.oneOrOther = true
+    //   $scope.registrationForm.otherHighSchool.$setValidity("oneOrOther", false)
+    //   var container = angular.element(document.querySelector('#otherHighSchoolInput'))
+    //   container.addClass('md-input-invalid')
+    //   var field = angular.element(document.querySelector('#otherHighSchool'))
+    //   field.removeClass('ng-untouched').removeClass('ng-pristine')
+    //   field.addClass('ng-touched')
+    //   field = $window.document.getElementById('otherHighSchool')
+    //   field.focus()
+    //   return
+    // }
     $scope.goToState($scope.registrationForm, 'emergencyContacts', 1)
   }
 

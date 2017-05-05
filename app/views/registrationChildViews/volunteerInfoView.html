@@ -139,7 +139,12 @@
           </md-input-container>
           <div class="md-subhead" id="highSchoolOr">Or</div>
           <md-input-container id="otherHighSchoolInput" style="margin-left:0 !important">
-            <input type="text" id="otherHighSchool" name="otherHighSchool" ng-model="regInfo.otherHighSchool" placeholder="Other High School" ng-required="otherHighSchoolIsRequired"/>
+            <input type="text" id="otherHighSchool" name="otherHighSchool" ng-model="regInfo.otherHighSchool" ng-blur="resetValidity()" placeholder="Other High School" ng-required="otherHighSchoolIsRequired" />
+            <div ng-messages="registrationForm.otherHighSchool.$error">
+              <div ng-message="oneOrOther">
+                Please either select a high school or write one in.
+              </div>
+            </div>
           </md-input-container>
         </div>
         <md-input-container class="hs-grad-year-input-container">
