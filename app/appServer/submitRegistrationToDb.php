@@ -64,6 +64,18 @@
     }
   }
 
+  // set value of paymentStatus according to values of paymentMethod
+  if (isset($regInfo["paymentMethod"])) {
+    if ($regInfo["paymentMethod"] == 'credit') {
+      $paymentStatus = 1;
+    }
+    else {
+      $paymentStatus = 0;
+    }
+    array_push($regInfoFields_nums, 'paymentStatus');
+    array_push($regInfoValues_nums, $paymentStatus);
+  }
+
   // add additional vals to query
   array_push($regInfoFields_nums, "person_id", "emerContactPrimary_id", "emerContactSecondary_id");
   array_push($regInfoValues_nums, $person_id, $emerCon1_id, $emerCon2_id);

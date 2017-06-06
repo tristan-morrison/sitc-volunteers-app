@@ -46,7 +46,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
       $scope.regInfo.paymentAmount = 8000
     }
     else if ($scope.creditOption === 'credit_donation_custom_amt') {
-      $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 40) * 100  
+      $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 40) * 100
     }
     else {
       $scope.regInfo.paymentAmount = 4000
