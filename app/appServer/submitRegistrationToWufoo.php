@@ -99,6 +99,7 @@
        "colGradYear" => "Field673",
        "paymentMethod" => "Field45",
        "myPaymentToken" => "Field678",
+       "paymentAmount" => "Field685",
        "turnedInPartTwo" => "Field148",
        "initials" => "Field680",
        "initialedDate" => "Field681",
