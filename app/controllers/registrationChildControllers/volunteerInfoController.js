@@ -221,7 +221,7 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
   }
 
   $scope.fillAddressFields = function() {
-    var myURL = "http://zip.getziptastic.com/v2/US/" + $scope.regInfo.zip
+    var myURL = "https://zip.getziptastic.com/v2/US/" + $scope.regInfo.zip
     $http({
       method: "GET",
       url: myURL
