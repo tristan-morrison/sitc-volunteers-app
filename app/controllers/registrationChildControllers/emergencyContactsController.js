@@ -11,7 +11,7 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
   $scope.emergencyContact1.sendNewsletter = true
   $scope.emergencyContact2.sendNewsletter = true
 
-  $scope.emergencyContactFields = [
+  $scope.emergencyContact1Fields = [
     {
       key: 'firstName',
       type: 'input',
@@ -69,6 +69,74 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
         type: 'email',
         label: 'Email',
         required: 'true'
+      },
+      ngModelElAttrs: {
+        'size': '50'
+      }
+    },
+    {
+      key: 'sendNewsletter',
+      type: 'checkbox',
+      templateOptions: {
+        label: 'I would like to receive the SITC email newsletter'
+      }
+    }
+  ]
+
+  $scope.emergencyContact2Fields = [
+    {
+      key: 'firstName',
+      type: 'input',
+      templateOptions: {
+        type: 'text',
+        label: 'First Name'
+      },
+      ngModelElAttrs: {
+        'size': '30'
+      }
+    },
+    {
+      key: 'lastName',
+      type: 'input',
+      templateOptions: {
+        type: 'text',
+        label: 'Last Name'
+        // onBlur: function(){$log.log("last name: " + $scope.emergencyContact1.lastName)}
+      },
+      ngModelElAttrs: {
+        'size': '30'
+      }
+    },
+    {
+      key: 'phone',
+      type: 'input',
+      templateOptions: {
+        type: 'tel',
+        label: 'Cell Phone'
+      },
+      ngModelElAttrs: {
+        'ui-mask': '(999) 999-9999',
+        'size': '15'
+      }
+    },
+    {
+      key: 'altPhone',
+      type: 'input',
+      templateOptions: {
+        type: 'tel',
+        label: 'Alternate Phone (e.g. home, work)',
+      },
+      ngModelElAttrs: {
+        'ui-mask': '(999) 999-9999',
+        'size': '30'
+      }
+    },
+    {
+      key: 'email',
+      type: 'input',
+      templateOptions: {
+        type: 'email',
+        label: 'Email'
       },
       ngModelElAttrs: {
         'size': '50'

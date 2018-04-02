@@ -5,7 +5,6 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
   $scope.paymentForm = {}
 
   $scope.shirtSizes = {
-    'XS': 'Extra-small',
     'S': 'Small',
     'M': 'Medium',
     'L': 'Large',

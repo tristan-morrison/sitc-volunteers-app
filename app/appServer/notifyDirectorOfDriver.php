@@ -80,7 +80,7 @@ foreach ($directorEmails as $sendToEmail => $sendToName) {
 // $mail->addAddress('ben@summerinthecity.com', 'Ben');
 
 //Set the subject line
-$mail->Subject = 'A car-endowed volunteer just registered.';
+$mail->Subject = "New car-endowed volunteer: $firstName $lastName";
 
 $message = '<html><body>';
 $message .= "<h3 style='padding-bottom:0px'>$firstName $lastName just registered, and they said they can drive.</h3>";
