@@ -60,6 +60,31 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     });
   }
 
+  $scope.paymentRequestObj = stripe.paymentRequest({
+    country: 'US',
+    currency: 'usd',
+    total: {
+      label: 'Demo total',
+      amount: 1000,
+    },
+    requestPayerName: true,
+    requestPayerEmail: true,
+  });
+
+  var elements = stripe.elements();
+  var prButton = elements.create('paymentRequestButton', {
+    paymentRequest: paymentRequest,
+  });
+
+  // Check the availability of the Payment Request API first.
+  paymentRequest.canMakePayment().then(function(result) {
+    if (result) {
+      prButton.mount('#payment-request-button');
+    } else {
+      document.getElementById('payment-request-button').style.display = 'none';
+    }
+  });
+
   // used for ng-value on radio buttons; for some reason, passing strings was causing all buttons to appear as checked
   $scope.payMethodValues = ['cash_check', 'credit', 'credit_donation_default_amt', 'credit_donation_custom_amt', 'waive']
 
