@@ -9,9 +9,15 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
   }
 
   $scope.emergencyContact1.sendNewsletter = true
-  $scope.emergencyContact2.sendNewsletter = true
 
   $scope.emergencyContact1Fields = [
+    {
+      key: 'nonParent',
+      type: 'checkbox',
+      templateOptions: {
+        label: 'I am 18 or older and am listing a non-parent as my emergency contact'
+      }
+    },
     {
       key: 'firstName',
       type: 'input',
@@ -163,12 +169,6 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
       if (!$scope.emergencyContact1Form.$valid) {
         $log.log("Emergency Contact 1 form is not valid!")
         // we use a different querySelector here because of formly weirdness; it currently only works because all of the inputs are actually <input> tags
-        var firstInvalid = angular.element(document.querySelector('input.ng-invalid'));
-        firstInvalid.addClass('ng-touched')
-        firstInvalid.focus()
-        return
-      }
-      else if (!$scope.emergencyContact2Form.$valid) {
         var firstInvalid = angular.element(document.querySelector('input.ng-invalid'));
         firstInvalid.addClass('ng-touched')
         firstInvalid.focus()

@@ -34,11 +34,11 @@
         </div>
         <div class="input-group-container">
           <md-input-container class="first-in-group xs-max-width">
-            <label>Email</label>
+            <label>Volunteer Email</label>
             <input type="email" name="email" ng-model="regInfo.email" required>
             <div ng-messages="registrationForm.email.$error">
               <div ng-message="email">
-                Oops, please enter a valid email address.
+                Please enter a valid email address.
               </div>
             </div>
           </md-input-container>
@@ -132,19 +132,7 @@
       <div class="input-group-container" layout="column">
         <div layout="row" layout-xs="column">
           <md-input-container class="first-in-group">
-            <md-select ng-model="regInfo.highSchool" placeholder="High School">
-              <md-select-label>Select a high school</md-select-label>
-              <md-option ng-value="value" ng-repeat="(value, label) in highSchools">{{ label }}</md-option>
-            </md-select>
-          </md-input-container>
-          <div class="md-subhead" id="highSchoolOr">Or</div>
-          <md-input-container id="otherHighSchoolInput" style="margin-left:0 !important">
-            <input type="text" id="otherHighSchool" name="otherHighSchool" ng-model="regInfo.otherHighSchool" ng-blur="resetValidity()" placeholder="Other High School" ng-required="otherHighSchoolIsRequired" />
-            <div ng-messages="registrationForm.otherHighSchool.$error">
-              <div ng-message="oneOrOther">
-                Please either select a high school or write one in.
-              </div>
-            </div>
+            <input type="text" id="highSchool" name="highSchool" ng-model="regInfo.highSchool" placeholder="High School" ng-required="true"  />
           </md-input-container>
         </div>
         <md-input-container class="hs-grad-year-input-container">
@@ -180,11 +168,11 @@
               <div layout="row">
                 <div flex-gt-xs="60" flex-xs="80" layout='column' layout-padding layout-align="start start" >
                   <md-radio-button ng-value="siteId" aria-label="">
-                    <span>{{ info.displayName }}</span>
+                    <span>{{ info['Name'] }}</span>
                   </md-radio-button>
-                  <span class="md-caption" style="cursor:pointer;font-weight:bold;margin-left:30px" ng-click="showMapsModal(info.displayName, info.address, info.city, info.state, info.zip)">{{ info.crossroads }}</span>
+                  <span class="md-caption" style="cursor:pointer;font-weight:bold;margin-left:30px" ng-click="showMapsModal(info['Name'], info['Address'])">{{ info['Meeting Point'] }}</span>
                 </div>
-                <md-button flex-xs="20" ng-click="showMapsModal(info.displayName, info.address, info.city, info.state, info.zip)">
+                <md-button flex-xs="20" ng-click="showMapsModal(info['Name'], info['Address'])">
                   <md-icon>place</md-icon>
                   <span>View map</span>
                 </md-button>

@@ -50,13 +50,16 @@ app.factory('getCarpoolSites', ['$log', '$q', '$http', function($log, $q, $http)
     var defer = $q.defer()
 
      $http({
-      url: "app/appServer/getCarpoolSites.php",
+      url: "https://api.airtable.com/v0/appNWDa6ZElvW44m2/Carpool%20Sites?api_key=keydn7CwS79jE483I",
       method: "GET"
     }).then(
       function(response) {
         var sites = {}
-        response.data.forEach(function(currentSite) {
-          sites[currentSite.carpoolSite_id] = currentSite
+        console.log(response.data)
+        response.data['records'].forEach(function(currentSite) {
+          sites[currentSite.id] = currentSite.fields
+          sites[currentSite.id]['id'] = currentSite.id
+          console.log(sites[currentSite.id])
         })
 
         defer.resolve(sites)

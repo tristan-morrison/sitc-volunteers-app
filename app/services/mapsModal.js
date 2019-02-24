@@ -2,25 +2,21 @@ var app = angular.module('volunteersApp')
 
 app.factory('mapsModal', ['$log', '$q', '$http', '$sce', '$mdDialog', function($log, $q, $http, $sce, $mdDialog) {
 
-  return function(myDisplayName, myAddress, myCity, myState, myZip) {
+  return function(myDisplayName, myAddress) {
     $mdDialog.show({
       templateUrl: 'app/views/modals/mapsModalView.html',
       clickOutsideToClose: true,
       locals: {
         'displayName': myDisplayName,
-        'address': myAddress,
-        'city': myCity,
-        'state': myState,
-        'zip': myZip
+        'address': myAddress
       },
-      controller: ['$scope', '$log', '$mdDialog', '$sce', 'displayName', 'address', 'city', 'state', 'zip', function($scope, $log, $mdDialog, $sce, displayName, address, city, state, zip) {
+      controller: ['$scope', '$log', '$mdDialog', '$sce', 'displayName', 'address', function($scope, $log, $mdDialog, $sce, displayName, address) {
           var apiKey = getGoogleMapsAPIKey()
 
           $scope.displayName = displayName
 
           address = address.split(" ").join("+")
-          city = city.split(" ").join("+")
-          var addressString = address + "+" + city + "+" + state + "+" + zip
+          var addressString = address
           var urlString = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${addressString}`
           $scope.srcUrl = $sce.trustAsResourceUrl(urlString)
           $log.log("srcUrl: " + $scope.srcUrl)

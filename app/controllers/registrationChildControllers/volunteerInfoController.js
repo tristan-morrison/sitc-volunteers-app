@@ -133,9 +133,8 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
 
   $scope.driverPermitOptions = {
     "isAdult": "I am 18, I meet the requirements and can drive if needed.",
-    "isMinorWithPermission": "My child is 17, meets the requirements and has my permission to drive if needed.",
-    "noPermission": "My child does not drive/does not have permission to drive.",
-    "needMoreInfo": "Please contact me with more information about driving."
+    "isMinorWithPermission": "I am 17 and have parent permission to drive if needed",
+    "noPermission": "I cannot drive",
   }
 
   var todayDate = new Date()
@@ -161,8 +160,9 @@ app.controller('VolunteerInfoController', ['$scope', '$log', '$window', '$http',
     var minEligibleDate = new Date(todayDate)
     minEligibleDate.setMonth(7)
 
-    // set to 14 years prior to August of this year
-    minEligibleDate.setFullYear(minEligibleDate.getFullYear() - 14)
+    // set to 10 years prior to August of this year
+    // Min teer age is 14, but here we allow for some leeway to accomodate certain anomalous cases
+    minEligibleDate.setFullYear(minEligibleDate.getFullYear() - 10)
 
     $log.log(minEligibleDate.getFullYear())
 

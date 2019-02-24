@@ -67,6 +67,8 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     $scope.emergencyContact2["sendNewsletter"] = 0
   }
 
+  // make MI default state
+  $scope.regInfo["state"] = "MI"
 
   $scope.goToState = function(originForm, destinationState, validate) {
     $log.log("destinationState: " + destinationState + ", originForm: " + originForm)
