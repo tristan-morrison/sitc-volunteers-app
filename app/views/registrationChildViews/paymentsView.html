@@ -144,9 +144,9 @@
       </div>
     </div>
     <div class="payment-group-container" ng-show="regInfo.paymentMethod == 'credit' || regInfo.paymentMethod === 'credit_donation_default_amt' || regInfo.paymentMethod === 'credit_donation_custom_amt'">
-      <md-input-container id="paymentInfoContainer">
+      <!-- <md-input-container id="paymentInfoContainer"> -->
         <h4 style="margin-bottom:0">Payment Info</h4>
-        <div id="card-element">
+        <div id="paymentRequestButton" style="max-width: 250px">
             <!-- Payment request button goes here -->
         </div>
         <md-button class="md-raised" id="paymentInfoButton" ng-class="{'md-accent': regInfo.myPaymentToken == NULL, 'black-primary-text-opacity': regInfo.myPaymentToken == NULL}" ng-click="generateCheckout()" style="margin-left:0">
@@ -162,7 +162,7 @@
             No payment info was saved. Please try again.
           </div>
         </div>
-      </md-input-container>
+      <!-- </md-input-container> -->
     </div>
     </md-card>
   </form>

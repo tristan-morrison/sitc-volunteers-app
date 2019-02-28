@@ -6,3 +6,5 @@ media
 .htaccess
 tools/vendor
 
+app/appServer/stripe_api_key.php
+.well-known/

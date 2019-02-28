@@ -60,6 +60,8 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     });
   }
 
+  var stripe = Stripe('pk_test_MAi5X0RDzUYfCXELpoSOZ3nS');
+
   $scope.paymentRequestObj = stripe.paymentRequest({
     country: 'US',
     currency: 'usd',
@@ -73,17 +75,72 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
 
   var elements = stripe.elements();
   var prButton = elements.create('paymentRequestButton', {
-    paymentRequest: paymentRequest,
+    paymentRequest: $scope.paymentRequestObj,
   });
 
   // Check the availability of the Payment Request API first.
-  paymentRequest.canMakePayment().then(function(result) {
+  $scope.paymentRequestObj.canMakePayment().then(function(result) {
     if (result) {
-      prButton.mount('#payment-request-button');
+      prButton.mount('#paymentRequestButton');
     } else {
-      document.getElementById('payment-request-button').style.display = 'none';
+      document.getElementById('paymentRequestButton').style.display = 'none';
     }
   });
+
+  prButton.on('click', function(ev) {
+    ev.preventDefault();
+
+    if ($scope.creditOption === 'credit_donation_default_amt') {
+      $scope.regInfo.paymentAmount = 7600
+    }
+    else if ($scope.creditOption === 'credit_donation_custom_amt') {
+      $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 36) * 100
+    }
+    else {
+      $scope.regInfo.paymentAmount = 3600
+    }
+
+    $scope.paymentRequestObj.update({
+      total: {
+        amount: $scope.regInfo.paymentAmount,
+        label: "Donation"
+      }
+    })
+
+    $scope.paymentRequestObj.show();
+  })
+
+  $scope.paymentRequestObj.on('token', function(ev) {
+
+    var amount = $scope.regInfo.paymentAmount
+    var name = "testing"
+    var description = "Registration for " + name
+    var statement_descriptor = "Summer in the City"
+
+    // Send the token to your server to charge it!
+    fetch('./app/appServer/submitChargeToStripe.php', {
+      method: 'POST',
+      body: JSON.stringify({
+        amount: amount,
+        currency: 'usd',
+        source: ev.token.id,
+        description: description,
+        statement_descriptor: statement_descriptor,
+      }),
+      headers: {'content-type': 'application/json'},
+    })
+    .then(function (response) {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return response.text()
+      }
+    }).then(function (jsonContent) {
+      console.log(jsonContent);
+      ev.complete('success')
+    })
+})
+
 
   // used for ng-value on radio buttons; for some reason, passing strings was causing all buttons to appear as checked
   $scope.payMethodValues = ['cash_check', 'credit', 'credit_donation_default_amt', 'credit_donation_custom_amt', 'waive']
@@ -103,6 +160,8 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     var field = $window.document.getElementById('paymentInfoButton')
     field.focus()
   }
+
+
 
   // $scope.goBack = function() {
   //
