@@ -1,8 +1,9 @@
 <?php
 
   // API key loads from here so that test key is used in dev environ but live key is used on server
-  require_once 'stripe_api_key.php';
+  require_once 'sitc_workforce_creds.php';
   require_once __DIR__ . '/../../bower_components/stripe-php/init.php';
+
 
   $inputJSON = file_get_contents('php://input');
   $input = json_decode($inputJSON, TRUE);
@@ -21,7 +22,8 @@
     "currency" => $currency,
     "source" => $source,
     "description" => $description,
-    "statement_descriptor" => $statement_descriptor
+    "statement_descriptor" => $statement_descriptor,
+    "capture" => false
   );
 
   try {

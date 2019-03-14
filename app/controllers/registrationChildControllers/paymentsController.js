@@ -1,6 +1,6 @@
 var app = angular.module('volunteersApp')
 
-app.controller('PaymentsController', ['$scope', '$log', '$window', function($scope, $log, $window) {
+app.controller('PaymentsController', ['$scope', '$log', '$window', 'submitChargeToStripe', function($scope, $log, $window, submitChargeToStripe) {
 
   $scope.paymentForm = {}
 
@@ -15,27 +15,6 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
   $scope.partTwoOptions = {
     0: 'Okay, I will print Part 2 and bring it with me on my first day!',
     1: 'I already turned in my Part 2 form.'
-  }
-
-  $log.log("Stripe API Key: " + getStripeAPIKey_pk())
-
-  if (typeof StripeCheckout != "undefined") {
-    var checkoutObj = StripeCheckout.configure({
-      key: getStripeAPIKey_pk(), //SITC publishable test API key
-      locale: 'auto',
-      token: function(token) {
-        $log.log("Yay! Checkout ran and got this token: " + token.id)
-        $scope.regInfo.myPaymentToken = token.id
-        $scope.$digest()
-      }
-    })
-  }
-  else {
-    angular.element(function() { // wait for the DOM element to load before we try to access it
-      $scope.stripeNotLoaded = true
-      $scope.paymentForm.paymentMethod.$error.noStripe = true
-      $scope.paymentForm.paymentMethod.$setValidity("noStripe", false)
-    })
   }
 
   $scope.generateCheckout = function() {
@@ -60,7 +39,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     });
   }
 
-  var stripe = Stripe('pk_test_MAi5X0RDzUYfCXELpoSOZ3nS');
+  var stripe = Stripe(getStripeAPIKey_pk());
 
   $scope.paymentRequestObj = stripe.paymentRequest({
     country: 'US',
@@ -90,24 +69,26 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
   prButton.on('click', function(ev) {
     ev.preventDefault();
 
-    if ($scope.creditOption === 'credit_donation_default_amt') {
-      $scope.regInfo.paymentAmount = 7600
-    }
-    else if ($scope.creditOption === 'credit_donation_custom_amt') {
-      $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 36) * 100
-    }
-    else {
-      $scope.regInfo.paymentAmount = 3600
-    }
-
-    $scope.paymentRequestObj.update({
-      total: {
-        amount: $scope.regInfo.paymentAmount,
-        label: "Donation"
+    if (formIsValid()) {
+      if ($scope.creditOption === 'credit_donation_default_amt') {
+        $scope.regInfo.paymentAmount = 7600
       }
-    })
+      else if ($scope.creditOption === 'credit_donation_custom_amt') {
+        $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 36) * 100
+      }
+      else {
+        $scope.regInfo.paymentAmount = 3600
+      }
 
-    $scope.paymentRequestObj.show();
+      $scope.paymentRequestObj.update({
+        total: {
+          amount: $scope.regInfo.paymentAmount,
+          label: "Donation"
+        }
+      })
+
+      $scope.paymentRequestObj.show();
+    }
   })
 
   $scope.paymentRequestObj.on('token', function(ev) {
@@ -131,15 +112,112 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
     })
     .then(function (response) {
       if (response.ok) {
-        return response.json()
+        response.json().then(function (responseJson) {
+          $scope.submitRegistration(responseJson.id)
+        })
       } else {
         return response.text()
       }
-    }).then(function (jsonContent) {
-      console.log(jsonContent);
-      ev.complete('success')
     })
 })
+
+// card element
+var elements = stripe.elements();
+
+var style = {
+  base: {
+    color: '#32325d',
+    fontFamily: 'Roboto',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+var card = elements.create('card', {style: style});
+
+card.mount('#card-element');
+
+card.addEventListener('change', function (event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+})
+
+var form = document.getElementById('paymentForm');
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function (result) {
+    if (result.error) {
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      stripeTokenHandler(result.token);
+    }
+  })
+})
+
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+function stripeTokenHandler (token) {
+
+  if (formIsValid()) {
+    if ($scope.creditOption === 'credit_donation_default_amt') {
+      $scope.regInfo.paymentAmount = 7600
+    }
+    else if ($scope.creditOption === 'credit_donation_custom_amt') {
+      $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 36) * 100
+    }
+    else {
+      $scope.regInfo.paymentAmount = 3600
+    }
+
+    var amount = $scope.regInfo.paymentAmount
+    var name = "testing"
+    var description = "Registration for " + name
+    var statement_descriptor = "Summer in the City"
+
+    var paymentPayload = {
+      amount: amount,
+      currency: 'usd',
+      source: token.id,
+      description: description,
+      statement_descriptor: statement_descriptor,
+    };
+
+    submitChargeToStripe(paymentPayload).then(function (response) {
+      if (response.status == 200) {
+        response.json().then(function (responseJson) {
+          console.log(responseJson);
+          $scope.submitRegistration(responseJson.id)
+        })
+      } else {
+        response.json().then(function (responseJson) {
+          document.getElementById("card-errors").innerHTML = responseJson.message
+
+        })
+      }
+    })
+  }
+
+}
 
 
   // used for ng-value on radio buttons; for some reason, passing strings was causing all buttons to appear as checked
@@ -181,16 +259,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', function($sco
         return
       }
     }
-    else if ($scope.paymentMethod == 'credit' && ($scope.regInfo.myPaymentToken == null || $scope.regInfo.myPaymentToken == '')) {
-      $log.log("no payment token!!")
-      $scope.paymentForm.paymentInfo.$error.noToken = true
-      $scope.paymentForm.paymentInfo.$setValidity("noToken", false)
-      $scope.paymentForm.paymentInfo.$setTouched()
-      var field = $window.document.getElementById('paymentInfoButton')
-      field.focus()
-    } else {
-      return true
-    }
+    return true
   }
 
   $scope.submit = function() {

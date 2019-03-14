@@ -1,24 +1,27 @@
 var app = angular.module('volunteersApp')
 
-app.factory('submitRegChargeToStripe', ['$log', '$q', '$http', function($log, $q, $http) {
+app.factory('submitChargeToStripe', ['$log', '$q', '$http', function($log, $q, $http) {
 
-  return function(myStripeToken, myAmount, myVolName) {
+  return function(payload) {
 
-    var description = "Summer in the City registration fee for " + myVolName
-    var statementLabel = "Sum in the City Reg."
+    return fetch('./app/appServer/submitChargeToStripe.php', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {'content-type': 'application/json'},
+    })
+  }
 
 
-    return $http({
-      method: "POST",
-      url: "app/appServer/submitChargeToStripe.php",
-      params: {
-        "amount": myAmount,
-        "currency": "USD",
-        "description": description,
-        "shipping": null,
-        "source": myStripeToken,
-        "statement_descriptor": statementLabel,
-      }
+}])
+
+app.factory('captureCharge', ['$log', '$q', '$http', function($log, $q, $http) {
+
+  return function(chargeId) {
+
+    return fetch('./app/appServer/captureStripeCharge.php', {
+      method: 'POST',
+      body: JSON.stringify({chargeId: chargeId}),
+      headers: {'content-type': 'application/json'},
     })
   }
 
@@ -69,5 +72,12 @@ app.factory('getCarpoolSites', ['$log', '$q', '$http', function($log, $q, $http)
       })
 
     return defer.promise
+  }
+}])
+
+app.factory('submitRegistrationToAirtable', ['$log', '$q', '$http', function($log, $q, $http) {
+
+  return function(payload) {
+    return $http.post("app/appServer/submitRegistrationToAirtable.php", payload);
   }
 }])

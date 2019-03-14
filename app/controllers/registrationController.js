@@ -1,6 +1,6 @@
 var app = angular.module('volunteersApp')
 
-app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '$q', 'submitRegistrationToDb', 'submitRegChargeToStripe', 'getCarpoolSites', 'notifyDirectorOfDriver', 'notifyDirectorOfDonation', function($scope, $log, $http, $state, $q, submitRegistrationToDb, submitRegChargeToStripe, getCarpoolSites, notifyDirectorOfDriver, notifyDirectorOfDonation) {
+app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '$q', 'submitRegistrationToDb', 'submitChargeToStripe', 'getCarpoolSites', 'notifyDirectorOfDriver', 'notifyDirectorOfDonation', 'submitRegistrationToAirtable', 'captureCharge', function($scope, $log, $http, $state, $q, submitRegistrationToDb, submitChargeToStripe, getCarpoolSites, notifyDirectorOfDriver, notifyDirectorOfDonation, submitRegistrationToAirtable, captureCharge) {
 
   $log.log('RegistrationController is running!')
 
@@ -20,7 +20,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     // person values
     $scope.personInfo["firstName"] = "Audrey"
     $scope.personInfo["lastName"] = "Black"
-    $scope.personInfo["primaryCarpool_id"] = "aa"
+    $scope.personInfo["primaryCarpool_id"] = "recSzSWb5Ex1beUOo"
     $scope.regInfo["birthdate"] = "02251999"
     $scope.regInfo["phone"] = "6549874560"
     $scope.regInfo["altPhone"] = "6549873210"
@@ -95,7 +95,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
    * Pre: All properties of $scope.regInfo that hold info required by Wufoo or app db are defined with valid values
    * Post: Records in the Wufoo form and the app db have been created with this user's data
    */
-  $scope.submitRegistration = function() {
+  $scope.submitRegistration = function(chargeId = null) {
     $scope.showLoader = true
 
     var personInfo_json = $scope.personInfo
@@ -110,69 +110,34 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     var emergencyContact2_json = $scope.emergencyContact2
     JSON.stringify(emergencyContact2_json)
 
-    var submitRegInfo_defer = $q.defer()
-    var submitRegInfo_promise = submitRegInfo_defer.promise
-
-    if ($scope.regInfo.paymentMethod === "credit" || $scope.regInfo.paymentMethod === "credit_donation") {
-      var chargeSubmit = submitRegChargeToStripe($scope.regInfo.myPaymentToken, $scope.regInfo.paymentAmount, ($scope.personInfo.firstName + " " + $scope.personInfo.lastName))
-
-      chargeSubmit.then(function success() {
-        $log.log("Payment submitted successfully");
-        submitRegInfo_defer.resolve()
-      }, function failure(error) {
-        $log.log("Stipe request failed with status: " + error.status)
-
-        switch (error.status) {
-          case 402:
-            $log.log("The charge was rejected by Stripe\n")
-            $log.log("Error message: " + error.data.message)
-            $scope.paymentError("invalidNumber")
-            break;
-          default:
-            $scope.showDefaultPaymentError = true
-            $scope.showLoader = false
-            window.scrollTo(0,0)
-            break
-        }
-        return;
-      })
-    } // end if(paymentMethod = credit or credit_donation)
-    else {
-      submitRegInfo_defer.resolve()
-    }
-
-    submitRegInfo_promise.then(function() {
-        return $http({
-          method: "POST",
-          url: "app/appServer/submitRegistrationToWufoo.php",
-          params: {
-            "personInfo" : personInfo_json,
-            "regInfo" : regInfo_json,
-            "emergencyContact1" : emergencyContact1_json,
-            "emergencyContact2" : emergencyContact2_json
-          }
-        }).then(function success(response) {
-            var wufooResponseObj = response.data
-
-            if (!wufooResponseObj["Success"]) {
-              $log.log("The Wufoo submission failed!! :(")
-              $log.log("Wufoo Response: " + dump(wufooResponseObj, 'none'))
-              // somehow, notify directors that this person's Wufoo submission needs to be manaully reviewed
+    submitRegistrationToAirtable({
+      "personInfo" : personInfo_json,
+      "regInfo" : regInfo_json,
+      "emergencyContact1" : emergencyContact1_json
+    }).then(function success(response) {
+      var content = response.data;
+      if (response.status == 200 && content.id) {
+        if (chargeId) {
+          captureCharge(chargeId).then(function success(response) {
+            if (response.status == 200) {
+              $log.log("SUCCESS!");
+              $log.log(response.data);
+              $scope.goToState(null, 'success', 0);
             }
           }, function failure(response) {
-            $log.log("The Wufoo submission $http came back rejected!! :(")
-            // somehow, notify directors that this person's Wufoo submission needs to be manaully reviewed
-
-          }).finally(function() {
-            submitRegistrationToDb(personInfo_json, regInfo_json, emergencyContact1_json, emergencyContact2_json).then(function success(response) {
-              $log.log("Yay, reg. submitted! Response: " + dump(response, 'none'))
-              $scope.goToState(null, 'success', 0)
-            }, function failure(error) {
-              $log.log(error)
-            })
+            $log.log("FAILURE!");
+            $log.log(response);
+            $scope.goToState(null, 'failure', 0);
           })
+        } else {
+          $scope.goToState(null, 'success', 0);
+        }
+      }
+    }, function failure(response) {
+        $scope.goToState(null, 'failure', 0);
 
     })
+
 
     // send emails to people who are drivers and/or make extra donations
     if ($scope.regInfo.driverPermit === 'isAdult' || $scope.regInfo.driverPermit === 'isMinorWithPermission') {
@@ -183,7 +148,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
         "hsGradYear" : $scope.regInfo.hsGradYear,
         "email" : $scope.regInfo.email,
         "phone" : $scope.regInfo.phone,
-        "carpoolSite" : $scope.carpoolSites[$scope.personInfo.primaryCarpool_id].name,
+        "carpoolSite" : $scope.carpoolSites[$scope.personInfo.primaryCarpool_id]['Shortname'],
         "firstTimeTeer" : $scope.regInfo.firstTimeTeer
       }
       notifyDirectorOfDriver(info).then(function success(response) {

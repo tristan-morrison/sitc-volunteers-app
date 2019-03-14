@@ -31,6 +31,12 @@ app.config(function($stateProvider) {
       templateUrl: 'app/views/registrationChildViews/successView.html',
       controller: 'SuccessController'
     })
+
+    .state('registration.failure', {
+      url: '/error',
+      templateUrl: 'app/views/registrationChildViews/failureView.html',
+      controller: 'FailureController'
+    })
 })
 
 //open to volunteer info page by default

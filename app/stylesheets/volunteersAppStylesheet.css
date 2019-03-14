@@ -186,3 +186,19 @@ md-radio-button {
       -webkit-box-shadow: 1px 1px 10px #999;
       box-shadow: 1px 1px 10px #999;
   }
+
+#paymentRequestButton, .form-row {
+  margin-top: 10px;
+}
+
+.StripeElement {
+  border-bottom-color: rgba(0, 0, 0, 0.12);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.StripeElement--focus {
+  border-bottom-color: rgba(0, 188, 212, 0.87);
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+}
