@@ -4,7 +4,6 @@
   require_once 'sitc_workforce_creds.php';
   require_once __DIR__ . '/../../bower_components/stripe-php/init.php';
 
-
   $inputJSON = file_get_contents('php://input');
   $input = json_decode($inputJSON, TRUE);
 
@@ -14,6 +13,7 @@
   $shipping = isset($input["shipping"]) ? sanitize($input["shipping"]) : "";
   $source = isset($input["source"]) ? sanitize($input["source"]) : "";
   $statement_descriptor = isset($input["statement_descriptor"]) ? sanitize($input["statement_descriptor"]) : "Summer in the City";
+
 
   \Stripe\Stripe::setApiKey($stripeAPIKey_sk);
 
@@ -25,6 +25,7 @@
     "statement_descriptor" => $statement_descriptor,
     "capture" => false
   );
+
 
   try {
     $charge = \Stripe\Charge::create($chargeParams);

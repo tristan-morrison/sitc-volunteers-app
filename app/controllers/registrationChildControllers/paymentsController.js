@@ -39,6 +39,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', 'submitCharge
     });
   }
 
+  console.log(getStripeAPIKey_pk());
   var stripe = Stripe(getStripeAPIKey_pk());
 
   $scope.paymentRequestObj = stripe.paymentRequest({
@@ -113,9 +114,11 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', 'submitCharge
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (responseJson) {
+          ev.complete("success")
           $scope.submitRegistration(responseJson.id)
         })
       } else {
+        ev.complete("fail");
         return response.text()
       }
     })
