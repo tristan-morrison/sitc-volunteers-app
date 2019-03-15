@@ -19,12 +19,12 @@
             <md-radio-group class="md-primary" ng-model="regInfo.firstTimeTeer">
               <div class="row">
                 <div flex layout='row' layout-padding layout-align="start center" >
-                  <md-radio-button ng-value="0" aria-label="Yes">Yes, and I couldn't help but come back.</md-radio-button>
+                  <md-radio-button ng-value="0" aria-label="Yes">Yes</md-radio-button>
                 </div>
               </div>
               <div class="row">
                 <div flex layout='row' layout-padding layout-align="start center" >
-                  <md-radio-button ng-value="1" aria-label="No">No, but I can't wait to start!</md-radio-button>
+                  <md-radio-button ng-value="1" aria-label="No">No</md-radio-button>
                 </div>
               </div>
           </md-input-container>
@@ -52,7 +52,7 @@
             </md-checkbox>
           <div layout="row" layout-xs="column" class="input-group-container" style="margin-top:0; margin-bottom:20px">
             <md-input-container>
-              <label>Volunteer Initials</label>
+              <label>Volunteer Signature</label>
               <input type="text" name="initials" ng-model="regInfo.initials" required />
             </md-input-container>
             <md-input-container style="padding-left:10px">
@@ -60,7 +60,7 @@
               <input type="text" name="initialedDate" ng-model="regInfo.initialedDate" ui-mask-placeholder="mm/dd/yyyy" ui-mask="99/99/9999" ui-options="{allowInvalidValue:true}" required />
             </md-input-container>
           </div>
-          <span class="md-subhead">If volunteer is under 18, parent/guardian intials are required</span>
+          <span class="md-subhead">If volunteer is under 18, parent/guardian signature is required</span>
           <div layout="row" layout-xs="column" class="input-group-container" style="margin-top:0">
             <md-input-container>
               <label>Parent/Guardian Initials</label>
@@ -83,7 +83,7 @@
         <span class="md-headline">Payment</span>
         <span class="md-subhead" style="display:block">There is a one-time $40 registration fee to participate with Summer in the City. We spend approximately $20 per volunteer <span style="font-style: italic">per day</span> on project materials, transportation, facilitation and food  among other things. We rely on your registration fee (and the deductible donations of families like yours) to sustain our programming.
       </span>
-      <span class="md-subhead" style="margin-top: 10px; padding: 0">Pay online now and recieve a 10% discout and get your T-shirt upon arrival on your first day.</span>
+      <span class="md-subhead" style="margin-top: 10px; padding: 0">Pay online now and recieve a 10% discount and get your T-shirt upon arrival on your first day.</span>
       <span class="md-subhead" style="margin-top: 10px; padding: 0">If you are unable to pay, we will waive the fee, no questions asked.</span>
     </md-card-title-text>
   </md-card-title>
@@ -127,12 +127,12 @@
         </div>
         <div class="row">
           <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="payMethodValues[2]" aria-label="$76">$76 - discounted registration fee plus a $40 tax-deductible donation</md-radio-button>
+            <md-radio-button ng-value="payMethodValues[2]" aria-label="$80">$80 - registration fee plus a tax-deductible donation</md-radio-button>
           </div>
         </div>
         <div class="row">
           <div flex layout='row' layout-padding layout-align="start center" >
-            <md-radio-button ng-value="payMethodValues[3]" aria-label="$80" style="padding-right:0">$36 for registration + a donation of $
+            <md-radio-button ng-value="payMethodValues[3]" aria-label="custom amount" style="padding-right:0">$36 for registration + a tax-deductible donation of $
             </md-radio-button>
             <div style="padding:0"><input type="number" ng-model="custom_donation_amt" style="width:60px"/></div>
             <div style="font-weight: 500; padding-top: 0; padding-bottom: 0">= ${{ 36 + custom_donation_amt }}</div>
@@ -152,6 +152,11 @@
       </div>
       <form id="paymentForm">
         <div flex-gt-sm="50" flex-sm="100" layout="column" align-items="end end">
+          <div id="orContainer" flex layout="row" style="margin-bottom: 15px">
+            <div flex style="border-bottom: 1px solid black; margin-right: 10px; margin-top: -20px"></div>
+            <p style="margin-bottom: -10px">Or</p>
+            <div flex style="border-bottom: 1px solid black; margin-left: 10px; margin-top: -20px"></div>
+          </div>
           <div class="form-row">
             <label for="card-element">
               Credit or debit card

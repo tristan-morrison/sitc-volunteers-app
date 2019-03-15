@@ -21,7 +21,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', 'submitCharge
     $scope.regInfo["paymentAmount"]
     $log.log("paymentMethod: " + $scope.creditOption)
     if ($scope.creditOption === 'credit_donation_default_amt') {
-      $scope.regInfo.paymentAmount = 7600
+      $scope.regInfo.paymentAmount = 8000
     }
     else if ($scope.creditOption === 'credit_donation_custom_amt') {
       $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 36) * 100
@@ -64,6 +64,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', 'submitCharge
       prButton.mount('#paymentRequestButton');
     } else {
       document.getElementById('paymentRequestButton').style.display = 'none';
+      document.getElementById('orContainer').style.display = 'none';
     }
   });
 
@@ -72,7 +73,7 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', 'submitCharge
 
     if (formIsValid()) {
       if ($scope.creditOption === 'credit_donation_default_amt') {
-        $scope.regInfo.paymentAmount = 7600
+        $scope.regInfo.paymentAmount = 8000
       }
       else if ($scope.creditOption === 'credit_donation_custom_amt') {
         $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 36) * 100
@@ -183,7 +184,7 @@ function stripeTokenHandler (token) {
 
   if (formIsValid()) {
     if ($scope.creditOption === 'credit_donation_default_amt') {
-      $scope.regInfo.paymentAmount = 7600
+      $scope.regInfo.paymentAmount = 8000
     }
     else if ($scope.creditOption === 'credit_donation_custom_amt') {
       $scope.regInfo.paymentAmount = ($scope.custom_donation_amt + 36) * 100

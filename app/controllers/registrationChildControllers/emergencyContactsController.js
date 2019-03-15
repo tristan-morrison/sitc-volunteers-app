@@ -147,13 +147,6 @@ app.controller('EmergencyContactsController', ['$scope', '$log', '$window', '$ht
       ngModelElAttrs: {
         'size': '50'
       }
-    },
-    {
-      key: 'sendNewsletter',
-      type: 'checkbox',
-      templateOptions: {
-        label: 'I would like to receive the SITC email newsletter'
-      }
     }
   ]
 
