@@ -1,5 +1,5 @@
 <?php
-
+  require_once 'sitc_workforce_creds.php';
 
   $inputJSON = file_get_contents('php://input');
   $input = json_decode($inputJSON, TRUE);
@@ -8,7 +8,7 @@
   $regInfo = $input['regInfo'];
   $emergencyContact = $input['emergencyContact1'];
 
-  $curl = curl_init("https://api.airtable.com/v0/$airtable_api_key/Profiles");
+  $curl = curl_init("https://api.airtable.com/v0/$airtable_base_name/Profiles");
 
   $headers = array(
     "Authorization: Bearer keydn7CwS79jE483I",
