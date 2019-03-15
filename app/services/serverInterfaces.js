@@ -53,7 +53,7 @@ app.factory('getCarpoolSites', ['$log', '$q', '$http', function($log, $q, $http)
     var defer = $q.defer()
 
      $http({
-      url: "https://api.airtable.com/v0/appNWDa6ZElvW44m2/Carpool%20Sites?api_key=keydn7CwS79jE483I",
+      url: `https://api.airtable.com/v0/${getAirtableBase()}/Carpool%20Sites?api_key=keydn7CwS79jE483I`,
       method: "GET"
     }).then(
       function(response) {
