@@ -4,6 +4,8 @@ app.controller('PaymentsController', ['$scope', '$log', '$window', 'submitCharge
 
   $scope.paymentForm = {}
 
+  $scope.submitButtonIsDisabled = false;
+
   $scope.shirtSizes = {
     'S': 'Small',
     'M': 'Medium',
@@ -161,9 +163,12 @@ var form = document.getElementById('paymentForm');
 form.addEventListener('submit', function (event) {
   event.preventDefault();
 
+  $scope.submitButtonIsDisabled = true;
+
   stripe.createToken(card).then(function (result) {
     if (result.error) {
       var errorElement = document.getElementById('card-errors');
+      $scope.submitButtonIsDisabled = false;
       errorElement.textContent = result.error.message;
     } else {
       stripeTokenHandler(result.token);
@@ -183,6 +188,8 @@ card.addEventListener('change', function(event) {
 function stripeTokenHandler (token) {
 
   if (formIsValid()) {
+    $scope.regInfo.myPaymentToken = token.id;
+
     if ($scope.creditOption === 'credit_donation_default_amt') {
       $scope.regInfo.paymentAmount = 8000
     }
@@ -215,7 +222,8 @@ function stripeTokenHandler (token) {
       } else {
         response.json().then(function (responseJson) {
           document.getElementById("card-errors").innerHTML = responseJson.message
-
+          $scope.submitButtonIsDisabled = false;
+          $scope.$digest();
         })
       }
     })
@@ -253,6 +261,7 @@ function stripeTokenHandler (token) {
     $log.log("validating!")
     if (!$scope.paymentForm.$valid) {
       // from iandotkelly on StackOverflow
+      $scope.submitButtonIsDisabled = false;
       $log.log("form's not valid!")
       var firstInvalid = angular.element(document.querySelector('.ng-invalid').querySelector('.ng-invalid'));
       if (firstInvalid) {
@@ -269,6 +278,7 @@ function stripeTokenHandler (token) {
   $scope.submit = function() {
     if (formIsValid()) {
       $log.log("Form is valid!")
+      $scope.submitButtonIsDisabled = true;
       $scope.submitRegistration()
     }
     // else, validate function will have already focused first invalid field

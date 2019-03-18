@@ -48,7 +48,12 @@
       } else if ($fieldId == "birthdate") {
         $valToSubmit = '03-03-2019';
       } else if ($fieldId == 'paymentAmount') {
+        $fields['Paid'] = true;
         $valToSubmit = $value / 100;
+      } else if ($fieldId == 'initialedDate') {
+        $valToSubmit = substr($value, 4, 1) . substr($value, 5, 1) . substr($value, 6, 1) . substr($value, 7, 1) . "-" . substr($value, 0, 1) . substr($value, 1, 1) . "-" . substr($value, 2, 1) . substr($value, 3, 1);
+      } else if ($fieldId == 'parentInitialedDate') {
+        $valToSubmit = substr($value, 4, 1) . substr($value, 5, 1) . substr($value, 6, 1) . substr($value, 7, 1) . "-" . substr($value, 0, 1) . substr($value, 1, 1) . "-" . substr($value, 2, 1) . substr($value, 3, 1);
       }
 
       $fields[$fieldName] = $valToSubmit;
@@ -104,10 +109,10 @@
       "shirtSize" => "Shirt Size",
       "colGradYear" => "College Grad Year",
       "paymentMethod" => "Payment Method",
-      "myPaymentToken" => "Field678",
+      "myPaymentToken" => "Stripe Payment Token",
       "paymentAmount" => "Amount Paid",
       "initials" => "Waiver Initials",
-      "initialedDate" => "Stripe Payment Token",
+      "initialedDate" => "Waiver Initials Date",
       "parentInitials" => "Waiver Initials Parent",
       "parentInitialedDate" => "Waiver Initials Parent Date"
     );

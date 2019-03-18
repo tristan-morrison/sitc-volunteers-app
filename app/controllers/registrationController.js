@@ -132,6 +132,8 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
         } else {
           $scope.goToState(null, 'success', 0);
         }
+      } else {
+        $scope.goToState(null, 'failure', 0);
       }
     }, function failure(response) {
         $scope.goToState(null, 'failure', 0);
