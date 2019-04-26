@@ -45,8 +45,6 @@
         $valToSubmit = strtoupper($value);
       } else if ($fieldId == "paymentMethod") {
         $valToSubmit = getPaymentMethod($value);
-      } else if ($fieldId == "birthdate") {
-        $valToSubmit = '03-03-2019';
       } else if ($fieldId == 'paymentAmount') {
         $fields['Paid'] = true;
         $valToSubmit = $value / 100;
