@@ -154,48 +154,6 @@
         </md-input-container>
       </div>
     </md-card>
-    <md-card style="margin-bottom: 0">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Carpool Info</span>
-        </md-card-title-text>
-      </md-card-title>
-      <div class="input-group-container">
-        <md-input-container class="first-in-group">
-          <h4 style="margin-bottom:0">Primary Carpool Site</h4>
-          <span class="md-subhead" style="padding-bottom:30px;">This is the carpool site you plan to attend most often, but you are still welcome to go to others!</span>
-          <md-radio-group ng-model="personInfo.primaryCarpool_id">
-            <div ng-repeat="(siteId, info) in carpoolSites" class="row">
-              <div layout="row">
-                <div flex-gt-xs="60" flex-xs="80" layout='column' layout-padding layout-align="start start" >
-                  <md-radio-button ng-value="siteId" aria-label="">
-                    <span>{{ info['Name'] }}</span>
-                  </md-radio-button>
-                  <span class="md-caption" style="cursor:pointer;font-weight:bold;margin-left:30px" ng-click="showMapsModal(info['Name'], info['Address'])">{{ info['Meeting Point'] }}</span>
-                </div>
-                <md-button flex-xs="20" ng-click="showMapsModal(info['Name'], info['Address'])">
-                  <md-icon>place</md-icon>
-                  <span>View map</span>
-                </md-button>
-              </div>
-            </div>
-          </md-radio-group>
-        </md-input-container>
-      </div>
-      <div class="input-group-container">
-        <md-input-container class="first-in-group">
-          <h4 style="margin-bottom:0">Volunteer Drivers</h4>
-          <span class="md-subhead" style="padding-bottom:30px;">Under most circumstances, Summer in the City staff provides transportation for all volunteers. Occasionally, we do need volunteers to drive. Drivers must be at least 17 years old, licensed, have insurance, and have a seat belt for every passenger. Drivers under age 18 must have parental permission. We can reimburse for fuel expenses.</span>
-          <md-radio-group ng-model="regInfo.driverPermit">
-            <div class="row" ng-repeat="(value, label) in driverPermitOptions">
-              <div flex layout='row' layout-padding layout-align="start center" >
-                <md-radio-button ng-value="value" aria-label="Adult">{{ label }}</md-radio-button>
-              </div>
-            </div>
-          </md-radio-group>
-        </md-input-container>
-      </div>
-    </md-card>
   </form>
 
   <div id="formButtonsContainer">

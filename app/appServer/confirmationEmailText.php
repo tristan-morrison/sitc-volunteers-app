@@ -1,3 +1,5 @@
+<?php
+  $emailText = <<<EOT
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -397,71 +399,65 @@ float:right !important;
                                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                       <tr>
                                         <td valign="top" style="padding:0;mso-cellspacing:0in">
-                                          <table cellpadding="0" cellspacing="0" border="0" align="left" width="85"
-                                            id="c85p15r" style="float:left" class="c85p15r">
+                                          <table cellpadding="0" cellspacing="0" width="100%">
                                             <tr>
-                                              <td valign="top" style="padding:0px">
+                                              <td style="padding:0px" class="pattern">
                                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                   <tr>
-                                                    <td valign="top" width="42" style="padding:0px">
-                                                      <table cellpadding="0" cellspacing="0" width="100%">
+                                                    <td valign="top" style="padding:0;mso-cellspacing:0in">
+                                                      <table cellpadding="0" cellspacing="0" border="0" align="left" width="85" id="c85p15r" style="float:left"
+                                                        class="c85p15r">
                                                         <tr>
-                                                          <td align="left" style="padding:0px">
-                                                            <table cellpadding="0" cellspacing="0" border="0"
-                                                              align="left" width="34" height="23"
-                                                              style="border:0px none;height:auto">
+                                                          <td valign="top" style="padding:0px">
+                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                               <tr>
-                                                                <td valign="top" style="padding:0px"><img
-                                                                    src="https://images.chamaileon.io/5a82ba061a34beb32051e44c/dnclyc4i4ehmiursv0ea.png"
-                                                                    width="34" height="23" alt="" border="0"
-                                                                    style="display:block" class="img34x23" /></td>
-                                                              </tr>
-                                                            </table>
-                                                          </td>
-                                                        </tr>
-                                                      </table>
-                                                    </td>
-                                                    <td valign="top" width="42" style="padding:0px">
-                                                      <table cellpadding="0" cellspacing="0" width="100%">
-                                                        <tr>
-                                                          <td align="left" style="padding:0px">
-                                                            <table cellpadding="0" cellspacing="0" border="0"
-                                                              align="left" width="36" height="25"
-                                                              style="border:0px none;height:auto">
-                                                              <tr>
-                                                                <td valign="top" style="padding:0px"><img
-                                                                    src="https://images.chamaileon.io/5a82ba061a34beb32051e44c/zycqgpvgsfz1prvdbcah.png"
-                                                                    width="36" height="25" alt="" border="0"
-                                                                    style="display:block" class="img36x25" /></td>
-                                                              </tr>
-                                                            </table>
-                                                          </td>
-                                                        </tr>
-                                                      </table>
-                                                    </td>
-                                                  </tr>
-                                                </table>
-                                              </td>
-                                            </tr>
-                                          </table>
-                                          <!--[if gte mso 9]></td><td valign="top" style="padding:0;"><![endif]-->
-                                          <table cellpadding="0" cellspacing="0" border="0" align="left" width="454"
-                                            id="c454p84r" style="float:left" class="c454p84r">
-                                            <tr>
-                                              <td valign="top" style="padding:0px">
-                                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                                  <tr>
-                                                    <td valign="top" style="padding:5px">
-                                                      <table cellpadding="0" cellspacing="0" width="100%">
-                                                        <tr>
-                                                          <td style="padding:0px">
-                                                            <table cellpadding="0" cellspacing="0" border="0"
-                                                              width="100%">
-                                                              <tr>
-                                                                <td valign="top">
+                                                                <td valign="top" width="42" style="padding:0px">
                                                                   <table cellpadding="0" cellspacing="0" width="100%">
                                                                     <tr>
-                                                                      <td style="padding:0px"></td>
+                                                                      <td align="left" style="padding:0px">
+                                                                        <table cellpadding="0" cellspacing="0" border="0" align="left" width="34" height="23"
+                                                                          style="border:0px none;height:auto">
+                                                                          <tr>
+                                                                            <td valign="top" style="padding:0px; background-color: rgba(255, 255, 255, 0.65); border-radius: 6px">
+                                                                              <img
+                                                                                src="https://register.summerinthecity.com/app/images/confEmail/sitcLogo.png"
+                                                                                width="100" height="auto" alt="" border="0" style="display:block" class="img34x23" />
+                                                                            </td>
+                                                                          </tr>
+                                                                        </table>
+                                                                      </td>
+                                                                    </tr>
+                                                                  </table>
+                                                                </td>
+                                                              </tr>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                      </table>
+                                                      <!--[if gte mso 9]></td><td valign="top" style="padding:0;"><![endif]-->
+                                                      <table cellpadding="0" cellspacing="0" border="0" align="left" width="454" id="c454p84r" style="float:left"
+                                                        class="c454p84r">
+                                                        <tr>
+                                                          <td valign="top" style="padding:0px">
+                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                              <tr>
+                                                                <td valign="top" style="padding:5px">
+                                                                  <table cellpadding="0" cellspacing="0" width="100%">
+                                                                    <tr>
+                                                                      <td style="padding:0px">
+                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                                          <tr>
+                                                                            <td valign="top">
+                                                                              <table cellpadding="0" cellspacing="0" width="100%">
+                                                                                <tr>
+                                                                                  <td style="padding:0px">
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </table>
+                                                                            </td>
+                                                                          </tr>
+                                                                        </table>
+                                                                      </td>
                                                                     </tr>
                                                                   </table>
                                                                 </td>
@@ -473,9 +469,6 @@ float:right !important;
                                                     </td>
                                                   </tr>
                                                 </table>
-                                              </td>
-                                            </tr>
-                                          </table>
                                         </td>
                                       </tr>
                                     </table>
@@ -555,7 +548,7 @@ float:right !important;
                                         <td valign="top" style="padding:5px">
                                           <div
                                             style="text-align:left;font-family:Arial;font-size:12px;color:#000000;line-height:16px;mso-line-height:exactly;mso-text-raise:2px">
-                                            <p style="padding: 0; margin: 0;"><strong>Dear [PARENT FIRST NAME]</strong>
+                                            <p style="padding: 0; margin: 0;"><strong>Dear [PARENT FIRST NAME],</strong>
                                             </p>
                                           </div>
                                         </td>
@@ -566,31 +559,31 @@ float:right !important;
                                         <td valign="top" style="padding:5px">
                                           <div
                                             style="text-align:left;font-family:Arial;font-size:12px;color:#666668;line-height:16px;mso-line-height:exactly;mso-text-raise:2px">
-                                            <p style="padding: 0; margin: 0;">We are so excited to have [FIRST NAME]
+                                            <p style="padding: 0; margin: 0;">We are so excited to have [VOLUNTEER FIRST NAME]
                                               registered for Summer in the City. (We know that some parents register
                                               their kids and some kids register themselves without telling their parents
-                                              -- we’re excited either way.)</p>&nbsp;<p style="padding: 0; margin: 0;">
+                                              &#8212; we're excited either way.)</p>&nbsp;<p style="padding: 0; margin: 0;">
                                               This is our 18th summer and every year we look to build on the successes
                                               and address the challenges of the past. Here are some ways you can help
-                                              ensure that [FIRST NAME] and our hundreds of volunteers, campers and
-                                              community partners have a “fun, flexible and fulfilling” experience with
+                                              ensure that [VOLUNTEER FIRST NAME] and our hundreds of volunteers, campers and
+                                              community partners have a "fun, flexible and fulfilling" experience with
                                               Summer in the City:</p>&nbsp;<p style="padding: 0; margin: 0;"><strong>1.
                                                 Spread the Word.</strong> Volunteers and parents are our best
                                               spokespeople. Of course, if people have questions, send them our way.</p>
                                             &nbsp;<p style="padding: 0; margin: 0;"><strong>2. HeadsUp.</strong> Please
-                                              use HeadsUp to let us know when [FIRST NAME] is planning on coming.
-                                              HeadsUp helps take a lot of the guesswork out of the day’s attendance and
+                                              use HeadsUp to let us know when [VOLUNTEER FIRST NAME] is planning on coming.
+                                              HeadsUp helps take a lot of the guesswork out of the day's attendance and
                                               streamlines check-in at the carpool site. We'll send a follow-up
                                               (FollowUp?) when HeadsUp goes live soon.</p>&nbsp;<p
                                               style="padding: 0; margin: 0;"><strong>3. Carpooling.</strong> We
                                               sometimes need extra drivers to make sure we have enough transportation to
-                                              get everyone from the carpool sites to the day’s project sites. Please
+                                              get everyone from the carpool sites to the day's project sites. Please
                                               consider being a back-up (BackUp!) driver. We only ask parents to drive
                                               one way; our Crew will chauffeur your morning passengers home at the end
                                               of the day.</p>&nbsp;<p style="padding: 0; margin: 0;"><strong>4. Stay in
                                                 touch.</strong> If you have questions or suggestions, we want to hear
-                                              them. You can reply to this email, text 248-790-1000 or call Ben at
-                                              248-376-3796.</p>
+                                              them. You can reply to this email, text <a href="tel:248-790-1000">248-790-1000</a> or call Ben at
+                                              <a href="tel:248-376-3796">248-376-3796</a>.</p>
                                             <p style="padding: 0; margin: 0;">&nbsp;</p>
                                             <p style="padding: 0; margin: 0;">Sincerely,</p>
                                           </div>
@@ -641,7 +634,7 @@ float:right !important;
                                               <td valign="top" align="left" style="padding:5px"><a href=""
                                                   target="_blank" style="text-decoration:none" class="edm_button"><span
                                                     style="font-family:Helvetica, Helvetica Neue, Arial;font-size:11px;color:#0F0F0F;line-height:16px;text-decoration:none"><strong>P.S.
-                                                      You/[FIRST NAME] opted to pay with cash or check. </strong><span
+                                                      You/[VOLUNTEER FIRST NAME] opted to pay with cash or check. </strong><span
                                                       class="mso-font-fix-arial">Please remember to bring it on your
                                                       first day -- and make sure to get your T-shirt!</span></span>
                                                 </a></td>
@@ -659,13 +652,13 @@ float:right !important;
                                               <td valign="top" align="left" style="padding:5px"><a href=""
                                                   target="_blank" style="text-decoration:none" class="edm_button"><span
                                                     style="font-family:Helvetica, Helvetica Neue, Arial;font-size:11px;color:#0F0F0F;line-height:16px;text-decoration:none"><strong>[If
-                                                      WAIVE] P.S. You/[FIRST NAME] opted to waive the registration fee.
+                                                      WAIVE] P.S. You/[VOLUNTEER FIRST NAME] opted to waive the registration fee.
                                                     </strong><span class="mso-font-fix-arial">We encourage families for
                                                       whom the &#36;40 fee would be an impediment to waive the fee. We
                                                       want Summer in the City to be as inclusive as possible, so we
                                                       include this option, no questions asked. That said, if you are
                                                       able to pay, please do it online or send &#36;40 (or whatever you
-                                                      are comfortable paying) with [FIRST NAME] on their first
+                                                      are comfortable paying) with [VOLUNTEER FIRST NAME] on their first
                                                       day.</span></span>
                                                 </a></td>
                                             </tr>
@@ -785,7 +778,7 @@ float:right !important;
                                                                     <tr>
                                                                       <td valign="top" align="center"
                                                                         style="padding-top:5px;padding-right:15px;padding-bottom:5px;padding-left:15px">
-                                                                        <a href="" target="_blank"
+                                                                        <a href="https://vimeo.com/263234488" target="_blank"
                                                                           style="text-decoration:none"
                                                                           class="edm_button"><span
                                                                             style="font-family:Helvetica, Helvetica Neue, Arial;font-size:12px;color:#ffffff;line-height:16px;text-decoration:none"><b>WATCH
@@ -825,11 +818,11 @@ float:right !important;
                                                                     style="border:0px none;height:auto"
                                                                     class="full-width">
                                                                     <tr>
-                                                                      <td valign="top" style="padding:0px"><img
+                                                                      <td valign="top" style="padding:0px"><a href="https://vimeo.com/263234488" target="_blank"><img
                                                                           src="https://register.summerinthecity.com/app/images/confEmail/videoThumbnail.jpg"
                                                                           width="260" height="146" alt="" border="0"
                                                                           style="display:block;width:100%;height:auto"
-                                                                          class="full-width img260x146" /></td>
+                                                                          class="full-width img260x146" /></a></td>
                                                                     </tr>
                                                                   </table>
                                                                 </td>
@@ -867,7 +860,7 @@ float:right !important;
                     <tr>
                       <td valign="top" style="padding:0px">
                         <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#000000"
-                          style="border:0px none;background-color:#000000;background-image:url('https://images.chamaileon.io/5a82ba061a34beb32051e44c/vdk7ufyopatgrxtn2dmv.jpg');background-repeat:no-repeat ;background-position:center center">
+                          style="border:0px none;background-color:#000000;background-image:url('https://register.summerinthecity.com/app/images/confEmail/bigPic.jpg');background-repeat:no-repeat ;background-position:center center; background-size: cover">
                           <tr>
                             <td valign="top" style="padding-top:240px;padding-bottom:80px">
                               <table cellpadding="0" cellspacing="0" width="100%">
@@ -878,7 +871,6 @@ float:right !important;
                                         <td valign="top" style="padding-top:5px;padding-right:15px;padding-left:15px">
                                           <div
                                             style="text-align:left;font-family:Arial;font-size:12px;color:#ff9902;line-height:16px;mso-line-height:exactly;mso-text-raise:2px">
-                                            <p style="padding: 0; margin: 0;text-align: center;">WATCH OUR VIDEO</p>
                                           </div>
                                         </td>
                                       </tr>
@@ -943,3 +935,6 @@ float:right !important;
 </body>
 
 </html>
+EOT;
+
+?>

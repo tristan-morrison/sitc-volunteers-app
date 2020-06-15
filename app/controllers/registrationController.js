@@ -1,6 +1,6 @@
 var app = angular.module('volunteersApp')
 
-app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '$q', 'submitRegistrationToDb', 'submitChargeToStripe', 'getCarpoolSites', 'notifyDirectorOfDriver', 'notifyDirectorOfDonation', 'submitRegistrationToAirtable', 'captureCharge', function($scope, $log, $http, $state, $q, submitRegistrationToDb, submitChargeToStripe, getCarpoolSites, notifyDirectorOfDriver, notifyDirectorOfDonation, submitRegistrationToAirtable, captureCharge) {
+app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '$q', 'submitRegistrationToDb', 'submitChargeToStripe', 'getCarpoolSites', 'notifyDirectorOfDriver', 'notifyDirectorOfDonation', 'submitRegistrationToAirtable', 'captureCharge', 'sendParentConfirmationEmail', function($scope, $log, $http, $state, $q, submitRegistrationToDb, submitChargeToStripe, getCarpoolSites, notifyDirectorOfDriver, notifyDirectorOfDonation, submitRegistrationToAirtable, captureCharge, sendParentConfirmationEmail) {
 
   $log.log('RegistrationController is running!')
 
@@ -21,7 +21,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     $scope.personInfo["firstName"] = "Audrey"
     $scope.personInfo["lastName"] = "Black"
     $scope.personInfo["primaryCarpool_id"] = "recSzSWb5Ex1beUOo"
-    $scope.regInfo["birthdate"] = "02251999"
+    $scope.regInfo["birthdate"] = "02-25-1999"
     $scope.regInfo["phone"] = "6549874560"
     $scope.regInfo["altPhone"] = "6549873210"
     $scope.regInfo["email"] = "Audrey@me.com"
@@ -43,7 +43,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
     // emergencyContact1 values
     $scope.emergencyContact1["firstName"] = "Melissa"
     $scope.emergencyContact1["lastName"] = "McCarthy"
-    $scope.emergencyContact1["email"] = "mom@me.com"
+    $scope.emergencyContact1["email"] = "tristan.lopus@gmail.com"
     $scope.emergencyContact1["phone"] = "6549876540"
     $scope.emergencyContact1["altPhone"] = "4567891320"
     $scope.emergencyContact1["address"] = "546 Mystery Rd"
@@ -98,12 +98,15 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
   $scope.submitRegistration = function(chargeId = null) {
     $scope.showLoader = true
 
-    var personInfo_json = $scope.personInfo
+    var personInfo_json = $scope.personInfo;
     JSON.stringify(personInfo_json)
 
-    var regInfo_json = $scope.regInfo
+    var regInfo_json = $scope.regInfo;
     JSON.stringify(regInfo_json)
-
+    
+    var emerCon1 = $scope.emergencyContact1;
+    console.log("Printing emerCon1");
+    console.log(emerCon1);
     var emergencyContact1_json = $scope.emergencyContact1
     JSON.stringify(emergencyContact1_json)
 
@@ -122,6 +125,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
             if (response.status == 200) {
               $log.log("SUCCESS!");
               $log.log(response.data);
+              sendParentConfirmationEmail(emerCon1.email, emerCon1.firstName, $scope.personInfo.firstName)
               $scope.goToState(null, 'success', 0);
             }
           }, function failure(response) {
@@ -130,6 +134,7 @@ app.controller('RegistrationController', ['$scope', '$log', '$http', '$state', '
             $scope.goToState(null, 'failure', 0);
           })
         } else {
+          sendParentConfirmationEmail($scope.emergencyContact1.email, $scope.emergencyContact1.firstName, $scope.personInfo.firstName)
           $scope.goToState(null, 'success', 0);
         }
       } else {
